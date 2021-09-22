@@ -15,7 +15,7 @@
 	</head>
 	<body>
 		<script src="https://unpkg.com/bootstrap-darkmode@0.8/bundles/bootstrap-darkmode.umd.js"></script>
-		<div class="container">
+		<div class="container-fluid" id="container-main">
 			<div class="row justify-content-around align-items-baseline">
 				<div class="col-12 col-xl-6">
 					<h1 class="display-1">Shuttle Tracker<span class="h4 text-muted">BETA</span></h1>
@@ -24,7 +24,8 @@
 					<p class="lead text-muted text-end">The map automatically refreshes every 5 seconds.</p>
 				</div>
 			</div>
-			<div id="map" class="mb-2 mb-md-4"></div>
+			<div id="map"></div>
+			<br>
 			<div id="alert-app" class="alert alert-info fixed-bottom shadow-lg mx-3 invisible" role="alert">
 				<h4 class="alert-heading">It's better in the app!</h4>
 				<p>The official Shuttle Tracker app is the best way to track the shuttles on your device.</p>
