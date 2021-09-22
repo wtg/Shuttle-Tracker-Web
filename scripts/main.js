@@ -1,4 +1,5 @@
 import API from "./api.js"
+import Cookies from "./dist/js.cookie.min.mjs"
 
 async function updateBuses() {
 	const busAnnotations = await api.readBuses()
@@ -23,9 +24,27 @@ themeConfig.initTheme()
 const osesWithApp = ["iOS", "Mac OS"]
 const parser = new UAParser()
 const result = parser.getResult()
-if (osesWithApp.includes(result.os.name)) {
-	const alert = document.getElementById("alert-app")
-	alert.classList.remove("invisible")
+const appAlertClosed = Cookies.get("app-alert-closed") ?? false
+if (osesWithApp.includes(result.os.name) && !appAlertClosed) {
+	const appAlertElement = document.getElementById("alert-app")
+	appAlertElement.addEventListener("close.bs.alert", () => {
+		Cookies.set("app-alert-closed", true, {
+			expires: 365
+		})
+	})
+	appAlertElement.classList.remove("invisible")
+}
+
+const welcomeModalElement = document.getElementById("modal-welcome")
+welcomeModalElement.addEventListener("hide.bs.modal", () => {
+	Cookies.set("welcome-modal-shown", true, {
+		expires: 365
+	})
+})
+const welcomeModalShown = Cookies.get("welcome-modal-shown") ?? false
+if (!welcomeModalShown) {
+	const welcomeModal = new bootstrap.Modal(welcomeModalElement)
+	welcomeModal.show()
 }
 
 const tokenID = "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ilg0M0szUjk0VDIifQ.eyJpc3MiOiJTWUJMSDI3N05GIiwiaWF0IjoxNjMwODU3NTYxLCJleHAiOjE2NjIzMzYwMDB9.ksSxblUOJECqgDaBlPU-VZsXG-UGI-W8ty8raDkD_eG2q6cW79-3EoDCHj-wHmynXRmDWR6Yfg72xknMS--ZdA"
@@ -53,6 +72,3 @@ stopAnnotations.forEach(stopAnnotation => {
 })
 window.setInterval(updateBuses, 5000)
 await updateBuses()
-const welcomeModalElement = document.getElementById("modal-welcome")
-const welcomeModal = new bootstrap.Modal(welcomeModalElement)
-welcomeModal.show()
