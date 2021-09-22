@@ -19,7 +19,8 @@ themeConfig.loadTheme = () => {
 };
 themeConfig.initTheme()
 
-const osesWithApp = ["Android", "Android-x86", "Chromium OS", "iOS", "Mac OS"]
+// const osesWithApp = ["Android", "Android-x86", "Chromium OS", "iOS", "Mac OS"]
+const osesWithApp = ["iOS", "Mac OS"]
 const parser = new UAParser()
 const result = parser.getResult()
 if (osesWithApp.includes(result.os.name)) {
@@ -52,3 +53,6 @@ stopAnnotations.forEach(stopAnnotation => {
 })
 window.setInterval(updateBuses, 5000)
 await updateBuses()
+const welcomeModalElement = document.getElementById("modal-welcome")
+const welcomeModal = new bootstrap.Modal(welcomeModalElement)
+welcomeModal.show()
