@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>MAP</h1>
+    <h1>MAP STUFF</h1>
   </div>
 </template>
 
