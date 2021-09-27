@@ -4,12 +4,14 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  state: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
-  modules: {
-  }
+    state: {
+        isDarkMode: false
+    },
+    mutations: {
+        setDarkMode(state, darkModeOn) {
+            state.isDarkMode = darkModeOn
+        }
+    },
+    actions: {},
+    modules: {}
 })

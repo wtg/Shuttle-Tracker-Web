@@ -1,6 +1,6 @@
 <template>
-  <div class="bg-dark text-white">
-    This is a footer
+  <div class="text-white">
+    This map refreshes every 5 seconds.
   </div>
 </template>
 

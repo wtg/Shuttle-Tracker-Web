@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.11.5",
+    "axios": "^0.21.4",
     "bootstrap": "^4.5.2",
     "bootstrap-vue": "^2.17.3",
     "core-js": "^3.6.5",
@@ -45,7 +46,9 @@
     "parserOptions": {
       "parser": "babel-eslint"
     },
-    "rules": {}
+    "rules": {
+      "no-undef": "warn"
+    }
   },
   "browserslist": [
     "> 1%",

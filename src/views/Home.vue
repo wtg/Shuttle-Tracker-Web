@@ -1,17 +1,17 @@
 <template>
   <div class="container">
-    <div class="col">
-      <div class="row">
+    <div class="row">
+      <div class="col">
         <Header></Header>
       </div>
     </div>
-    <div class="col">
-      <div class="row">
+    <div class="row">
+      <div class="col">
         <Tracker></Tracker>
       </div>
     </div>
-    <div class="col">
-      <div class="row">
+    <div class="row">
+      <div class="col">
         <Footer></Footer>
       </div>
     </div>

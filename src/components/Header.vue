@@ -1,12 +1,19 @@
 <template>
   <div>
-    <h1>Shuttle Tracker <span class="text-secondary">Beta</span></h1>
+    <h1 class="display-1" :class="{'text-white': isDarkMode}">
+      Shuttle Tracker <span class="text-muted h4">BETA</span>
+    </h1>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Header"
+  name: "Header",
+  computed: {
+    isDarkMode() {
+      return this.$store.state.isDarkMode
+    }
+  }
 }
 </script>
 
