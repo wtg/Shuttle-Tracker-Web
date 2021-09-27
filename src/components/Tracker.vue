@@ -44,10 +44,52 @@ export default {
     // render map structures
     this.renderRoutes()
     this.renderStops()
+    window.setInterval(this.updateBuses, 5000)  // update every 5 seconds
   },
   methods: {
-    getBuses() {
-      axios.get(this.baseURL + '/buses')
+    async updateBuses() {
+      // fetch api
+      const res = await axios.get(this.baseURL + '/buses')
+      // filter and extract data
+      let now = Date.now()
+      const buses = res.data
+          .filter(bus => {
+            return now - Date.parse(bus.location.date) <= 300000 // 5 minutes
+          })
+          .map(bus => {
+            let color = "gray"
+            switch (bus.location.type) {
+              case "user":
+                color = "springgreen"
+                break;
+              case "system":
+                color = "red"
+                break;
+            }
+            let timeDelta = Math.ceil((Date.parse(bus.location.date) - now) / 1000)
+            let unit = "seconds"
+            if (timeDelta <= -60) {
+              timeDelta = Math.ceil(timeDelta / 60)
+              unit = "minutes"
+            }
+            const formatter = new Intl.RelativeTimeFormat()
+            const subtitle = formatter.format(timeDelta, unit)
+            const coordinate = new mapkit.Coordinate(bus.location.coordinate.latitude, bus.location.coordinate.longitude)
+            return new mapkit.MarkerAnnotation(coordinate, {
+              title: `Bus ${bus.id}`,
+              subtitle: subtitle,
+              color: color,
+              glyphText: "🚍"
+            })
+          })
+      // filter and render buses
+      const existingBusAnnotations = this.mapObj.annotations.filter(annotation => {
+        return annotation.title.indexOf("Bus") == 0
+      })
+      this.mapObj.removeAnnotations(existingBusAnnotations) // remove existing markers
+      buses.forEach(bus => {
+        this.mapObj.addAnnotation(bus)  // add updated markers
+      })
     },
     async renderRoutes() {
       // fetch api
