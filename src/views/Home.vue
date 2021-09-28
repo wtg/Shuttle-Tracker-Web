@@ -15,6 +15,11 @@
     </div>
     <div class="row">
       <div class="col">
+        <Schedule></Schedule>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
         <Footer></Footer>
       </div>
     </div>
@@ -26,6 +31,7 @@
 import Tracker from "../components/Tracker";
 import Header from "../components/Header"
 import Footer from "../components/Footer";
+import Schedule from "../components/Schedule";
 import Status from "../components/Status";
 
 export default {
@@ -34,6 +40,7 @@ export default {
     Tracker,
     Header,
     Footer,
+    Schedule,
     Status
   }
 }
