@@ -5,11 +5,27 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        isDarkMode: false
+        isDarkMode: false,
+        serverStatus: {
+            routes: false,
+            stops: false,
+            buses: false
+        }
     },
     mutations: {
         setDarkMode(state, darkModeOn) {
             state.isDarkMode = darkModeOn
+        },
+        setServerStatus(state, status) {
+            if (status.routes !== undefined) {
+                state.serverStatus.routes = status.routes
+            }
+            if (status.stops !== undefined) {
+                state.serverStatus.stops = status.stops
+            }
+            if (status.buses !== undefined) {
+                state.serverStatus.buses = status.buses
+            }
         }
     },
     actions: {},

@@ -1,8 +1,11 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col">
+      <div class="col-8">
         <Header></Header>
+      </div>
+      <div class="col-4">
+        <Status></Status>
       </div>
     </div>
     <div class="row">
@@ -23,13 +26,15 @@
 import Tracker from "../components/Tracker";
 import Header from "../components/Header"
 import Footer from "../components/Footer";
+import Status from "../components/Status";
 
 export default {
   name: 'Home',
   components: {
     Tracker,
     Header,
-    Footer
+    Footer,
+    Status
   }
 }
 </script>
