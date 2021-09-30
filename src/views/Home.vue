@@ -1,19 +1,21 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-8">
+      <div class="col">
         <Header></Header>
       </div>
-      <div class="col-4">
-        <Status></Status>
-      </div>
     </div>
-    <div class="row">
+    <div class="row mt-2">
       <div class="col">
         <Tracker></Tracker>
       </div>
     </div>
-    <div class="row">
+    <div class="row mt-3">
+      <div class="col">
+        <Status></Status>
+      </div>
+    </div>
+    <div class="row mt-3">
       <div class="col">
         <Footer></Footer>
       </div>
