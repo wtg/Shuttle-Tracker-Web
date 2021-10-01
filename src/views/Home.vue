@@ -15,12 +15,12 @@
     </div>
     <div class="row">
       <div class="col">
-        <Footer></Footer>
+        <Schedule></Schedule>
       </div>
     </div>
     <div class="row">
       <div class="col">
-        <Schedule></Schedule>
+        <Footer></Footer>
       </div>
     </div>
   </div>
