@@ -1,6 +1,9 @@
 <template>
   <div :class="[{'text-white': isDarkMode}]">
-    This map refreshes every 5 seconds.
+    <span style="float: left">This map refreshes every 5 seconds.</span>
+    <span style="float: right;">
+      <a href="https://testflight.apple.com/join/GsmZkfgd">Download iOS app</a>
+    </span>
   </div>
 </template>
 
