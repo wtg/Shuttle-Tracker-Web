@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="map" class="w-100" style="height: 500px;"></div>
+    <div id="map" class="w-100" style="height: 75vh"></div>
   </div>
 </template>
 
@@ -43,7 +43,7 @@ export default {
     this.mapObj.colorScheme = this.isDarkMode ? mapkit.Map.ColorSchemes.Dark : mapkit.Map.ColorSchemes.Light
     // center map
     const center = new mapkit.Coordinate(42.73029109316892, -73.67655873298646)
-    const span = new mapkit.CoordinateSpan(0.016, 0.016)
+    const span = new mapkit.CoordinateSpan(0.016, 0.032)
     const region = new mapkit.CoordinateRegion(center, span)
     this.mapObj.setRegionAnimated(region)
     // render map structures

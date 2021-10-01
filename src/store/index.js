@@ -7,9 +7,9 @@ export default new Vuex.Store({
     state: {
         isDarkMode: false,
         serverStatus: {
-            routes: false,
-            stops: false,
-            buses: false
+            routes: true,
+            stops: true,
+            buses: true
         }
     },
     mutations: {

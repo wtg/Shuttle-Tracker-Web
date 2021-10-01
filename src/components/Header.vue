@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1 class="display-1" :class="{'text-white': isDarkMode}">
-      Shuttle Tracker<span class="text-muted h4">BETA</span>
+    <h1 class="display-4" :class="{'text-white': isDarkMode}">
+      Shuttle Tracker <span class="text-muted h4">BETA</span>
     </h1>
   </div>
 </template>
