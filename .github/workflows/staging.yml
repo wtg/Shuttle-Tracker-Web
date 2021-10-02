@@ -1,0 +1,28 @@
+name: Staging Deploy
+
+on:
+  push:
+    branches: [ dev ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x, 14.x, 16.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: npm run build
+    - run: git stash
+    - run: git checkout staging
+    - run: git stash pop
+    - run: git commit -m "Update staging deploy"
+    - run: git push origin staging
