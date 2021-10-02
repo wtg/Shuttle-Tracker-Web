@@ -25,5 +25,6 @@ jobs:
     - run: git stash
     - run: git checkout staging
     - run: git stash pop
+    - run: git add deploy
     - run: git commit -m "Update staging deployment"
     - run: git push origin staging
