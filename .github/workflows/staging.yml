@@ -21,6 +21,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm run build
+    - run: mv dist docs
     - run: git stash
     - run: git checkout staging
     - run: git stash pop
