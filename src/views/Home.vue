@@ -10,6 +10,11 @@
         <Tracker></Tracker>
       </div>
     </div>
+    <div class="row">
+      <div class="col">
+        <Footer></Footer>
+      </div>
+    </div>
     <div class="row mt-3">
       <div class="col">
         <Status></Status>
@@ -18,11 +23,6 @@
     <div class="row mt-3">
       <div class="col">
         <Schedule></Schedule>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <Footer></Footer>
       </div>
     </div>
   </div>
