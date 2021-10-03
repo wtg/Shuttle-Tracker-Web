@@ -5,6 +5,11 @@
         <Header></Header>
       </div>
     </div>
+    <div class="row">
+      <div class="col">
+        <Modal></Modal>
+      </div>
+    </div>
     <div class="row mt-2">
       <div class="col">
         <Tracker></Tracker>
@@ -35,6 +40,7 @@ import Header from "../components/Header"
 import Footer from "../components/Footer";
 import Schedule from "../components/Schedule";
 import Status from "../components/Status";
+import Modal from "../components/Modal";
 
 export default {
   name: 'Home',
@@ -43,7 +49,8 @@ export default {
     Header,
     Footer,
     Schedule,
-    Status
+    Status,
+    Modal
   }
 }
 </script>
