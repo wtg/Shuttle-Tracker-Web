@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="map" class="w-100" style="height: 75vh"></div>
+    <div id="map" class="w-100 rounded" style="height: 75vh"></div>
   </div>
 </template>
 
@@ -183,5 +183,8 @@ export default {
   border: 2px solid black;
   border-radius: 50%;
   background-color: white;
+}
+#map > .mk-map-view {
+  border-radius: inherit;
 }
 </style>
