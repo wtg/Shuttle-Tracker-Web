@@ -24,6 +24,9 @@ export default {
     },
     serverStatus() {
       return this.$store.state.serverStatus;
+    },
+    isColorblind() {
+      return document.getElementById("colorblindSwitch").checked;
     }
   },
   mounted() {
@@ -82,10 +85,7 @@ export default {
               const formatter = new Intl.RelativeTimeFormat()
               const subtitle = formatter.format(timeDelta, unit)
               const coordinate = new mapkit.Coordinate(bus.location.coordinate.latitude, bus.location.coordinate.longitude)
-              var busIcon = "🚍"
-              if (document.getElementById("colorblindSwitch").checked && color === "red") {
-                busIcon = "🚌"
-              }
+              var busIcon = (this.isColorblind && color === "red") ? "🚌" : "🚍"
               return new mapkit.MarkerAnnotation(coordinate, {
                 title: `Bus ${bus.id}`,
                 subtitle: subtitle,
