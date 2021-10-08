@@ -10,7 +10,8 @@ export default new Vuex.Store({
             routes: true,
             stops: true,
             buses: true
-        }
+        },
+        fakeHQ: false
     },
     mutations: {
         setDarkMode(state, darkModeOn) {
@@ -26,6 +27,9 @@ export default new Vuex.Store({
             if (status.buses !== undefined) {
                 state.serverStatus.buses = status.buses
             }
+        },
+        setFakeHQ(state, status) {
+            state.fakeHQ = status
         }
     },
     actions: {},
