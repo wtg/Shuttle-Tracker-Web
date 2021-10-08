@@ -20,6 +20,11 @@
         <Status></Status>
       </div>
     </div>
+    <div class="row">
+      <div class="col">
+        <Settings></Settings>
+      </div>
+    </div>
     <div class="row mt-3">
       <div class="col">
         <Schedule></Schedule>
@@ -35,6 +40,7 @@ import Header from "../components/Header"
 import Footer from "../components/Footer";
 import Schedule from "../components/Schedule";
 import Status from "../components/Status";
+import Settings from "../components/Settings";
 
 export default {
   name: 'Home',
@@ -43,7 +49,8 @@ export default {
     Header,
     Footer,
     Schedule,
-    Status
+    Status,
+    Settings
   }
 }
 </script>

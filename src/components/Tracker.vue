@@ -24,9 +24,6 @@ export default {
     },
     serverStatus() {
       return this.$store.state.serverStatus;
-    },
-    isColorblind() {
-      return document.getElementById("colorblindSwitch").checked;
     }
   },
   mounted() {
@@ -56,6 +53,9 @@ export default {
     window.setInterval(this.updateBuses, 5000)  // update every 5 seconds
   },
   methods: {
+    isColorblind() {
+      return document.getElementById("colorblindSwitch").checked;
+    },
     async updateBuses() {
       try {
         // fetch api
@@ -85,7 +85,18 @@ export default {
               const formatter = new Intl.RelativeTimeFormat()
               const subtitle = formatter.format(timeDelta, unit)
               const coordinate = new mapkit.Coordinate(bus.location.coordinate.latitude, bus.location.coordinate.longitude)
-              var busIcon = (this.isColorblind && color === "red") ? "🚌" : "🚍"
+              var busIcon = "🚍"
+              if (this.isColorblind()) {
+                switch(color) {
+                  case "green":
+                    busIcon = "H"
+                    break
+                  case "red":
+                    busIcon = "L"
+                    break
+                }
+              }
+              //console.log(this.isColorblind())
               return new mapkit.MarkerAnnotation(coordinate, {
                 title: `Bus ${bus.id}`,
                 subtitle: subtitle,
