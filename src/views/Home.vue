@@ -20,7 +20,7 @@
         <Status></Status>
       </div>
     </div>
-    <div class="row">
+    <div class="row mt-3" style="float:right;">
       <div class="col">
         <Settings></Settings>
       </div>

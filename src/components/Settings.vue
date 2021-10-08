@@ -1,5 +1,8 @@
 <template>
   <div>
+    <h3>
+      Settings
+    </h3>
     <div class="custom-control custom-switch" :class="{'text-white': isDarkMode}" id="colorblindToggle">
       <input type="checkbox" class="custom-control-input" id="colorblindSwitch">
       <label class="custom-control-label" for="colorblindSwitch" v-bind:title="cbExplanation">Colorblind mode</label>
