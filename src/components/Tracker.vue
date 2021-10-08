@@ -96,7 +96,6 @@ export default {
                     break
                 }
               }
-              //console.log(this.isColorblind())
               return new mapkit.MarkerAnnotation(coordinate, {
                 title: `Bus ${bus.id}`,
                 subtitle: subtitle,
