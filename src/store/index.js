@@ -11,7 +11,8 @@ export default new Vuex.Store({
             routes: true,
             stops: true,
             buses: true
-        }
+        },
+        fakeHQ: false
     },
     mutations: {
         setDarkMode(state, darkModeOn) {
@@ -30,6 +31,9 @@ export default new Vuex.Store({
         },
         setCbMode(state, status) {
             state.isCbMode = status
+        },        
+        setFakeHQ(state, status) {
+            state.fakeHQ = status
         }
     },
     actions: {},

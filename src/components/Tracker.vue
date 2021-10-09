@@ -27,7 +27,10 @@ export default {
       return this.$store.state.serverStatus;
     },
     isCbMode() {
-      return this.$store.state.isCbMode
+      return this.$store.state.isCbMode;
+    },
+    fakeHQ() {
+      return this.$store.state.fakeHQ;
     }
   },
   mounted() {
@@ -61,6 +64,22 @@ export default {
       try {
         // fetch api
         const res = await axios.get(this.baseURL + '/buses')
+        console.log(res.data)
+        // create fake HQ traffic
+        if (this.fakeHQ) {
+          let now = new Date()
+          res.data.push({
+            "id": '( ͡° ͜ʖ ͡°)',
+            "location":
+                {
+                  "coordinate": {"latitude":42.730310,"longitude":-73.685210},
+                  "id":"385FF2A4-EB53-42FE-B754-DAA3DCE04351",
+                  "type":"user",
+                  "date": now.toISOString()
+                }
+          })
+        }
+        console.log(res.data)
         // filter and extract data
         let now = Date.now()
         const buses = res.data
@@ -198,6 +217,7 @@ export default {
   border: 2px solid black;
   border-radius: 50%;
   background-color: white;
+  opacity: 0.8;
 }
 #map > .mk-map-view {
   border-radius: inherit;
