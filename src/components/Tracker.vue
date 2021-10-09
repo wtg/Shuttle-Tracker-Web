@@ -25,6 +25,9 @@ export default {
     serverStatus() {
       return this.$store.state.serverStatus;
     },
+    isCbMode() {
+      return this.$store.state.isCbMode;
+    },
     fakeHQ() {
       return this.$store.state.fakeHQ;
     }
@@ -84,12 +87,19 @@ export default {
             })
             .map(bus => {
               let color = "gray"
+              let busIcon = "🚍"
               switch (bus.location.type) {
                 case "user":
+                  if (this.isCbMode) {
+                    busIcon = "H"
+                  }
                   color = "springgreen"
                   break;
                 case "system":
                   color = "red"
+                  if (this.isCbMode) {
+                    busIcon = "L"
+                  }
                   break;
               }
               let timeDelta = Math.ceil((Date.parse(bus.location.date) - now) / 1000)
@@ -105,7 +115,7 @@ export default {
                 title: `Bus ${bus.id}`,
                 subtitle: subtitle,
                 color: color,
-                glyphText: "🚍"
+                glyphText: busIcon
               })
             })
         // filter and render buses

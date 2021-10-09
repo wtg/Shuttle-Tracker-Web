@@ -6,6 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
         isDarkMode: false,
+        isCbMode: false,
         serverStatus: {
             routes: true,
             stops: true,
@@ -28,6 +29,9 @@ export default new Vuex.Store({
                 state.serverStatus.buses = status.buses
             }
         },
+        setCbMode(state, status) {
+            state.isCbMode = status
+        },        
         setFakeHQ(state, status) {
             state.fakeHQ = status
         }
