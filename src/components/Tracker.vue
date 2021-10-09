@@ -202,6 +202,7 @@ export default {
   border: 2px solid black;
   border-radius: 50%;
   background-color: white;
+  opacity: 0.8;
 }
 #map > .mk-map-view {
   border-radius: inherit;
