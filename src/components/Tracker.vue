@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1>{{isCbMode}}</h1>
     <div id="map" class="w-100 rounded" style="height: 75vh"></div>
   </div>
 </template>
@@ -24,6 +25,9 @@ export default {
     },
     serverStatus() {
       return this.$store.state.serverStatus;
+    },
+    isCbMode() {
+      return this.$store.state.isCbMode
     }
   },
   mounted() {
@@ -53,9 +57,6 @@ export default {
     window.setInterval(this.updateBuses, 5000)  // update every 5 seconds
   },
   methods: {
-    isColorblind() {
-      return document.getElementById("colorblindSwitch").checked;
-    },
     async updateBuses() {
       try {
         // fetch api
@@ -85,8 +86,8 @@ export default {
               const formatter = new Intl.RelativeTimeFormat()
               const subtitle = formatter.format(timeDelta, unit)
               const coordinate = new mapkit.Coordinate(bus.location.coordinate.latitude, bus.location.coordinate.longitude)
-              var busIcon = "🚍"
-              if (this.isColorblind()) {
+              let busIcon = "🚍"
+              if (this.isCbMode) {
                 switch(color) {
                   case "green":
                     busIcon = "H"

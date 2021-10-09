@@ -20,14 +20,12 @@
         <Status></Status>
       </div>
     </div>
-    <div class="row mt-3" style="float:right;">
-      <div class="col">
-        <Settings></Settings>
-      </div>
-    </div>
     <div class="row mt-3">
-      <div class="col">
+      <div class="col-md">
         <Schedule></Schedule>
+      </div>
+      <div class="col-md">
+        <Settings></Settings>
       </div>
     </div>
   </div>

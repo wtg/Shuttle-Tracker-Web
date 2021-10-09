@@ -1,34 +1,37 @@
 <template>
   <div>
-    <h3>
-      Settings
-    </h3>
-    <div class="custom-control custom-switch" :class="{'text-white': isDarkMode}" id="colorblindToggle">
-      <input type="checkbox" class="custom-control-input" id="colorblindSwitch">
-      <label class="custom-control-label" for="colorblindSwitch" v-bind:title="cbExplanation">Colorblind mode</label>
-    </div>
+    <h3 :class="{'text-white': isDarkMode}">Settings</h3>
+    <b-form-checkbox @change="setCbMode" :class="[{'text-white': isDarkMode}]" v-model="isCbMode" name="cbModeSwitch"
+                     v-b-tooltip.hover.lefttop :title="cbExplanation" switch>
+      Colorblind Mode
+    </b-form-checkbox>
   </div>
 </template>
 
 <script>
 export default {
   name: "Settings",
-  data: function() {
+  data() {
     return {
+      isCbMode: false,
       cbExplanation: "Changes the icons of buses to H and L based on the quality of the bus data",
     }
   },
+  methods: {
+    setCbMode() {
+      this.$store.commit('setCbMode', this.isCbMode)
+    }
+  },
   computed: {
-    serverStatus() {
-      return this.$store.state.serverStatus
-    },
     isDarkMode() {
       return this.$store.state.isDarkMode
     }
+  },
+  created() {
+    this.isCbMode = this.$store.state.isCbMode  // sync state
   }
 }
 </script>
 
 <style scoped>
-
 </style>
