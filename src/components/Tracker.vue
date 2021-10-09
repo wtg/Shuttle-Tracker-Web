@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>{{isCbMode}}</h1>
     <div id="map" class="w-100 rounded" style="height: 75vh"></div>
   </div>
 </template>
@@ -88,12 +87,19 @@ export default {
             })
             .map(bus => {
               let color = "gray"
+              let busIcon = "🚍"
               switch (bus.location.type) {
                 case "user":
+                  if (this.isCbMode) {
+                    busIcon = "H"
+                  }
                   color = "springgreen"
                   break;
                 case "system":
                   color = "red"
+                  if (this.isCbMode) {
+                    busIcon = "L"
+                  }
                   break;
               }
               let timeDelta = Math.ceil((Date.parse(bus.location.date) - now) / 1000)
@@ -105,17 +111,6 @@ export default {
               const formatter = new Intl.RelativeTimeFormat()
               const subtitle = formatter.format(timeDelta, unit)
               const coordinate = new mapkit.Coordinate(bus.location.coordinate.latitude, bus.location.coordinate.longitude)
-              let busIcon = "🚍"
-              if (this.isCbMode) {
-                switch(color) {
-                  case "green":
-                    busIcon = "H"
-                    break
-                  case "red":
-                    busIcon = "L"
-                    break
-                }
-              }
               return new mapkit.MarkerAnnotation(coordinate, {
                 title: `Bus ${bus.id}`,
                 subtitle: subtitle,
