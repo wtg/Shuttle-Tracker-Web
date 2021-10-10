@@ -93,7 +93,7 @@ export default {
                   if (this.isCbMode) {
                     busIcon = "H"
                   }
-                  color = "springgreen"
+                  color = "mediumseagreen"
                   break;
                 case "system":
                   color = "red"
