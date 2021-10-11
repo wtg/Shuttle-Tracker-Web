@@ -20,7 +20,16 @@ export default {
   }
 }
 </script>
-
 <style scoped>
-
+  li {
+    list-style: none;
+    font-size: 15px;
+    margin-left: -1.5em;
+}
+li:before {
+    content:"·";
+    font-size:30px;
+    vertical-align:middle;
+    line-height:15px;
+}
 </style>
