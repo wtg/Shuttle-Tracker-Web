@@ -53,8 +53,5 @@ export default {
 }
 </script>
 
-<style>
-.modal-override {
-  background: #0008;
-}
+<style scoped>
 </style>
