@@ -63,7 +63,6 @@ export default {
       try {
         // fetch api
         const res = await axios.get(this.baseURL + '/buses')
-        console.log(res.data)
         // create fake HQ traffic
         if (this.fakeHQ) {
           let now = new Date()
@@ -78,7 +77,6 @@ export default {
                 }
           })
         }
-        console.log(res.data)
         // filter and extract data
         let now = Date.now()
         const buses = res.data

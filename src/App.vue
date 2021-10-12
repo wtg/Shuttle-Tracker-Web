@@ -1,5 +1,5 @@
 <template>
-  <div id="app" :class="[{'bg-dark-theme': isDarkMode}]">
+  <div id="app" :class="[{'bg-dark-theme': isDarkMode}, {'bg-light-theme': !isDarkMode}]">
     <router-view/>
   </div>
 </template>
@@ -45,5 +45,8 @@ export default {
 @import "~@/assets/scss/vendors/bootstrap-vue/index";
 .bg-dark-theme {
   background-color: #101214;
+}
+.bg-light-theme {
+  background-color: #FFFFFF;
 }
 </style>
