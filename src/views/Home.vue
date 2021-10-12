@@ -26,6 +26,14 @@
           <Schedule></Schedule>
         </div>
       </div>
+      <div class="row mt-3">
+        <div class="col-md">
+          <Schedule></Schedule>
+        </div>
+        <div class="col-md">
+          <Settings></Settings>
+        </div>
+      </div>
     </div>
     <Modal></Modal>
   </div>
@@ -39,6 +47,7 @@ import Footer from "../components/Footer";
 import Schedule from "../components/Schedule";
 import Status from "../components/Status";
 import Modal from "../components/Modal";
+import Settings from "../components/Settings";
 
 export default {
   name: 'Home',
@@ -48,7 +57,8 @@ export default {
     Footer,
     Schedule,
     Status,
-    Modal
+    Modal,
+    Settings
   }
 }
 </script>
