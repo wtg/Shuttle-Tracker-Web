@@ -29,6 +29,11 @@ export default {
     },
     setDarkMode() {
       this.$store.commit('setDarkMode', this.isDark)
+    },
+    checkDarkMode() {
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        this.$store.commit('setDarkMode', true)
+      }
     }
   },
   computed: {
@@ -38,7 +43,7 @@ export default {
   },
   created() {
     this.isCbMode = this.$store.state.isCbMode  // sync state
-    console.log(this.$store.state.isDarkMode)
+    this.checkDarkMode()
     this.isDark = this.$store.state.isDarkMode
   }
 }
