@@ -18,7 +18,7 @@ export default {
   data() {
     return {
       isCbMode: false,
-      isDark: false, //dummy (overwritten by created())
+      isDark: false,
       cbExplanation: "Changes the icons of buses to H and L based on the quality of the bus data",
       darkExplanation: "Switches dark mode on or off",
     }
@@ -34,6 +34,18 @@ export default {
       if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
         this.$store.commit('setDarkMode', true)
       }
+      window.matchMedia('(prefers-color-scheme: dark)')
+        .addEventListener('change', event => {
+        if (event.matches) {
+        // dark mode
+          this.$store.commit('setDarkMode', true)
+          this.isDark = true
+        } else {
+        // light mode
+          this.$store.commit('setDarkMode', false)
+          this.isDark = false
+        }
+      })
     }
   },
   computed: {
