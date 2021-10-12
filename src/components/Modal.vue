@@ -9,9 +9,6 @@
 
 <script>
 
-import Vue from 'vue'
-import VueCookies from 'vue-cookies'
-Vue.use(VueCookies)
 export default {
   name: "Modal",
   data() {
@@ -34,8 +31,8 @@ export default {
     }
   },
   mounted() {
-    if(!Vue.$cookies.isKey('shownInstructionModal')){
-      Vue.$cookies.set('shownInstructionModal', 'shownInstructionModalValue')
+    if(!this.$cookies.isKey('shownInstructionModal')){
+      this.$cookies.set('shownInstructionModal', 'shownInstructionModalValue')
       this.showModal()
     }
   },
