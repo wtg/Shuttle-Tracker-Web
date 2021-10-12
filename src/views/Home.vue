@@ -22,11 +22,6 @@
         </div>
       </div>
       <div class="row mt-3">
-        <div class="col">
-          <Schedule></Schedule>
-        </div>
-      </div>
-      <div class="row mt-3">
         <div class="col-md">
           <Schedule></Schedule>
         </div>
