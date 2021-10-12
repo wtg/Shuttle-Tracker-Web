@@ -1,5 +1,6 @@
 # Shuttle-Tracker-Web
 New shuttle tracker UI implemented in Vue.js.
+View the temporary testing site [here](https://staging.web.shuttletracker.app/).
 
 ## Project setup
 ```
