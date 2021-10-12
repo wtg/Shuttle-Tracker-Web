@@ -1,6 +1,6 @@
 <template>
-  <b-modal title="Welcome to the new Shuttle Tracker!" :header-text-variant="headerTextColor" :footer-bg-variant="theme"
-           :header-bg-variant="theme" :body-bg-variant="theme" ref="instructionModal" ok-only ok-title="Continue">
+  <b-modal title="Welcome to the new Shuttle Tracker!" :header-text-variant="themeText" :footer-bg-variant="themeBg"
+           :header-bg-variant="themeBg" :body-bg-variant="themeBg" ref="instructionModal" ok-only ok-title="Continue">
     <div :class="[{'text-white': isDarkMode}, {'bg-dark':isDarkMode}]">
       <p> You're using the new Web interface for the <i>
         new </i> Shuttle Tracker. We've completely overhauled every component to bring superior accuracy.
@@ -22,23 +22,21 @@
 
 export default {
   name: "Modal",
-  data() {
-    return {
-      theme: '',
-      headerTextColor: '',
-      output: ''
-    }
-  },
   computed: {
     isDarkMode() {
       return this.$store.state.isDarkMode
     },
+    themeBg() {
+      return this.isDarkMode ? 'dark' : 'light'
+    },
+    themeText() {
+      return this.isDarkMode ? 'light' : 'dark'
+    }
   },
   watch: {
     isDarkMode(val) {
-      console.log(val)
-      this.theme = val ? 'dark' : 'white'
-      this.headerTextColor = val ? 'white' : 'dark'
+      this.theme = val ? 'dark' : 'light'
+      this.headerTextColor = val ? 'light' : 'dark'
     }
   },
   mounted() {
