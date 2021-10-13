@@ -17,6 +17,12 @@ export default new Vuex.Store({
     mutations: {
         setDarkMode(state, darkModeOn) {
             state.isDarkMode = darkModeOn
+            if (darkModeOn) {
+              document.body.style.backgroundColor = "#101214"
+            }
+            else {
+              document.body.style.backgroundColor = "#FFFFFF"
+            }
         },
         setServerStatus(state, status) {
             if (status.routes !== undefined) {
@@ -31,7 +37,7 @@ export default new Vuex.Store({
         },
         setCbMode(state, status) {
             state.isCbMode = status
-        },        
+        },
         setFakeHQ(state, status) {
             state.fakeHQ = status
         }
