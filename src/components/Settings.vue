@@ -36,7 +36,12 @@ export default {
       return this.$store.state.isDarkMode
     }
   },
-  created() {
+  watch: {
+    isDarkMode(val) {
+      this.isDark = val // dynamically sync state
+    }
+  },
+  mounted() {
     this.isCbMode = this.$store.state.isCbMode  // sync state
     this.isDark = this.$store.state.isDarkMode
   }
