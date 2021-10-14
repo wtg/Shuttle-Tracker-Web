@@ -5,6 +5,10 @@
                      v-b-tooltip.hover.lefttop :title="cbExplanation" switch>
       Colorblind Mode
     </b-form-checkbox>
+    <b-form-checkbox @change="setDarkMode" :class="[{'text-white': isDarkMode}]" v-model="isDark" name="DarkModeSwitch"
+                     v-b-tooltip.hover.lefttop :title="darkExplanation" switch>
+      Dark Mode
+    </b-form-checkbox>
   </div>
 </template>
 
@@ -14,12 +18,17 @@ export default {
   data() {
     return {
       isCbMode: false,
+      isDark: false,
       cbExplanation: "Changes the icons of buses to H and L based on the quality of the bus data",
+      darkExplanation: "Switches dark mode on or off",
     }
   },
   methods: {
     setCbMode() {
       this.$store.commit('setCbMode', this.isCbMode)
+    },
+    setDarkMode() {
+      this.$store.commit('setDarkMode', this.isDark)
     }
   },
   computed: {
@@ -27,8 +36,14 @@ export default {
       return this.$store.state.isDarkMode
     }
   },
-  created() {
+  watch: {
+    isDarkMode(val) {
+      this.isDark = val // dynamically sync state
+    }
+  },
+  mounted() {
     this.isCbMode = this.$store.state.isCbMode  // sync state
+    this.isDark = this.$store.state.isDarkMode
   }
 }
 </script>
