@@ -29,23 +29,6 @@ export default {
     },
     setDarkMode() {
       this.$store.commit('setDarkMode', this.isDark)
-    },
-    checkDarkMode() {
-      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        this.$store.commit('setDarkMode', true)
-      }
-      window.matchMedia('(prefers-color-scheme: dark)')
-        .addEventListener('change', event => {
-        if (event.matches) {
-        // dark mode
-          this.$store.commit('setDarkMode', true)
-          this.isDark = true
-        } else {
-        // light mode
-          this.$store.commit('setDarkMode', false)
-          this.isDark = false
-        }
-      })
     }
   },
   computed: {
@@ -55,7 +38,6 @@ export default {
   },
   created() {
     this.isCbMode = this.$store.state.isCbMode  // sync state
-    this.checkDarkMode()
     this.isDark = this.$store.state.isDarkMode
   }
 }
