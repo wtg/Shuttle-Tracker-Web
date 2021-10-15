@@ -155,11 +155,26 @@ export default {
     },
     async renderStops() {
       // define stops
-      function factory() {
+      function factory(coord, options) {
         const div = document.createElement("div")
         div.className = "annotation-stop"
+        div.title = options.title
         return div
       }
+
+      const popoverFactory = {
+        // creating popover element
+        calloutElementForAnnotation: function(annotations) {
+          let element = document.createElement("div");
+          element.classList.add('annotation-popover')
+          element.classList.add('p-2')
+          element.classList.add('rounded')
+          element.classList.add('shadow')
+          element.textContent = annotations.title
+          return element;
+        }
+      };
+
       try {
         // fetch api
         const res = await axios.get(this.baseURL + '/stops')
@@ -167,7 +182,9 @@ export default {
         const stops = res.data.map(stop => {
           const coordinate = new mapkit.Coordinate(stop.coordinate.latitude, stop.coordinate.longitude)
           return new mapkit.Annotation(coordinate, factory, {
-            title: stop.name
+            callout: popoverFactory,
+            title: stop.name,
+            calloutOffset: new DOMPoint(0, 10)
           })
         })
         // render stops
@@ -211,6 +228,26 @@ export default {
   border-radius: 50%;
   background-color: white;
   opacity: 0.8;
+}
+.annotation-popover-light {
+  background-color: rgba(255, 255, 255, .85);
+  backdrop-filter: blur(5px);
+}
+.annotation-popover {
+  max-width: 140px;
+  background-color: rgba(255, 255, 255, .25);
+  backdrop-filter: blur(5px);
+}
+.annotation-popover:before {
+  position: absolute;
+  content: "";
+  right: calc(50% - 10px);
+  bottom: -10px;
+  border-style: solid;
+  border-width: 10px 10px 0 10px;
+  border-color: rgba(255, 255, 255, .25) transparent transparent transparent;
+  transition-duration: 0.3s;
+  transition-property: transform;
 }
 #map > .mk-map-view {
   border-radius: inherit;
