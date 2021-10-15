@@ -67,7 +67,7 @@ export default {
         if (this.fakeHQ) {
           let now = new Date()
           res.data.push({
-            "id": '( ͡° ͜ʖ ͡°)',
+            "id": '69',
             "location":
                 {
                   "coordinate": {"latitude":42.730310,"longitude":-73.685210},

@@ -4,7 +4,7 @@
     <b-badge class="mx-1" :variant="serverStatus.stops ? 'success': 'danger'" v-b-tooltip.hover :title="compStatus">Stops</b-badge>
     <b-badge class="mx-1" :variant="serverStatus.buses ? 'success': 'danger'" v-b-tooltip.hover :title="compStatus">Buses</b-badge>
     <b-form-checkbox v-model="devHQ" name="check-button" switch :class="{'text-white': isDarkMode}">
-      Create Fake HQ data: Bus ( ͡° ͜ʖ ͡°)
+      Create Fake HQ data: Bus 69
     </b-form-checkbox>
   </div>
 </template>
