@@ -6,6 +6,11 @@
           <Header></Header>
         </div>
       </div>
+      <div class="row mt-3 overlap">
+        <div class="col">
+          <Status></Status>
+        </div>
+      </div>
       <div class="row mt-2">
         <div class="col">
           <Tracker></Tracker>
@@ -14,11 +19,6 @@
       <div class="row">
         <div class="col">
           <Footer></Footer>
-        </div>
-      </div>
-      <div class="row mt-3">
-        <div class="col">
-          <Status></Status>
         </div>
       </div>
       <div class="row mt-3">
@@ -57,3 +57,10 @@ export default {
   }
 }
 </script>
+
+<style>
+.overlap {
+  position: absolute;
+  z-index: 1;
+}
+</style>
