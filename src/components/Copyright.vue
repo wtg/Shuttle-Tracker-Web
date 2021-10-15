@@ -2,7 +2,7 @@
 
   <footer class="text-center" :class="[{'text-white': isDarkMode}]">
      © 2021
-    <a class="mr-1" :class="[{'text-white': isDarkMode}]" href="https://staging.web.shuttletracker.app">Shuttle Tracker</a>
+    <a class="mr-1" :class="[{'text-white': isDarkMode}]" href="https://web.shuttletracker.app">Shuttle Tracker</a>
     <a class="mx-1" :class="[{'text-white': isDarkMode}]" href="https://github.com/wtg/Shuttle-Tracker-Web">
       <i class="fab fa-github" ></i>
     </a>
