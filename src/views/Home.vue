@@ -29,6 +29,11 @@
           <Settings></Settings>
         </div>
       </div>
+      <div class="row">
+        <div class="col">
+          <Copyright></Copyright>
+        </div>
+      </div>
     </div>
     <Modal></Modal>
   </div>
@@ -43,6 +48,7 @@ import Schedule from "../components/Schedule";
 import Status from "../components/Status";
 import Modal from "../components/Modal";
 import Settings from "../components/Settings";
+import Copyright from "../components/Copyright";
 
 export default {
   name: 'Home',
@@ -53,7 +59,8 @@ export default {
     Schedule,
     Status,
     Modal,
-    Settings
+    Settings,
+    Copyright
   }
 }
 </script>
