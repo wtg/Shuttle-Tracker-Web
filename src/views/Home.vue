@@ -29,7 +29,7 @@
           <Settings></Settings>
         </div>
       </div>
-      <div class="row">
+      <div class="row mt-3">
         <div class="col">
           <Copyright></Copyright>
         </div>
