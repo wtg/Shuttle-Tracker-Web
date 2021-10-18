@@ -1,14 +1,19 @@
 <template>
   <div>
     <div id="map" class="w-100 rounded" style="height: 75vh"></div>
+    <Status id="serverStatus" class="position-absolute"></Status>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import Status from "./Status";
 
 export default {
   name: "Tracker",
+  components: {
+    Status
+  },
   data() {
     return {
       routesInterval: undefined,  // for handling request failures
@@ -214,5 +219,9 @@ export default {
 }
 #map > .mk-map-view {
   border-radius: inherit;
+}
+#serverStatus {
+  top: 6px;
+  left: 24px;
 }
 </style>

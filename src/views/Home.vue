@@ -6,11 +6,6 @@
           <Header></Header>
         </div>
       </div>
-      <div class="row mt-3 overlap">
-        <div class="col">
-          <Status></Status>
-        </div>
-      </div>
       <div class="row mt-2">
         <div class="col">
           <Tracker></Tracker>
@@ -40,7 +35,6 @@ import Tracker from "../components/Tracker";
 import Header from "../components/Header"
 import Footer from "../components/Footer";
 import Schedule from "../components/Schedule";
-import Status from "../components/Status";
 import Modal from "../components/Modal";
 import Settings from "../components/Settings";
 
@@ -51,16 +45,11 @@ export default {
     Header,
     Footer,
     Schedule,
-    Status,
     Modal,
     Settings
   }
 }
 </script>
 
-<style>
-.overlap {
-  position: absolute;
-  z-index: 1;
-}
+<style scoped>
 </style>
