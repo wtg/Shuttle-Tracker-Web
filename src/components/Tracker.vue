@@ -1,14 +1,19 @@
 <template>
   <div>
     <div id="map" class="w-100 rounded" style="height: 75vh"></div>
+    <Status id="serverStatus" class="position-absolute"></Status>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import Status from "./Status";
 
 export default {
   name: "Tracker",
+  components: {
+    Status
+  },
   data() {
     return {
       routesInterval: undefined,  // for handling request failures
@@ -53,12 +58,22 @@ export default {
     const region = new mapkit.CoordinateRegion(center, span)
     this.mapObj.setRegionAnimated(region)
     // render map structures
+    this.getAPIVersion()
     this.renderRoutes()
     this.renderStops()
     this.updateBuses()
     window.setInterval(this.updateBuses, 5000)  // update every 5 seconds
   },
   methods: {
+    async getAPIVersion() {
+      try {
+        const res = await axios.get(this.baseURL + '/version')
+        console.log(res.data)
+        this.$store.commit('setServerStatus', {version: res.data === 0})  // hardcoded API version
+      } catch {
+        this.$store.commit('setServerStatus', {version: false})
+      }
+    },
     async updateBuses() {
       try {
         // fetch api
@@ -251,5 +266,9 @@ export default {
 }
 #map > .mk-map-view {
   border-radius: inherit;
+}
+#serverStatus {
+  top: 6px;
+  left: 24px;
 }
 </style>
