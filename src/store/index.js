@@ -10,7 +10,8 @@ export default new Vuex.Store({
         serverStatus: {
             routes: true,
             stops: true,
-            buses: true
+            buses: true,
+            version: true
         },
         fakeHQ: false
     },
@@ -33,6 +34,9 @@ export default new Vuex.Store({
             }
             if (status.buses !== undefined) {
                 state.serverStatus.buses = status.buses
+            }
+            if (status.version !== undefined) {
+                state.serverStatus.version = status.version
             }
         },
         setCbMode(state, status) {
