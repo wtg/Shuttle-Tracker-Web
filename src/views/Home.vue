@@ -31,6 +31,7 @@
       </div>
     </div>
     <Modal></Modal>
+    <ColorBlindIconModal></ColorBlindIconModal>
   </div>
 </template>
 
@@ -41,6 +42,7 @@ import Header from "../components/Header"
 import Footer from "../components/Footer";
 import Schedule from "../components/Schedule";
 import Modal from "../components/Modal";
+import ColorBlindIconModal from "../components/ColorBlindIconModal";
 import Settings from "../components/Settings";
 import Copyright from "../components/Copyright";
 
@@ -52,6 +54,7 @@ export default {
     Footer,
     Schedule,
     Modal,
+    ColorBlindIconModal,
     Settings,
     Copyright
   }

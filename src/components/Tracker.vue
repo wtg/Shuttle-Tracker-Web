@@ -68,7 +68,6 @@ export default {
     async getAPIVersion() {
       try {
         const res = await axios.get(this.baseURL + '/version')
-        console.log(res.data)
         this.$store.commit('setServerStatus', {version: res.data === 0})  // hardcoded API version
       } catch {
         this.$store.commit('setServerStatus', {version: false})
