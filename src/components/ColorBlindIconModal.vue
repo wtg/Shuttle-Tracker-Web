@@ -15,6 +15,9 @@
     <div :class="[{ 'text-white': isDarkMode }, { 'bg-dark': isDarkMode }]">
       <div>
         <p>
+          Bus Icons change when color blind mode is enabled.
+        </p>
+        <p>
           <b-icon-plus-circle-fill
             class="mr-3 icon-round"
             font-scale="1.5"
