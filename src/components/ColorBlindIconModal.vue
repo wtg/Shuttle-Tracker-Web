@@ -1,6 +1,6 @@
 <template>
   <b-modal
-    title="Welcome to the new Shuttle Tracker!"
+    title="Color Blind Mode Icons"
     :header-text-variant="themeText"
     :footer-bg-variant="themeBg"
     :header-bg-variant="themeBg"
@@ -47,7 +47,7 @@ export default {
       return this.$store.state.isDarkMode;
     },
     isColorBlind() {
-      return this.$store.state.isCBMode;
+      return this.$store.state.isCbMode;
     },
     themeBg() {
       return this.isDarkMode ? "dark" : "light";
@@ -58,20 +58,14 @@ export default {
   },
   watch: {
     isColorBlind(val) {
-    //  console.log("hello")
-      if(val){
-        showModal()
+      console.log("hello")
+      if(val&&!this.$cookies.isKey("shownColorBlindIconModal")){
+        this.showModal()
+      this.$cookies.set("shownColorBlindIconModal", true); // true if shown already
       }
     }
   },
   mounted() {
-    console.log("hello")
-    console.log(this.isColorBlind)
-    if(this.isColorBlind&&!this.$cookies.isKey("shownColorBlindIconModal")) {
-      this.$cookies.set("shownColorBlindIconModal", true); // true if shown already
-      this.showModal();
-
-    }
   },
   methods: {
     showModal() {
