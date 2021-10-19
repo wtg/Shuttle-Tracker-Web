@@ -2,7 +2,8 @@
   <div :class="[{'text-white': isDarkMode}]">
     <span style="float: left">This map refreshes every 5 seconds.</span>
     <span style="float: right;">
-      <a href="https://testflight.apple.com/join/GsmZkfgd"> iOS App</a>
+      <a href="https://testflight.apple.com/join/GsmZkfgd"> 
+        <img src="../img/appstore.png" alt="iOS App"></a>
     </span>
   </div>
 </template>
@@ -19,5 +20,8 @@ export default {
 </script>
 
 <style scoped>
-
+  img {
+      width: 26px;
+      height: 26px;
+  }
 </style>
