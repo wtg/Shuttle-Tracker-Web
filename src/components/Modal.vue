@@ -1,13 +1,13 @@
 <template>
   <b-modal
-    title="Welcome to the new Shuttle Tracker!"
-    :header-text-variant="themeText"
-    :footer-bg-variant="themeBg"
-    :header-bg-variant="themeBg"
-    :body-bg-variant="themeBg"
-    ref="instructionModal"
-    ok-only
-    ok-title="Continue"
+      title="Welcome to the new Shuttle Tracker!"
+      :header-text-variant="themeText"
+      :footer-bg-variant="themeBg"
+      :header-bg-variant="themeBg"
+      :body-bg-variant="themeBg"
+      ref="instructionModal"
+      ok-only
+      ok-title="Continue"
   >
     <div :class="[{ 'text-white': isDarkMode }, { 'bg-dark': isDarkMode }]">
       <p>
@@ -16,14 +16,14 @@
       </p>
       <div>
         <p>
-          <span class="rounded-circle bg-success mr-3 p-2 h5 d-inline-block"
-            >🚍</span
+          <span class="icon-round p-2 rounded-circle bg-success mr-3"
+          >🚍</span
           >
           Indicates high-quality location data
         </p>
-        <p>
-          <span class="rounded-circle bg-danger mr-3 p-2 h5 d-inline-block"
-            >🚍</span
+        <p class="mt-4">
+          <span class="icon-round p-2 rounded-circle bg-danger mr-3"
+          >🚍</span
           >
           Indicates low-quality location data
         </p>
@@ -67,8 +67,4 @@ export default {
 </script>
 
 <style scoped>
-.icon-round {
-  width: 40px !important;
-  height: 40px !important;
-}
 </style>
