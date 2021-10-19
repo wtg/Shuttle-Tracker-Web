@@ -19,7 +19,7 @@ export default new Vuex.Store({
         setDarkMode(state, darkModeOn) {
             state.isDarkMode = darkModeOn
             if (darkModeOn) {
-              document.body.style.backgroundColor = "#101214"
+              document.body.style.backgroundColor = "#1D1D1D"
             }
             else {
               document.body.style.backgroundColor = "#FFFFFF"
