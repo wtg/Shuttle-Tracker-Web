@@ -57,10 +57,6 @@ export default {
       this.$cookies.set("shownInstructionModal", true); // true if shown already
       this.showModal();
     }
-    if (!this.$cookies.isKey("shownColorBlindModal")) {
-      this.$cookies.set("shownColorBlindModal", true); // true if shown already
-      this.showModal();
-    }
   },
   methods: {
     showModal() {
