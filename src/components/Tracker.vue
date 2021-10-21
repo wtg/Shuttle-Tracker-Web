@@ -18,9 +18,10 @@ export default {
     return {
       routesInterval: undefined,  // for handling request failures
       stopsInterval: undefined,  // for handling request failures
-      baseURL: 'https://shuttletracker.app',
+      baseURL: process.env.VUE_APP_API_BASE_URL,
       mapObj: undefined,
-      tokenID: 'eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ilg0M0szUjk0VDIifQ.eyJpc3MiOiJTWUJMSDI3N05GIiwiaWF0IjoxNjMwODU3NTYxLCJleHAiOjE2NjIzMzYwMDB9.ksSxblUOJECqgDaBlPU-VZsXG-UGI-W8ty8raDkD_eG2q6cW79-3EoDCHj-wHmynXRmDWR6Yfg72xknMS--ZdA'
+      tokenID: process.env.VUE_APP_MAP_TOKEN_ID,
+      apiVersion: process.env.VUE_APP_API_VERSION
     }
   },
   computed: {
@@ -68,7 +69,7 @@ export default {
     async getAPIVersion() {
       try {
         const res = await axios.get(this.baseURL + '/version')
-        this.$store.commit('setServerStatus', {version: res.data === 0})  // hardcoded API version
+        this.$store.commit('setServerStatus', {version:res.data === parseInt(this.apiVersion)})  // hardcoded API version
       } catch {
         this.$store.commit('setServerStatus', {version: false})
       }
