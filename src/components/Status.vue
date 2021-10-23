@@ -5,7 +5,7 @@
       Server: {{ totalServerStatus ? 'online' : 'offline' }}
     </b-badge>
     <div v-else>
-      <b-badge role="button" @click="toggleExpand" class="mx-1" :variant="serverStatus.routes ? 'success': 'danger'"
+      <b-badge role="button" @click="toggleExpand" class="mr-1" :variant="serverStatus.routes ? 'success': 'danger'"
                v-b-tooltip.hover :title="compStatus">
         Routes
       </b-badge>
