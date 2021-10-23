@@ -9,6 +9,9 @@
                      v-b-tooltip.hover.lefttop :title="darkExplanation" switch>
       Dark Mode
     </b-form-checkbox>
+    <b-form-checkbox v-if="devToolsEnabled" v-model="devHQ" name="check-button" switch :class="{'text-white': isDarkMode}">
+      Create Fake HQ data: Bus 69
+    </b-form-checkbox>
   </div>
 </template>
 
@@ -19,6 +22,8 @@ export default {
     return {
       isCbMode: false,
       isDark: false,
+      devHQ: false,
+      devToolsEnabled: process.env.VUE_APP_DEV_TOOLS_ENABLED === "true",
       cbExplanation: "Changes the icons of buses to H and L based on the quality of the bus data",
       darkExplanation: "Switches dark mode on or off",
     }
@@ -29,6 +34,9 @@ export default {
     },
     setDarkMode() {
       this.$store.commit('setDarkMode', this.isDark)
+    },
+    setHQData() {
+      this.$store.commit('setFakeHQ', this.devHQ)
     }
   },
   computed: {
@@ -39,6 +47,9 @@ export default {
   watch: {
     isDarkMode(val) {
       this.isDark = val // dynamically sync state
+    },
+    devHQ () {
+      this.setHQData()
     }
   },
   mounted() {

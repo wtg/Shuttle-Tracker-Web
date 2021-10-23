@@ -1,12 +1,27 @@
 <template>
   <div>
-    <b-badge class="mr-1" :variant="serverStatus.routes ? 'success': 'danger'" v-b-tooltip.hover :title="compStatus">Routes</b-badge>
-    <b-badge class="mx-1" :variant="serverStatus.stops ? 'success': 'danger'" v-b-tooltip.hover :title="compStatus">Stops</b-badge>
-    <b-badge class="mx-1" :variant="serverStatus.buses ? 'success': 'danger'" v-b-tooltip.hover :title="compStatus">Buses</b-badge>
-    <b-badge class="mx-1" :variant="serverStatus.version ? 'success': 'danger'" v-b-tooltip.hover :title="APIWarning">API</b-badge>
-    <b-form-checkbox v-if="devToolsEnabled" v-model="devHQ" name="check-button" switch :class="{'text-white': isDarkMode}">
-      Create Fake HQ data: Bus 69
-    </b-form-checkbox>
+    <b-badge role="button" @click="toggleExpand" v-if="!expanded" class="mr-1"
+             :variant="totalServerStatus ? 'success': 'danger'" v-b-tooltip.hover :title="statusDescription">
+      Server: {{ totalServerStatus ? 'online' : 'offline' }}
+    </b-badge>
+    <div v-else>
+      <b-badge role="button" @click="toggleExpand" class="mr-1" :variant="serverStatus.routes ? 'success': 'danger'"
+               v-b-tooltip.hover :title="compStatus">
+        Routes
+      </b-badge>
+      <b-badge role="button" @click="toggleExpand" class="mx-1" :variant="serverStatus.stops ? 'success': 'danger'"
+               v-b-tooltip.hover :title="compStatus">
+        Stops
+      </b-badge>
+      <b-badge role="button" @click="toggleExpand" class="mx-1" :variant="serverStatus.buses ? 'success': 'danger'"
+               v-b-tooltip.hover :title="compStatus">
+        Buses
+      </b-badge>
+      <b-badge role="button" @click="toggleExpand" class="mx-1" :variant="serverStatus.version ? 'success': 'danger'"
+               v-b-tooltip.hover :title="APIWarning">
+        API
+      </b-badge>
+    </div>
   </div>
 </template>
 
@@ -15,28 +30,32 @@ export default {
   name: "Status",
   data() {
     return {
+      expanded: false,
       compStatus: "If the badge is green, this component is working!",
       APIWarning: "If the badge is red, the app may be broken. You have been warned.",
-      devHQ: false,
-      devToolsEnabled: process.env.VUE_APP_DEV_TOOLS_ENABLED === "true"
-    }
-  },
-  methods: {
-    setHQData() {
-      this.$store.commit('setFakeHQ', this.devHQ)
-    }
-  },
-  watch: {
-    devHQ () {
-      this.setHQData()
+      statusDescription: "Click to see detailed report on server status."
     }
   },
   computed: {
+    totalServerStatus() {
+      let status = true
+      Object.values(this.serverStatus).forEach((option) => {
+        if (!option) {
+          status = false
+        }
+      })
+      return status
+    },
     serverStatus() {
       return this.$store.state.serverStatus
     },
     isDarkMode() {
       return this.$store.state.isDarkMode
+    }
+  },
+  methods: {
+    toggleExpand() {
+      this.expanded = !this.expanded
     }
   }
 }
