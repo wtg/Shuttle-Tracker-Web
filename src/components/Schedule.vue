@@ -4,9 +4,9 @@
       Fall 2021 Schedule
     </h3>
     <ul :class="{'text-white': isDarkMode}">
-      <li> Monday - Friday, 7:00 a.m. - 11:45 p.m </li>
-      <li> Saturday 9:00 a.m. - 11:45 p.m. </li>
-      <li> Sunday 9:00 a.m. - 8:00 p.m.  </li>
+      <li> Monday - Friday 7:00 am - 11:45 pm </li>
+      <li> Saturday 9:00 am - 11:45 pm </li>
+      <li> Sunday  9:00 am - 8:00 pm  </li>
     </ul>
   </div>
 </template>
@@ -22,5 +22,8 @@ export default {
 </script>
 
 <style scoped>
-
+  ul {
+    list-style-type: none;
+    padding: 0px 0px 0px 0px;
+  }
 </style>
