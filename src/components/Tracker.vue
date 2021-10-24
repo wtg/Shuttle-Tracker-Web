@@ -2,17 +2,21 @@
   <div>
     <div id="map" class="w-100 rounded" style="height: 75vh"></div>
     <Status id="serverStatus" class="position-absolute"></Status>
+    <BIconPlusCircleFill></BIconPlusCircleFill>
+    <BIcon-exclamation-circle-fill> </BIcon-exclamation-circle-fill> 
   </div>
 </template>
 
 <script>
 import axios from 'axios'
 import Status from "./Status";
-
+import { BIconPlusCircleFill, BIconExclamationCircleFill } from "bootstrap-vue";
 export default {
   name: "Tracker",
   components: {
-    Status
+    Status,
+    BIconPlusCircleFill,
+    BIconExclamationCircleFill,
   },
   data() {
     return {
@@ -104,14 +108,15 @@ export default {
               switch (bus.location.type) {
                 case "user":
                   if (this.isCbMode) {
-                    busIcon = "H"
+                    busIcon ="+" 
                   }
                   color = "mediumseagreen"
                   break;
                 case "system":
                   color = "red"
                   if (this.isCbMode) {
-                    busIcon = "L"
+                    busIcon = "!"
+                    color = "#7951b3"
                   }
                   break;
               }
