@@ -103,15 +103,16 @@ export default {
               let busIcon = "🚍"
               switch (bus.location.type) {
                 case "user":
+                  color = "mediumseagreen"
                   if (this.isCbMode) {
                     busIcon = "+"
                   }
-                  color = "mediumseagreen"
                   break;
                 case "system":
                   color = "red"
                   if (this.isCbMode) {
                     busIcon = "!"
+                    color = "#7951b3"
                   }
                   break;
               }
