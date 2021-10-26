@@ -104,14 +104,14 @@ export default {
               switch (bus.location.type) {
                 case "user":
                   if (this.isCbMode) {
-                    busIcon = "H"
+                    busIcon = "+"
                   }
                   color = "mediumseagreen"
                   break;
                 case "system":
                   color = "red"
                   if (this.isCbMode) {
-                    busIcon = "L"
+                    busIcon = "!"
                   }
                   break;
               }

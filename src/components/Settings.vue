@@ -24,7 +24,7 @@ export default {
       isDark: false,
       devHQ: false,
       devToolsEnabled: process.env.VUE_APP_DEV_TOOLS_ENABLED === "true",
-      cbExplanation: "Changes the icons of buses to H and L based on the quality of the bus data",
+      cbExplanation: "Changes the icons of buses to + and ! based on the quality of the bus data",
       darkExplanation: "Switches dark mode on or off",
     }
   },
