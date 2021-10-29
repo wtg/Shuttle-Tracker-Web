@@ -15,16 +15,16 @@
         We've completely overhauled every component to bring superior accuracy.
       </p>
       <div>
-        <p>
-          <span class="icon-round p-2 rounded-circle bg-success mr-3"
-          >🚍</span
-          >
+        <p class="d-flex align-items-center">
+          <span class="icon-parent position-relative d-inline-block rounded-circle bg-success mr-3">
+            <span class="position-absolute icon-text">🚍</span>
+          </span>
           Indicates high-quality location data
         </p>
-        <p class="mt-4">
-          <span class="icon-round p-2 rounded-circle bg-danger mr-3"
-          >🚍</span
-          >
+        <p class="d-flex align-items-center">
+          <span class="icon-parent position-relative d-inline-block rounded-circle bg-danger mr-3">
+            <span class="position-absolute icon-text">🚍</span>
+          </span>
           Indicates low-quality location data
         </p>
       </div>
@@ -67,4 +67,12 @@ export default {
 </script>
 
 <style scoped>
+.icon-parent {
+  padding: 1.2rem;
+}
+.icon-text {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 </style>
