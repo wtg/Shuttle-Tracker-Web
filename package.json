@@ -50,7 +50,8 @@
       "parser": "babel-eslint"
     },
     "rules": {
-      "no-undef": "warn"
+      "no-undef": "warn",
+      "no-console": "warn"
     }
   },
   "browserslist": [
