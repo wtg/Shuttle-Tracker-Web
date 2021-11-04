@@ -37,6 +37,7 @@ export default {
     }
   },
   computed: {
+    // Checks each separate status to determin server status
     totalServerStatus() {
       let status = true
       Object.values(this.serverStatus).forEach((option) => {
@@ -46,6 +47,7 @@ export default {
       })
       return status
     },
+    // Set server status
     serverStatus() {
       return this.$store.state.serverStatus
     },
