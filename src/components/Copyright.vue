@@ -8,6 +8,12 @@
       <b-icon-github class="mb-1" font-scale="1.25"></b-icon-github>
       An RCOS project
     </b-link>
+    <div>
+      <b-link class="mr-1" :class="[{'text-black': isDarkMode}, {'text-gray': !isDarkMode}]"
+        href="https://old.shuttletracker.app/"> 
+        <small> Old Web Interface</small> 
+      </b-link>
+    </div>
   </footer>
 </template>
 
@@ -30,5 +36,8 @@ export default {
 <style scoped>
 .text-black {
   color: black !important;
+}
+.text-gray {
+  color: #e3e3e3 !important;
 }
 </style>
