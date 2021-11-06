@@ -11,7 +11,8 @@
   >
     <div :class="[{ 'text-white': isDarkMode }, { 'bg-dark': isDarkMode }]">
       <p>
-        You're using the new Web interface for Shuttle Tracker bringing superior accuracy.
+        You're using the new Web interface for the <i> new </i> Shuttle Tracker.
+        We've completely overhauled every component to bring superior accuracy.
       </p>
       <div>
         <p class="d-flex align-items-center">
@@ -28,8 +29,9 @@
         </p>
       </div>
       <p>
-        You can now contribute crowd-sourced location data to improve bus location accuracy with
-        our iOS app. Download our new beta app today! Click on "iOS App" link located
+        If you use iPhone, then you can help out with crowd-sourced location
+        data. Download our new beta app today! Click on "iOS App" link located. 
+        Download our new beta app today! Click on "iOS App" link located
         on the bottom right hand corner of the map for more information.
       </p>
       <p><i> Our Android app is coming soon!</i></p>
