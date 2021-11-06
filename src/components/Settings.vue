@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="[{'bubble-dark': isDarkMode},{'bubble-light': !isDarkMode}]">
     <h3 :class="{'text-white': isDarkMode}">Settings</h3>
     <b-form-checkbox @change="setCbMode" :class="[{'text-white': isDarkMode}]" v-model="isCbMode" name="cbModeSwitch"
                      v-b-tooltip.hover.lefttop :title="cbExplanation" switch>
@@ -61,4 +61,18 @@ export default {
 </script>
 
 <style scoped>
+  .bubble-light {
+    background-color: rgb(235, 235, 235);
+    padding-top: 10px;
+    border-radius: 10px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+ }
+   .bubble-dark {
+    background-color: rgb(71, 71, 71);
+    border-radius: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+ }
 </style>
