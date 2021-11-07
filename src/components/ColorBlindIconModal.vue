@@ -60,6 +60,7 @@ export default {
     },
   },
   watch: {
+    // Only show modal if there is no cookie data
     isColorBlind(val) {
       console.log("hello")
       if(val&&!this.$cookies.isKey("shownColorBlindIconModal")){
