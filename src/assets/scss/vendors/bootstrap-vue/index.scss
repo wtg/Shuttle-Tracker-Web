@@ -21,7 +21,7 @@
 //============ COMPONENTS ===========
 // @import "~bootstrap/scss/nav";
 // @import "~bootstrap/scss/navbar";
-//@import "bootstrap/scss/card";
+@import "~bootstrap/scss/card";
 //@import "bootstrap/scss/breadcrumb";
 //@import "bootstrap/scss/pagination";
 @import "~bootstrap/scss/badge";
@@ -74,7 +74,7 @@
 //================= COMPONENTS ====================
 // @import "~bootstrap-vue/src/components/avatar/index";
 // @import "~bootstrap-vue/src/components/calendar/index";
-// @import "~bootstrap-vue/src/components/card/index";
+ @import "~bootstrap-vue/src/components/card/index";
 // @import "~bootstrap-vue/src/components/dropdown/index";
 @import "~bootstrap-vue/src/components/form-checkbox/index";
 // @import "~bootstrap-vue/src/components/form-datepicker/index";
