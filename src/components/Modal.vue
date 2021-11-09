@@ -30,8 +30,7 @@
       </div>
       <p>
         If you use iPhone, then you can help out with crowd-sourced location
-        data. Download our new beta app today! Click on "iOS App" link located. 
-        Download our new beta app today! Click on "iOS App" link located
+        data. Download our new beta app today! Click on "iOS App" link located
         on the bottom right hand corner of the map for more information.
       </p>
       <p><i> Our Android app is coming soon!</i></p>
