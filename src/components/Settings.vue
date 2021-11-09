@@ -62,6 +62,13 @@ export default {
 </script>
 
 <style scoped>
+
+.card {
+  border-radius: 7px;
+}
+.card-body {
+  padding: 1rem;
+}
 .bubble-light {
   background-color: rgb(235, 235, 235);
   border-color: rgb(235, 235, 235);
