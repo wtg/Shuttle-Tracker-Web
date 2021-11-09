@@ -19,5 +19,9 @@ export default {
 </script>
 
 <style scoped>
-
+ div {
+   padding-top: 5px;
+   padding-left: 5px;
+   padding-right: 5px;
+ }
 </style>

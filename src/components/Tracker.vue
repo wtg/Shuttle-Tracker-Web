@@ -266,7 +266,7 @@ export default {
   transition-property: transform;
 }
 #map > .mk-map-view {
-  border-radius: inherit;
+  border-radius: 7px;
 }
 #serverStatus {
   top: 6px;
