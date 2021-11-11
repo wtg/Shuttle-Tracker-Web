@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <b-card class="mt-3" :class="[{'bubble-dark': isDarkMode},{'bubble-light': !isDarkMode}]">
     <h3 :class="{'text-white': isDarkMode}">Settings</h3>
     <b-form-checkbox @change="setCbMode" :class="[{'text-white': isDarkMode}]" v-model="isCbMode" name="cbModeSwitch"
                      v-b-tooltip.hover.lefttop :title="cbExplanation" switch>
@@ -9,10 +9,11 @@
                      v-b-tooltip.hover.lefttop :title="darkExplanation" switch>
       Dark Mode
     </b-form-checkbox>
-    <b-form-checkbox v-if="devToolsEnabled" v-model="devHQ" name="check-button" switch :class="{'text-white': isDarkMode}">
+    <b-form-checkbox v-if="devToolsEnabled" v-model="devHQ" name="check-button" switch
+                     :class="{'text-white': isDarkMode}">
       Create Fake HQ data: Bus 69
     </b-form-checkbox>
-  </div>
+  </b-card>
 </template>
 
 <script>
@@ -24,6 +25,7 @@ export default {
       isDark: false,
       devHQ: false,
       devToolsEnabled: process.env.VUE_APP_DEV_TOOLS_ENABLED === "true",
+      // Explanation Message when hovering over setting sliders
       cbExplanation: "Changes the icons of buses to + and ! based on the quality of the bus data",
       darkExplanation: "Switches dark mode on or off",
     }
@@ -48,7 +50,7 @@ export default {
     isDarkMode(val) {
       this.isDark = val // dynamically sync state
     },
-    devHQ () {
+    devHQ() {
       this.setHQData()
     }
   },
@@ -60,4 +62,20 @@ export default {
 </script>
 
 <style scoped>
+
+.card {
+  border-radius: 7px;
+}
+.card-body {
+  padding: 1rem;
+}
+.bubble-light {
+  background-color: rgb(235, 235, 235);
+  border-color: rgb(235, 235, 235);
+}
+
+.bubble-dark {
+  background-color: rgb(71, 71, 71);
+  border-color: rgb(71, 71, 71);
+}
 </style>

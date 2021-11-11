@@ -52,6 +52,7 @@ export default {
       return this.isDarkMode ? "light" : "dark";
     },
   },
+  // Only show modal if there is no cookie data 
   mounted() {
     if (!this.$cookies.isKey("shownInstructionModal")) {
       this.$cookies.set("shownInstructionModal", true); // true if shown already
