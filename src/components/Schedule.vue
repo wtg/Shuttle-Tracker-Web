@@ -24,15 +24,18 @@ export default {
 <style scoped>
 ul {
   list-style-type: none;
-  padding: 0px 0px 0px 0px;
-  margin: 0px;
+  padding: 0;
+  margin: 0;
 }
+
 .card {
   border-radius: 7px;
 }
+
 .card-body {
   padding: 1rem;
 }
+
 .bubble-light {
   background-color: rgb(235, 235, 235);
   border-color: rgb(235, 235, 235);
