@@ -17,6 +17,11 @@
         </div>
       </div>
       <div class="row">
+        <div class="col">
+          <Progressbar></Progressbar>
+        </div>
+      </div>
+      <div class="row">
         <div class="col-md">
           <Schedule></Schedule>
         </div>
@@ -45,6 +50,7 @@ import Modal from "../components/Modal";
 import ColorBlindIconModal from "../components/ColorBlindIconModal";
 import Settings from "../components/Settings";
 import Copyright from "../components/Copyright";
+import Progressbar from "../components/Progressbar";
 
 export default {
   name: 'Home',
@@ -56,7 +62,8 @@ export default {
     Modal,
     ColorBlindIconModal,
     Settings,
-    Copyright
+    Copyright,
+    Progressbar,
   }
 }
 </script>
