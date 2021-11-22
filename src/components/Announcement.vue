@@ -1,21 +1,20 @@
 <template>
   <div>
     <b-alert
-        v-model="show"
-        v-if="hasAnnouncements"
+        v-model="hasAnnouncements"
         :class="[{'announcement-dark': isDarkMode}, {'announcement-light': !isDarkMode}]"
         class="position-fixed fixed-top m-0 rounded-0 p-0 py-2 border-0"
         style="z-index: 2000;">
-      <div ref="ayyeeeee" class="scroll-left">
-        <div class="position-absolute px-3" style="left: 0;top: 0;z-index: 2000;" :class="[{'announcement-dark': isDarkMode}, {'announcement-light': !isDarkMode}]">📢:</div>
+      <div ref="announcer" class="scroll-left">
+        <div class="position-absolute px-3" style="left: 0;top: 0;z-index: 2000;"
+             :class="[{'announcement-dark': isDarkMode}, {'announcement-light': !isDarkMode}]">📢:
+        </div>
         <span class="scroll-text">
-          <span v-for="a in announcements" :key="a.subject" class="mr-5">
-            <span
-                class="mr-2 px-2"
-                :class="[{'announcement-dark': !isDarkMode}, {'announcement-light': isDarkMode}]">
-              {{ a.subject }}</span>
-            {{ a.body }}
-          </span>
+          <span
+              class="mr-2 px-2"
+              :class="[{'announcement-dark': !isDarkMode}, {'announcement-light': isDarkMode}]">
+              {{ focusedAnnouncement.subject }}</span>
+            {{ focusedAnnouncement.body }}
         </span>
       </div>
     </b-alert>
@@ -29,6 +28,8 @@ export default {
   name: "Announcement",
   data() {
     return {
+      show: true,
+      announcerIndex: 0,
       baseURL: process.env.VUE_APP_API_BASE_URL,
       raw: [],
       // raw: [
@@ -68,9 +69,7 @@ export default {
       //     "body": "Oh yea ohED5 0DF1E83F-4F7F-4C95-B32C-62D639341ED5 0DF1E83F-4F7F-4C95-B32C-62D639341ED5",
       //     "scheduleType": "startOnly"
       //   }
-      // ],
-      content: "HELLO there will be a schedule change",
-      show: true
+      // ]
     }
   },
   computed: {
@@ -91,6 +90,14 @@ export default {
     },
     hasAnnouncements() {
       return this.announcements.length > 0
+    },
+    focusedAnnouncement() {
+      // announcement on display
+      if (this.hasAnnouncements) {
+        return this.announcements[this.announcerIndex]
+      } else {
+        return {subject: '', body: ''}
+      }
     }
   },
   methods: {
@@ -98,6 +105,18 @@ export default {
       //  Fetch raw data from the announcement API
       const res = await axios.get(this.baseURL + '/announcements')
       this.raw = res.data
+      if (this.hasAnnouncements) {
+        this.$nextTick(this.loadAnnouncer)
+      }
+    },
+    loadAnnouncer() {
+      //  Load different announcement for every animation loop
+      this.$refs.announcer.addEventListener('animationiteration', () => {
+        this.announcerIndex++
+        if (this.announcerIndex >= this.announcements.length) {
+          this.announcerIndex = 0
+        }
+      });
     }
   },
   mounted() {
