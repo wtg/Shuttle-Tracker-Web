@@ -134,7 +134,7 @@ export default {
             })
         // filter and render buses
         const existingBusAnnotations = this.mapObj.annotations.filter(annotation => {
-          return annotation.title.indexOf("Bus") == 0
+          return annotation.title.indexOf("Bus") === 0
         })
         this.mapObj.removeAnnotations(existingBusAnnotations) // remove existing markers
         buses.forEach(bus => {

@@ -32,6 +32,7 @@
     </div>
     <Modal></Modal>
     <ColorBlindIconModal></ColorBlindIconModal>
+    <Announcement></Announcement>
   </div>
 </template>
 
@@ -45,6 +46,7 @@ import Modal from "../components/Modal";
 import ColorBlindIconModal from "../components/ColorBlindIconModal";
 import Settings from "../components/Settings";
 import Copyright from "../components/Copyright";
+import Announcement from "../components/Announcement";
 
 export default {
   name: 'Home',
@@ -56,7 +58,8 @@ export default {
     Modal,
     ColorBlindIconModal,
     Settings,
-    Copyright
+    Copyright,
+    Announcement
   }
 }
 </script>
