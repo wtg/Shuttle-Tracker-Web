@@ -9,7 +9,7 @@
       An RCOS project
     </b-link>
     <div>
-      <b-link class="mr-1" :class="[{'text-black': isDarkMode}, {'text-gray': !isDarkMode}]"
+      <b-link class="mr-1" :class="[{'text-black': !isDarkMode}, {'text-gray': isDarkMode}]"
         href="https://old.shuttletracker.app/"> 
         <small>Old Web Interface</small> 
       </b-link>
