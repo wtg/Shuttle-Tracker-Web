@@ -2,7 +2,7 @@
   <div :class="[{'text-white': isDarkMode}]">
     <span style="float: left">This map refreshes every 5 seconds.</span>
     <span style="float: right;">
-      <a href="https://testflight.apple.com/join/GsmZkfgd"> iOS App</a>
+      <a href="https://shuttletracker.app/swiftui"> iOS/iPadOS/macOS App</a>
     </span>
   </div>
 </template>
