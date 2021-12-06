@@ -1,18 +1,41 @@
 <template>
   <div>
-    <div id="map" class="w-100 rounded" style="height: 75vh"></div>
-    <Status id="serverStatus" class="position-absolute"></Status>
+    <fullscreen v-model="fullscreen">
+      <div class="d-flex flex-column h-100">
+        <div style="flex: 1 1 auto">
+          <div id="map" class="w-100" style="height: 75vh" :class="{'h-100': fullscreen}"></div>
+          <div id="serverStatus" class="position-absolute">
+            <Status></Status>
+            <b-badge v-b-tooltip.hover :title="FullscreenDesc" role="button" variant="primary" @click="toggleFullscreen">
+              <BIconFullscreen v-if="!fullscreen"></BIconFullscreen>
+              <BIconFullscreenExit v-if="fullscreen"></BIconFullscreenExit>
+              {{ fullscreen ? 'Exit' : 'Enter' }} Fullscreen
+            </b-badge>
+          </div>
+        </div>
+        <Announcement v-if="fullscreen"></Announcement>
+      </div>
+    </fullscreen>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
 import Status from "./Status";
+import Announcement from "./Announcement"
+import {BIconFullscreen, BIconFullscreenExit} from "bootstrap-vue"
+import Vue from 'vue'
+import VueFullscreen from 'vue-fullscreen'
+
+Vue.use(VueFullscreen)
 
 export default {
   name: "Tracker",
   components: {
-    Status
+    Status,
+    Announcement,
+    BIconFullscreen,
+    BIconFullscreenExit
   },
   data() {
     return {
@@ -21,7 +44,9 @@ export default {
       baseURL: process.env.VUE_APP_API_BASE_URL,
       mapObj: undefined,
       tokenID: process.env.VUE_APP_MAP_TOKEN_ID,
-      apiVersion: process.env.VUE_APP_API_VERSION
+      apiVersion: process.env.VUE_APP_API_VERSION,
+      fullscreen: false,
+      FullscreenDesc: 'Toggle fullscreen mode.'
     }
   },
   computed: {
@@ -66,10 +91,18 @@ export default {
     window.setInterval(this.updateBuses, 5000)  // update every 5 seconds
   },
   methods: {
+    toggleFullscreen() {
+      this.fullscreen = !this.fullscreen
+      this.fixRoundedBorders()
+    },
+    fixRoundedBorders() {
+      const mapDiv = this.$el.querySelector('#map .mk-map-view')
+      mapDiv.style.borderRadius = this.fullscreen ? '0' : '7px'
+    },
     async getAPIVersion() {
       try {
         const res = await axios.get(this.baseURL + '/version')
-        this.$store.commit('setServerStatus', {version:res.data === parseInt(this.apiVersion)})  // hardcoded API version
+        this.$store.commit('setServerStatus', {version: res.data === parseInt(this.apiVersion)})  // hardcoded API version
       } catch {
         this.$store.commit('setServerStatus', {version: false})
       }
@@ -85,9 +118,9 @@ export default {
             "id": '69',
             "location":
                 {
-                  "coordinate": {"latitude":42.730310,"longitude":-73.685210},
-                  "id":"385FF2A4-EB53-42FE-B754-DAA3DCE04351",
-                  "type":"user",
+                  "coordinate": {"latitude": 42.730310, "longitude": -73.685210},
+                  "id": "385FF2A4-EB53-42FE-B754-DAA3DCE04351",
+                  "type": "user",
                   "date": now.toISOString()
                 }
           })
@@ -180,7 +213,7 @@ export default {
 
       const popoverFactory = {
         // creating popover element
-        calloutElementForAnnotation: function(annotations) {
+        calloutElementForAnnotation: function (annotations) {
           let element = document.createElement("div");
           element.classList.add('annotation-popover')
           element.classList.add('p-2')
@@ -245,15 +278,18 @@ export default {
   background-color: white;
   opacity: 0.8;
 }
+
 .annotation-popover-light {
   background-color: rgba(255, 255, 255, .85);
   backdrop-filter: blur(5px);
 }
+
 .annotation-popover {
   max-width: 140px;
   background-color: rgba(255, 255, 255, .25);
   backdrop-filter: blur(5px);
 }
+
 .annotation-popover:before {
   position: absolute;
   content: "";
@@ -265,9 +301,11 @@ export default {
   transition-duration: 0.3s;
   transition-property: transform;
 }
+
 #map > .mk-map-view {
   border-radius: 7px;
 }
+
 #serverStatus {
   top: 6px;
   left: 24px;
