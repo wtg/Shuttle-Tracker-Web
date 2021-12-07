@@ -32,7 +32,7 @@
     </div>
     <Modal></Modal>
     <ColorBlindIconModal></ColorBlindIconModal>
-    <Announcement class="position-fixed fixed-top"></Announcement>
+    <Announcement></Announcement>
   </div>
 </template>
 

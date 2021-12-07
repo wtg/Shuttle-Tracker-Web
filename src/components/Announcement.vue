@@ -2,7 +2,7 @@
   <b-alert
       v-model="hasAnnouncements"
       :class="[{'announcement-dark': isDarkMode}, {'announcement-light': !isDarkMode}]"
-      class="m-0 rounded-0 p-0 py-2 border-0"
+      class="position-fixed fixed-top m-0 rounded-0 p-0 py-2 border-0"
       style="z-index: 2000;">
     <div ref="announcer" class="scroll-left">
       <div class="position-absolute px-3" style="left: 0;top: 0;z-index: 2000;"
