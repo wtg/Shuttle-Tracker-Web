@@ -13,6 +13,7 @@
                      :class="{'text-white': isDarkMode}">
       Create Fake HQ data: Bus 69
     </b-form-checkbox>
+    <a href="https://shuttletracker.app/swiftui"> iOS/iPadOS/macOS App</a>
   </b-card>
 </template>
 
