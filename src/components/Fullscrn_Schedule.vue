@@ -1,12 +1,15 @@
 <template>
-  <b-card class="mt-3" :class="[{'bubble-dark': isDarkMode},{'bubble-light': !isDarkMode}]">
-    <h3 :class="{'text-white': isDarkMode}">
+  <b-card
+    class="mt-3"
+    :class="[{ 'bubble-dark': isDarkMode }, { 'bubble-light': !isDarkMode }]"
+  >
+    <h3 :class="{ 'text-white': isDarkMode }">
       Shuttle Schedule
     </h3>
-    <ul :class="{'text-white': isDarkMode}">
-      <li> Mon-Fri: 7am - 11:45pm</li>
-      <li> Sat: 9am-11:45pm</li>
-      <li> Sun: 9am -8pm</li>
+    <ul :class="{ 'text-white': isDarkMode }">
+      <li>Mon-Fri: 7am - 11:45pm</li>
+      <li>Sat: 9am-11:45pm</li>
+      <li>Sun: 9am -8pm</li>
     </ul>
   </b-card>
 </template>
@@ -16,15 +19,15 @@ export default {
   name: "Fullscrn_schedule",
   computed: {
     isDarkMode() {
-      return this.$store.state.isDarkMode
-    }
-  }
-}
+      return this.$store.state.isDarkMode;
+    },
+  },
+};
 </script>
 
 <style scoped>
 h3 {
-  font-size: 15px;
+  font-size: 20px;
 }
 
 ul {
@@ -34,7 +37,7 @@ ul {
 }
 
 li {
-  font-size: 10px;
+  font-size: 12px;
 }
 
 .card {
