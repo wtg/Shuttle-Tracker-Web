@@ -33,7 +33,12 @@ export default {
 h3 {
   font-size: 30px;
 }
-
+ p {
+     margin-bottom: 0px;
+    padding-bottom: 5px;
+    padding-left: 38px;
+    padding-right: 38px;
+ }
 span {
     float:right;
 }
