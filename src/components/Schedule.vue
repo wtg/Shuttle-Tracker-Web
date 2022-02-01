@@ -1,7 +1,7 @@
 <template>
   <b-card class="mt-3" :class="[{'bubble-dark': isDarkMode},{'bubble-light': !isDarkMode}]">
     <h3 :class="{'text-white': isDarkMode}">
-      Fall 2021 Schedule
+      Spring 2022 Schedule
     </h3>
     <ul :class="{'text-white': isDarkMode}">
       <li> Monday - Friday 7:00 am - 11:45 pm</li>
