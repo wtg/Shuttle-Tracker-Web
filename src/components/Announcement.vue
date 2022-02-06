@@ -86,6 +86,11 @@ export default {
       //  Fetch raw data from the announcement API
       const res = await axios.get(this.baseURL + '/announcements')
       this.raw = res.data
+
+      /* FOR DEBUGGING, MAKES ANNOUNCEMENT BAR VISIBLE */
+      //this.hasAnnouncements = true;
+      //this.announcements[0] = "";
+
       if (this.hasAnnouncements) {
         this.$nextTick(this.loadAnnouncer)
       }
