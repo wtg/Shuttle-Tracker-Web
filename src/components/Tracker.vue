@@ -11,7 +11,9 @@
               <BIconFullscreenExit v-if="fullscreen"></BIconFullscreenExit>
               {{ fullscreen ? 'Exit' : 'Enter' }} Fullscreen
             </b-badge>
-            <Fullscrn_Schedule v-if="fullscreen"></Fullscrn_Schedule>
+          </div>
+          <div id="schedule" class="position-absolute">
+             <Fullscrn_Schedule v-if="fullscreen"></Fullscrn_Schedule>
           </div>
         </div>
         <Announcement v-if="fullscreen"></Announcement>
@@ -311,6 +313,11 @@ export default {
 
 #serverStatus {
   top: 6px;
+  left: 24px;
+}
+
+#schedule {
+  bottom: 50px;
   left: 24px;
 }
 </style>

@@ -27,7 +27,7 @@ export default {
 
 <style scoped>
 h3 {
-  font-size: 20px;
+  font-size: 22px;
 }
 
 ul {
@@ -37,7 +37,7 @@ ul {
 }
 
 li {
-  font-size: 12px;
+  font-size: 15px;
 }
 
 .card {
@@ -51,10 +51,12 @@ li {
 .bubble-light {
   background-color: rgb(235, 235, 235);
   border-color: rgb(235, 235, 235);
+  opacity: 0.8;
 }
 
 .bubble-dark {
   background-color: rgb(71, 71, 71);
   border-color: rgb(71, 71, 71);
+  opacity: 0.8;
 }
 </style>
