@@ -3,9 +3,7 @@
     class="mt-3"
     :class="[{ 'bubble-dark': isDarkMode }, { 'bubble-light': !isDarkMode }]"
   >
-    <h3 :class="{ 'text-white': isDarkMode }">
-      Shuttle Schedule
-    </h3>
+    <h3 :class="{ 'text-white': isDarkMode }">Shuttle Schedule</h3>
     <ul :class="{ 'text-white': isDarkMode }">
       <li>Mon-Fri: 7am - 11:45pm</li>
       <li>Sat: 9am-11:45pm</li>
