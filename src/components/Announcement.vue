@@ -144,9 +144,9 @@ export default {
   -webkit-transform: translateX(100%);
   transform: translateX(100%);
   /* Apply animation to this element */
-  -moz-animation: scroll-left 30s linear infinite;
-  -webkit-animation: scroll-left 30s linear infinite;
-  animation: scroll-left 30s linear infinite;
+  -moz-animation: scroll-left 15s linear infinite;
+  -webkit-animation: scroll-left 15s linear infinite;
+  animation: scroll-left 15s linear infinite;
 }
 
 /* Move it (define the animation) */
