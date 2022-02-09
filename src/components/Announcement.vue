@@ -38,6 +38,9 @@ export default {
     isDarkMode() {
       return this.$store.state.isDarkMode
     },
+    devAnnouncement() {
+      return this.$store.state.fakeAnnounce;
+    },
     announcements() {
       // filter out unwanted announcements
       return this.raw.filter((announce) => {
@@ -62,6 +65,12 @@ export default {
       }
     }
   },
+  watch: {
+    // simulates the announcement bar
+    devAnnouncement() {
+      this.getAnnouncements();
+    }
+  },
   methods: {
     async updateAnnouncements() {
       const vm = this
@@ -83,13 +92,18 @@ export default {
       }, this.fetchInterval)
     },
     async getAnnouncements() {
-      //  Fetch raw data from the announcement API
-      const res = await axios.get(this.baseURL + '/announcements')
-      this.raw = res.data
-
-      /* FOR DEBUGGING, MAKES ANNOUNCEMENT BAR VISIBLE */
-      //this.hasAnnouncements = true;
-      //this.announcements[0] = "";
+      // Fetch raw data from the announcement API
+      const res = await axios.get(this.baseURL + '/announcements');
+      this.raw = res.data;
+      // Simulate announcement bar
+      if(this.devAnnouncement) {
+        // Input fake announcement
+        this.announcements[0] = {subject: "Debug", body: "This is a fake announcement."};
+      } else {
+        // Clear announcements. This clears all announcements, so this developer setting can 
+        // also be used to hide the announcement bar when there are actual announcements displayed.
+        this.announcements.splice(0, this.announcements.length);
+      }
 
       if (this.hasAnnouncements) {
         this.$nextTick(this.loadAnnouncer)

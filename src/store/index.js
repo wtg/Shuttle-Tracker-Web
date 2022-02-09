@@ -14,7 +14,8 @@ export default new Vuex.Store({
             buses: true,
             version: true
         },
-        fakeHQ: false
+        fakeHQ: false,
+        fakeAnnounce: false
     },
     // Functions to alter the website states
     mutations: {
@@ -50,6 +51,10 @@ export default new Vuex.Store({
         // Set a fake bus for development purposes
         setFakeHQ(state, status) {
             state.fakeHQ = status
+        },
+        // Show a fake announcement bar for development purposes
+        fakeAnnouncement(state, status) {
+            state.fakeAnnounce = status;
         }
     },
     actions: {},
