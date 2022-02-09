@@ -3,18 +3,6 @@ New shuttle tracker web UI implemented in Vue.js.
 View the temporary testing site [here](https://staging.web.shuttletracker.app/).
 The shuttle tracker web UI does not help with crowd-sourcing location data.
 
-## BREAKING CHANGE
-If you are using Node.js version 17 and up, it uses openSSL 3.0, which is not compatible with the `vue-cli` tool. Add environmental variable `NODE_OPTIONS=--openssl-legacy-provider` for backward compatibility.
-
-For Linux:
-```
-export NODE_OPTIONS=--openssl-legacy-provider
-```
-For Windows Powershell:
-```
-set NODE_OPTIONS=--openssl-legacy-provider
-```
-
 ## Dependency Installation
 This project requires [Node.js](https://nodejs.dev/) and its package manager `npm` to run. To install the dependencies:
 ```
