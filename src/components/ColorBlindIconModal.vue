@@ -1,5 +1,5 @@
 <template>
-  <b-modal
+  <b-modal centered
     title="Color Blind Mode Icons"
     :header-text-variant="themeText"
     :footer-bg-variant="themeBg"
