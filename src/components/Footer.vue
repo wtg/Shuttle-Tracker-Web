@@ -1,3 +1,4 @@
+<!-- This Component is no longer is use. -->
 <template>
   <div :class="[{'text-white': isDarkMode}]">
     <span style="float: left">This map refreshes every 5 seconds.</span>

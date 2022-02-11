@@ -12,11 +12,6 @@
         </div>
       </div>
       <div class="row">
-        <div class="col">
-          <Footer></Footer>
-        </div>
-      </div>
-      <div class="row">
         <div class="col-md">
           <Schedule></Schedule>
         </div>
@@ -32,7 +27,7 @@
     </div>
     <Modal></Modal>
     <ColorBlindIconModal></ColorBlindIconModal>
-    <Announcement class="position-fixed fixed-top"></Announcement>
+    <Announcement></Announcement>
   </div>
 </template>
 
@@ -40,7 +35,6 @@
 // @ is an alias to /src
 import Tracker from "../components/Tracker";
 import Header from "../components/Header"
-import Footer from "../components/Footer";
 import Schedule from "../components/Schedule";
 import Modal from "../components/Modal";
 import ColorBlindIconModal from "../components/ColorBlindIconModal";
@@ -53,7 +47,6 @@ export default {
   components: {
     Tracker,
     Header,
-    Footer,
     Schedule,
     Modal,
     ColorBlindIconModal,

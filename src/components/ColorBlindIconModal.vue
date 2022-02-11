@@ -1,5 +1,5 @@
 <template>
-  <b-modal
+  <b-modal centered
     title="Color Blind Mode Icons"
     :header-text-variant="themeText"
     :footer-bg-variant="themeBg"
@@ -9,6 +9,9 @@
     ok-only
     ok-title="Continue"
   >
+    <head>
+      <link rel="stylesheet' href='css/bootstrap.min.css" />
+    </head>
     <div :class="[{ 'text-white': isDarkMode }, { 'bg-dark': isDarkMode }]">
       <div>
         <p>

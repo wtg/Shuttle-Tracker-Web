@@ -9,9 +9,20 @@
       An RCOS project
     </b-link>
     <div>
-      <b-link class="mr-1" :class="[{'text-black': !isDarkMode}, {'text-gray': isDarkMode}]"
-        href="https://old.shuttletracker.app/"> 
-        <small>Old Web Interface</small> 
+      <b-link :class="[{'text-black': !isDarkMode}, {'text-gray': isDarkMode}]"
+              href="https://shuttletracker.app/swiftui/"
+              target="_blank">
+        <small>iOS/iPadOS/macOS App</small>
+      </b-link>
+      <b-link class="mx-3" :class="[{'text-black': !isDarkMode}, {'text-gray': isDarkMode}]"
+              href="https://play.google.com/store/apps/details?id=edu.rpi.shuttletracker"
+              target="_blank">
+        <small>Android App</small>
+      </b-link>
+      <b-link :class="[{'text-black': !isDarkMode}, {'text-gray': isDarkMode}]"
+              href="https://old.shuttletracker.app/"
+              target="_blank">
+        <small>Old Web Interface</small>
       </b-link>
     </div>
   </footer>

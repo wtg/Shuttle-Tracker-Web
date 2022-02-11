@@ -1,5 +1,5 @@
 <template>
-  <b-modal
+  <b-modal centered
       title="Welcome to the new Shuttle Tracker!"
       :header-text-variant="themeText"
       :footer-bg-variant="themeBg"

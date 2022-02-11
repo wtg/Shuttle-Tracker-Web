@@ -2,7 +2,7 @@
   <b-alert
       v-model="hasAnnouncements"
       :class="[{'announcement-dark': isDarkMode}, {'announcement-light': !isDarkMode}]"
-      class="m-0 rounded-0 p-0 py-2 border-0"
+      class="position-fixed fixed-top m-0 rounded-0 p-0 py-2 border-0"
       style="z-index: 2000;">
     <div ref="announcer" class="scroll-left">
       <div class="position-absolute px-3" style="left: 0;top: 0;z-index: 2000;"
@@ -39,7 +39,7 @@ export default {
       return this.$store.state.isDarkMode
     },
     announcements() {
-      //  filter out unwanted announcements
+      // filter out unwanted announcements
       return this.raw.filter((announce) => {
         if (announce.scheduleType === "startAndEnd") {
           return Date.now() >= Date.parse(announce.start) && Date.now() < Date.parse(announce.end)
@@ -86,6 +86,11 @@ export default {
       //  Fetch raw data from the announcement API
       const res = await axios.get(this.baseURL + '/announcements')
       this.raw = res.data
+
+      /* FOR DEBUGGING, MAKES ANNOUNCEMENT BAR VISIBLE */
+      //this.hasAnnouncements = true;
+      //this.announcements[0] = "";
+
       if (this.hasAnnouncements) {
         this.$nextTick(this.loadAnnouncer)
       }
@@ -107,9 +112,27 @@ export default {
       });
     }
   },
+
+  beforeMount()
+  {
+    /*** handles mouse down and touch down **/
+    let pauseAnim = () => { 
+      document.querySelector(".scroll-left .scroll-text").style.setProperty("--animState", "paused"); 
+    }
+    // add event listeners for pausing the animation
+    "mousedown touchstart".split(" ").forEach(function(e){document.addEventListener(e, pauseAnim, false)});
+
+    /*** handles mouse up and touch release ***/
+    let resumeAnim = () => { 
+      document.querySelector(".scroll-left .scroll-text").style.setProperty("--animState", "running"); 
+    }
+    // add event listeners for resuming the animation
+    "mouseup touchend".split(" ").forEach(function(e){document.addEventListener(e, resumeAnim, false)});
+  },
+  
   mounted() {
-    this.getAnnouncements()
-    this.updateAnnouncements()
+    this.getAnnouncements();
+    this.updateAnnouncements();
   }
 }
 </script>
@@ -143,10 +166,16 @@ export default {
   -moz-transform: translateX(100%);
   -webkit-transform: translateX(100%);
   transform: translateX(100%);
+
+  /* Animation Variables */
+  --defaultSpeed: 25s;
+  --animState: running;
+
   /* Apply animation to this element */
-  -moz-animation: scroll-left 15s linear infinite;
-  -webkit-animation: scroll-left 15s linear infinite;
-  animation: scroll-left 15s linear infinite;
+  -moz-animation: scroll-left var(--defaultSpeed) linear infinite;
+  -webkit-animation: scroll-left var(--defaultSpeed) linear infinite;
+  animation: scroll-left var(--defaultSpeed) linear infinite;
+  animation-play-state: var(--animState);
 }
 
 /* Move it (define the animation) */

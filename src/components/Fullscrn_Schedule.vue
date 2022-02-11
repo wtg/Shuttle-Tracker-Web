@@ -3,9 +3,7 @@
     class="mt-3"
     :class="[{ 'bubble-dark': isDarkMode }, { 'bubble-light': !isDarkMode }]"
   >
-    <h3 :class="{ 'text-white': isDarkMode }">
-      Shuttle Schedule
-    </h3>
+    <h3 :class="{ 'text-white': isDarkMode }">Shuttle Schedule</h3>
     <ul :class="{ 'text-white': isDarkMode }">
       <li>Mon-Fri: 7am - 11:45pm</li>
       <li>Sat: 9am-11:45pm</li>
@@ -27,7 +25,7 @@ export default {
 
 <style scoped>
 h3 {
-  font-size: 20px;
+  font-size: 22px;
 }
 
 ul {
@@ -37,7 +35,7 @@ ul {
 }
 
 li {
-  font-size: 12px;
+  font-size: 15px;
 }
 
 .card {
@@ -51,10 +49,12 @@ li {
 .bubble-light {
   background-color: rgb(235, 235, 235);
   border-color: rgb(235, 235, 235);
+  opacity: 0.8;
 }
 
 .bubble-dark {
   background-color: rgb(71, 71, 71);
   border-color: rgb(71, 71, 71);
+  opacity: 0.8;
 }
 </style>
