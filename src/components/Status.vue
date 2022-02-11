@@ -37,7 +37,10 @@ export default {
     }
   },
   computed: {
-    // Checks each separate status to determin server status
+    /**
+     * Checks each separate status to determin server status
+     * @return{boolean} False if at least one of the statuses are offline
+     */
     totalServerStatus() {
       let status = true
       Object.values(this.serverStatus).forEach((option) => {
@@ -47,14 +50,24 @@ export default {
       })
       return status
     },
-    // Set server status
+    /**
+     * Sets the server status
+     * @return{boolean} The current server status
+     */
     serverStatus() {
       return this.$store.state.serverStatus
     },
+    /**
+     * Checks if in dark mode
+     * @return{boolean} The dark mode status
+     */
     isDarkMode() {
       return this.$store.state.isDarkMode
     }
   },
+  /**
+   * Toggles the list of all four difference server statuses
+   */
   methods: {
     toggleExpand() {
       this.expanded = !this.expanded
