@@ -52,7 +52,7 @@ export default {
     ColorBlindIconModal,
     Settings,
     Copyright,
-    Announcement
+    Announcement,
   }
 }
 </script>

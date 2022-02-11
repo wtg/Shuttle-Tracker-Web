@@ -13,6 +13,9 @@
               {{ fullscreen ? 'Exit' : 'Enter' }} Fullscreen
             </b-badge>
           </div>
+          <div id="schedule" class="position-absolute">
+             <Fullscrn_Schedule v-if="fullscreen"></Fullscrn_Schedule>
+          </div>
         </div>
         <Announcement v-if="fullscreen"></Announcement>
       </div>
@@ -27,6 +30,7 @@ import Announcement from "./Announcement"
 import {BIconFullscreen, BIconFullscreenExit} from "bootstrap-vue"
 import Vue from 'vue'
 import VueFullscreen from 'vue-fullscreen'
+import Fullscrn_Schedule from "./Fullscrn_Schedule.vue"
 
 Vue.use(VueFullscreen)
 
@@ -35,6 +39,7 @@ export default {
   components: {
     Status,
     Announcement,
+    Fullscrn_Schedule,
     BIconFullscreen,
     BIconFullscreenExit
   },
@@ -321,6 +326,11 @@ export default {
 
 #serverStatus {
   top: 6px;
+  left: 24px;
+}
+
+#schedule {
+  bottom: 50px;
   left: 24px;
 }
 </style>
