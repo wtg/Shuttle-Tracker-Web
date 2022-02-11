@@ -65,10 +65,10 @@ export default {
       return this.$store.state.isDarkMode
     }
   },
-  /**
-   * Toggles the list of all four difference server statuses
-   */
   methods: {
+    /**
+     * Toggles the list of all four difference server statuses
+     */
     toggleExpand() {
       this.expanded = !this.expanded
     }
