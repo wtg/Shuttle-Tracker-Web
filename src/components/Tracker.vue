@@ -13,8 +13,10 @@
               {{ fullscreen ? 'Exit' : 'Enter' }} Fullscreen
             </b-badge>
           </div>
-          <div id="schedule" class="position-absolute">
-             <Fullscrn_Schedule v-if="fullscreen"></Fullscrn_Schedule>
+          <div id="sidebar">
+            <div id="schedule" class="position-absolute">
+              <Fullscrn_Schedule v-if="fullscreen"></Fullscrn_Schedule>
+            </div>
           </div>
         </div>
         <Announcement v-if="fullscreen"></Announcement>
