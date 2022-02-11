@@ -54,10 +54,12 @@ img {
 .bubble-light {
   background-color: rgb(235, 235, 235);
   border-color: rgb(235, 235, 235);
+  opacity: 0.8;
 }
 
 .bubble-dark {
   background-color: rgb(71, 71, 71);
   border-color: rgb(71, 71, 71);
+  opacity: 0.8;
 }
 </style>
