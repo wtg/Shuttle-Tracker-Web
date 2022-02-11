@@ -68,6 +68,7 @@ export default {
 }
 .card-body {
   padding: 1rem;
+  opacity: 0.8;
 }
 .bubble-light {
   background-color: rgb(235, 235, 235);
