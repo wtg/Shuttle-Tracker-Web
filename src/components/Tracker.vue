@@ -18,6 +18,9 @@
               <Fullscrn_Schedule v-if="fullscreen"></Fullscrn_Schedule>
             </div>
           </div>
+          <div id="qrcode" class="position-absolute">
+            <Fullscrn_qrcode v-if="fullscreen"></Fullscrn_qrcode>
+          </div>
         </div>
         <Announcement v-if="fullscreen"></Announcement>
       </div>
@@ -33,6 +36,8 @@ import {BIconFullscreen, BIconFullscreenExit} from "bootstrap-vue"
 import Vue from 'vue'
 import VueFullscreen from 'vue-fullscreen'
 import Fullscrn_Schedule from "./Fullscrn_Schedule.vue"
+import Fullscrn_qrcode from "./Fullscrn_qrcode.vue"
+
 
 Vue.use(VueFullscreen)
 
@@ -41,6 +46,7 @@ export default {
   components: {
     Status,
     Announcement,
+    Fullscrn_qrcode,
     Fullscrn_Schedule,
     BIconFullscreen,
     BIconFullscreenExit
@@ -330,6 +336,7 @@ export default {
   top: 6px;
   left: 24px;
 }
+
 
 #schedule {
   bottom: 50px;
