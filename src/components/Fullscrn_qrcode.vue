@@ -3,17 +3,15 @@
     class="mt-3"
     :class="[{ 'bubble-dark': isDarkMode }, { 'bubble-light': !isDarkMode }]"
   >
-    <h3 :class="{ 'text-white': isDarkMode }">
-      Get our mobile app!
-    </h3>
+    <h3 :class="{ 'text-white': isDarkMode }">Get our mobile app!</h3>
 
     <div>
-        <p :class="{ 'text-white': isDarkMode }">
-            IOS APP <span :class="{ 'text-white': isDarkMode }"> Andriod APP  </span>
-        </p>
-        <div>
-            <img src="../../public/app_clip_shuttle.png" alt="ios qr code">
-        </div>
+      <p :class="{ 'text-white': isDarkMode }">
+        IOS APP <span :class="{ 'text-white': isDarkMode }"> Andriod APP </span>
+      </p>
+      <div>
+        <img src="../../public/app_clip_shuttle.png" alt="ios qr code" />
+      </div>
     </div>
   </b-card>
 </template>
@@ -33,17 +31,17 @@ export default {
 h3 {
   font-size: 30px;
 }
- p {
-     margin-bottom: 0px;
-    padding-bottom: 5px;
-    padding-left: 38px;
-    padding-right: 38px;
- }
+p {
+  margin-bottom: 0px;
+  padding-bottom: 5px;
+  padding-left: 38px;
+  padding-right: 38px;
+}
 span {
-    float:right;
+  float: right;
 }
 img {
-    width: 50%;
+  width: 40%;
 }
 .card {
   border-radius: 7px;
