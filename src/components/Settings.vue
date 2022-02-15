@@ -13,6 +13,10 @@
                      :class="{'text-white': isDarkMode}">
       Create Fake HQ data: Bus 69
     </b-form-checkbox>
+    <b-form-checkbox v-if="devToolsEnabled" v-model="devAnnouncement" name="AnnouncementBarSwitch" switch
+                     :class="{'text-white': isDarkMode}">
+      Toggle Fake Announcement Bar
+    </b-form-checkbox>
   </b-card>
 </template>
 
@@ -24,6 +28,7 @@ export default {
       isCbMode: false,
       isDark: false,
       devHQ: false,
+      devAnnouncement: false,
       devToolsEnabled: process.env.VUE_APP_DEV_TOOLS_ENABLED === "true",
       // Explanation Message when hovering over setting sliders
       cbExplanation: "Changes the icons of buses to + and ! based on the quality of the bus data",
@@ -39,6 +44,9 @@ export default {
     },
     setHQData() {
       this.$store.commit('setFakeHQ', this.devHQ)
+    },
+    simulateAnnouncementBar() {
+      this.$store.commit('fakeAnnouncement', this.devAnnouncement);
     }
   },
   computed: {
@@ -52,6 +60,9 @@ export default {
     },
     devHQ() {
       this.setHQData()
+    },
+    devAnnouncement() {
+      this.simulateAnnouncementBar();
     }
   },
   mounted() {
