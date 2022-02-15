@@ -15,7 +15,7 @@
     </b-form-checkbox>
     <b-form-checkbox v-if="devToolsEnabled" v-model="devAnnouncement" name="AnnouncementBarSwitch" switch
                      :class="{'text-white': isDarkMode}">
-      Simulate Announcement Bar
+      Toggle Fake Announcement Bar
     </b-form-checkbox>
   </b-card>
 </template>
@@ -46,7 +46,7 @@ export default {
       this.$store.commit('setFakeHQ', this.devHQ)
     },
     simulateAnnouncementBar() {
-      this.$store.commit('fakeAnnouncement', this.devAnnouncement)
+      this.$store.commit('fakeAnnouncement', this.devAnnouncement);
     }
   },
   computed: {
