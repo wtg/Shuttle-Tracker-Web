@@ -6,8 +6,8 @@
     <h3 :class="{ 'text-white': isDarkMode }">Shuttle Schedule</h3>
     <ul :class="{ 'text-white': isDarkMode }">
       <li>Mon-Fri: 7am - 11:45pm</li>
-      <li>Sat: 9am-11:45pm</li>
-      <li>Sun: 9am -8pm</li>
+      <li>Sat: 9am - 11:45pm</li>
+      <li>Sun: 9am - 8pm</li>
     </ul>
   </b-card>
 </template>
@@ -47,14 +47,12 @@ li {
 }
 
 .bubble-light {
-  background-color: rgb(235, 235, 235);
-  border-color: rgb(235, 235, 235);
-  opacity: 0.8;
+  background-color: rgb(235, 235, 235,0.75);
+  border-color: rgba(235, 235, 235, 0.75);
 }
 
 .bubble-dark {
-  background-color: rgb(71, 71, 71);
-  border-color: rgb(71, 71, 71);
-  opacity: 0.8;
+  background-color: rgb(71, 71, 71, 0.8);
+  border-color: rgb(71, 71, 71, 0.8);
 }
 </style>
