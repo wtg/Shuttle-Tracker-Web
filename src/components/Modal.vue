@@ -33,7 +33,8 @@
         data. Download our new beta app today! Click on "iOS App" link located
         on the bottom right hand corner of the map for more information.
       </p>
-      <p><i> Our Android app is coming soon!</i></p>
+      <p>If you use Android, then you can download our Android app! Click on "Android App"
+        located on the bottom of the page.</p>
     </div>
   </b-modal>
 </template>
