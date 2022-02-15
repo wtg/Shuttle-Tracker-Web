@@ -13,10 +13,55 @@
 
 <script>
 export default {
+  data() {
+    return {
+      schedules: [],
+      currentSemester: "Undefined",
+      currentSchedule: [],
+    };
+  },
   computed: {
     isDarkMode() {
       return this.$store.state.isDarkMode
     }
+  },
+  methods: {
+    async getData() {
+      try {
+        const response = await this.$http.get(
+          "https://shuttletracker.app/schedule.json"
+        );
+        this.schedules = response.schedules;
+      }
+      catch (error) {
+        //console.log(error);
+      }
+    },
+    currentDate() {
+      const current = new Date();
+      const date = `${current.getFullYear()}-${current.getMonth()+1}-${current.getDate()}`;
+      return date;
+    },
+    compareDates(sched) {
+      const current = currentDate().getTime();
+      const before = sched.start.getTime();
+      const after = sched.end.getTime();
+      if (before <= current && current <= after)
+        return true;
+      
+      return false;
+    },
+    checkDate() {
+      const date = currentDate();
+      for (i = 0; i < this.schedules.length; i++) {
+        if (compareDates(this.schedules[i])) {
+          this.currentSemester = this.schedules[i].name;
+          for (j = 0; j < 7; j++)
+            this.currentSchedule[j] = this.schedules[i].content[j];
+        }
+      }
+    },
+    
   }
 }
 </script>
