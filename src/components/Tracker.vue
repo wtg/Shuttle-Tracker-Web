@@ -25,7 +25,12 @@
             </b-badge>
           </div>
           <div v-if="fullscreen" id="sidebar" class="position-absolute">
-            <div v-if="fullscreen" id="serverStatus" class="position-absolute">
+            <div v-if="fullscreen" id="serverStatus">
+              <img
+                id="logo"
+                src="../../public/android-chrome-192x192.png"
+                alt="logo"
+              />
               <Status></Status>
               <b-badge
                 v-if="showFullScreen"
@@ -388,11 +393,22 @@ export default {
 }
 
 #sidebar {
-  padding-bottom: 40px;
+  height: 100%;
+  width: 265px;
   padding-left: 15px;
-  padding-top: 233px;
   padding-right: 24px;
-  bottom: 0px;
+  top: 0px;
+  left: 0px;
   background-color: rgb(104, 104, 104, 0.425);
+}
+
+#schedule {
+  margin-top: 40px;
+}
+
+#logo {
+  width: 20%;
+  display: inline-block;
+  float: right;
 }
 </style>
