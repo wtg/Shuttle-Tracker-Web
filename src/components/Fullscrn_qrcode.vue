@@ -7,13 +7,13 @@
     <div class="box">
       <p :class="{ 'text-white': isDarkMode }">IOS</p>
       <div>
-        <img src="../../public/app_clip_shuttle.png" alt="ios qr code" />
+        <img src="../../public/App_Clip_Code.svg" alt="ios qr code" />
       </div>
     </div>
     <div class="box">
       <p :class="{ 'text-white': isDarkMode }">Android</p>
       <div>
-        <img src="" alt="android qr code" />
+        <img src="../../public/Android_qr.svg" alt="android qr code" />
       </div>
     </div>
   </b-card>
