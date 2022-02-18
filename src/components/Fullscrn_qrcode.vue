@@ -3,9 +3,9 @@
     class="mt-3"
     :class="[{ 'bubble-dark': isDarkMode }, { 'bubble-light': !isDarkMode }]"
   >
-    <h3 :class="{ 'text-white': isDarkMode }">Get The Mobile App!</h3>
+    <h3 :class="{ 'text-white': isDarkMode }">Get the Mobile App!</h3>
     <div class="box">
-      <p :class="{ 'text-white': isDarkMode }">IOS</p>
+      <p :class="{ 'text-white': isDarkMode }">iOS</p>
       <div>
         <img src="../../public/App_Clip_Code.svg" alt="ios qr code" />
       </div>
@@ -45,6 +45,7 @@ span {
 }
 img {
   width: 65%;
+  margin-bottom: 10px;
 }
 .card {
   border-radius: 7px;
@@ -58,12 +59,12 @@ img {
 }
 
 .bubble-light {
-  background-color: rgb(235, 235, 235, 0.75);
+  background-color: rgba(235, 235, 235, 0.75);
   border-color: rgba(235, 235, 235, 0.75);
 }
 
 .bubble-dark {
-  background-color: rgb(71, 71, 71, 0.8);
-  border-color: rgb(71, 71, 71, 0.8);
+  background-color: rgba(71, 71, 71, 0.8);
+  border-color: rgba(71, 71, 71, 0.8);
 }
 </style>

@@ -47,12 +47,12 @@ li {
 }
 
 .bubble-light {
-  background-color: rgb(235, 235, 235,0.75);
+  background-color: rgba(235, 235, 235, 0.75);
   border-color: rgba(235, 235, 235, 0.75);
 }
 
 .bubble-dark {
-  background-color: rgb(71, 71, 71, 0.8);
-  border-color: rgb(71, 71, 71, 0.8);
+  background-color: rgba(71, 71, 71, 0.8);
+  border-color: rgba(71, 71, 71, 0.8);
 }
 </style>
