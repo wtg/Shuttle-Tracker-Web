@@ -1,23 +1,24 @@
 <template>
   <b-card class="mt-3" :class="[{'bubble-dark': isDarkMode},{'bubble-light': !isDarkMode}]">
     <h3 :class="{'text-white': isDarkMode}">
-      Spring 2022 Schedule
+      {{getCurrentSemester()}} Schedule
     </h3>
     <ul :class="{'text-white': isDarkMode}">
-      <li> Monday - Friday 7:00 am - 11:45 pm</li>
-      <li> Saturday 9:00 am - 11:45 pm</li>
-      <li> Sunday 9:00 am - 8:00 pm</li>
+      <li> Monday - Friday {{currentWeek.monday.start}} am - {{currentWeek.monday.end}} pm</li>
+      <li> Saturday {{currentWeek.saturday.start}} am - {{currentWeek.saturday.end}} pm</li>
+      <li> Sunday {{currentWeek.sunday.start}} am - {{currentWeek.sunday.end}} pm</li>
     </ul>
   </b-card>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   data() {
     return {
       schedules: [],
-      currentSemester: "Undefined",
-      currentSchedule: [],
+      currentWeek: undefined,
     };
   },
   computed: {
@@ -26,42 +27,20 @@ export default {
     }
   },
   methods: {
-    async getData() {
-      try {
-        const response = await this.$http.get(
-          "https://shuttletracker.app/schedule.json"
-        );
-        this.schedules = response.schedules;
-      }
-      catch (error) {
-        //console.log(error);
-      }
-    },
-    currentDate() {
+    getCurrentSemester() {
+      axios
+        .get("https://shuttletracker.app/schedule.json")
+        .then(response => (this.schedules = response.data))
+
       const current = new Date();
-      const date = `${current.getFullYear()}-${current.getMonth()+1}-${current.getDate()}`;
-      return date;
-    },
-    compareDates(sched) {
-      const current = currentDate().getTime();
-      const before = sched.start.getTime();
-      const after = sched.end.getTime();
-      if (before <= current && current <= after)
-        return true;
-      
-      return false;
-    },
-    checkDate() {
-      const date = currentDate();
-      for (i = 0; i < this.schedules.length; i++) {
-        if (compareDates(this.schedules[i])) {
-          this.currentSemester = this.schedules[i].name;
-          for (j = 0; j < 7; j++)
-            this.currentSchedule[j] = this.schedules[i].content[j];
+
+      for (let i = 0; i < this.schedules.length; i++) {
+        if (this.schedules[i].start <= current.toISOString() && this.schedules[i].end >= current.toISOString()) {
+          this.currentWeek = this.schedules[i].content;
+          return this.schedules[i].name;
         }
       }
-    },
-    
+    }
   }
 }
 </script>
