@@ -1,7 +1,7 @@
 <template>
   <b-card class="mt-3" :class="[{'bubble-dark': isDarkMode},{'bubble-light': !isDarkMode}]">
     <h3 :class="{'text-white': isDarkMode}">
-      {{getCurrentSemester()}} Schedule
+      {{currentSemester}} Schedule
     </h3>
     <ul :class="{'text-white': isDarkMode}">
       <li> Monday - Friday {{currentWeek.monday.start}} am - {{currentWeek.monday.end}} pm</li>
@@ -18,7 +18,37 @@ export default {
   data() {
     return {
       schedules: [],
-      currentWeek: undefined,
+      currentWeek: {
+			"monday": {
+				"start": "01:00",
+				"end": "23:00"
+			},
+			"tuesday": {
+				"start": "01:00",
+				"end": "23:00"
+			},
+			"wednesday": {
+				"start": "01:00",
+				"end": "23:00"
+			},
+			"thursday": {
+				"start": "01:00",
+				"end": "23:00"
+			},
+			"friday": {
+				"start": "01:00",
+				"end": "23:00"
+			},
+			"saturday": {
+				"start": "01:00",
+				"end": "23:00"
+			},
+			"sunday": {
+				"start": "01:00",
+				"end": "23:00"
+			}
+		},
+      currentSemester: undefined
     };
   },
   computed: {
@@ -27,20 +57,23 @@ export default {
     }
   },
   methods: {
-    getCurrentSemester() {
-      axios
-        .get("https://shuttletracker.app/schedule.json")
-        .then(response => (this.schedules = response.data))
+    async getCurrentSemester() {
+      const response = await axios.get("https://shuttletracker.app/schedule.json")
+
+      this.schedules = response.data
 
       const current = new Date();
 
       for (let i = 0; i < this.schedules.length; i++) {
         if (this.schedules[i].start <= current.toISOString() && this.schedules[i].end >= current.toISOString()) {
           this.currentWeek = this.schedules[i].content;
-          return this.schedules[i].name;
+          this.currentSemester = this.schedules[i].name;
         }
       }
     }
+  },
+  mounted () {
+    this.getCurrentSemester();
   }
 }
 </script>
