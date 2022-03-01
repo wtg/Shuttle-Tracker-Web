@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="isFsMode">
     <h1 class="display-4" :class="{'text-white': isDarkMode}">
       Shuttle Tracker <span v-if="showBeta" class="text-muted h4">BETA</span>
     </h1>
@@ -17,6 +17,9 @@ export default {
   computed: {
     isDarkMode() {
       return this.$store.state.isDarkMode
+    },
+    isFsMode() {
+      return !this.$store.state.isFsMode
     }
   }
 }

@@ -68,6 +68,9 @@ export default {
     },
     fakeHQ() {
       return this.$store.state.fakeHQ;
+    },
+    isFsMode() {
+      return !this.$store.state.isFsMode
     }
   },
   mounted() {
@@ -111,6 +114,7 @@ export default {
     },
     toggleFullscreen() {
       this.fullscreen = !this.fullscreen
+      this.$store.commit('setFsMode', this.fullscreen);
       this.fixRoundedBorders()  // remove/apply rounded corners on the map
     },
     fixRoundedBorders() {

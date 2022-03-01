@@ -1,5 +1,5 @@
 <template>
-  <b-card class="mt-3" :class="[{'bubble-dark': isDarkMode},{'bubble-light': !isDarkMode}]">
+  <b-card v-if="isFsMode" class="mt-3" :class="[{'bubble-dark': isDarkMode},{'bubble-light': !isDarkMode}]">
     <h3 :class="{'text-white': isDarkMode}">
       Spring 2022 Schedule
     </h3>
@@ -16,6 +16,9 @@ export default {
   computed: {
     isDarkMode() {
       return this.$store.state.isDarkMode
+    },
+    isFsMode() {
+      return !this.$store.state.isFsMode
     }
   }
 }
