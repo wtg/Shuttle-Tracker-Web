@@ -51,19 +51,31 @@ export default {
       currentSemester: undefined
     };
   },
+  /**
+   * Checks if in dark mode
+   * @return{boolean} The dark mode status
+   */
   computed: {
     isDarkMode() {
       return this.$store.state.isDarkMode
     }
   },
   methods: {
+    /**
+     * Gets and loops through API. Puts schedule from range into variables.
+     */
     async getCurrentSemester() {
+
+      // Gets API
       const response = await axios.get("https://shuttletracker.app/schedule.json")
 
+      // API goes in here
       this.schedules = response.data
+
 
       const current = new Date();
 
+      // Checking if current time is between schedule start and end dates
       for (let i = 0; i < this.schedules.length; i++) {
         if (this.schedules[i].start <= current.toISOString() && this.schedules[i].end >= current.toISOString()) {
           this.currentWeek = this.schedules[i].content;
