@@ -1,5 +1,5 @@
 <template>
-  <b-card
+  <b-card v-if="isFsMode"
     class="mt-3"
     :class="[{ 'bubble-dark': isDarkMode }, { 'bubble-light': !isDarkMode }]"
   >
@@ -23,6 +23,9 @@ export default {
     isDarkMode() {
       return this.$store.state.isDarkMode;
     },
+    isFsMode() {
+      return !this.$store.state.isFsMode
+    }
   },
 };
 </script>

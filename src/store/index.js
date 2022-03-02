@@ -8,6 +8,7 @@ export default new Vuex.Store({
     state: {
         isDarkMode: false,
         isCbMode: false,
+        isFsMode: false,
         serverStatus: {
             routes: true,
             stops: true,
@@ -55,6 +56,10 @@ export default new Vuex.Store({
         // Show a fake announcement bar for development purposes
         fakeAnnouncement(state, status) {
             state.fakeAnnounce = status;
+        },
+        // Set fullscreen mode
+        setFsMode(state, status) {
+            state.isFsMode = status;
         }
     },
     actions: {},
