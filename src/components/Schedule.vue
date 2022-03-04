@@ -48,7 +48,7 @@ export default {
 				"end": "23:00"
 			}
 		},
-      currentSemester: undefined
+      currentSemester: "Spring 2022"
     };
   },
   /**
@@ -83,6 +83,7 @@ export default {
         if (this.schedules[i].start <= current.toISOString() && this.schedules[i].end >= current.toISOString()) {
           this.currentWeek = this.schedules[i].content;
           this.currentSemester = this.schedules[i].name;
+          break;
         }
       }
     }
