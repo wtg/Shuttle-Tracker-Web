@@ -16,7 +16,8 @@ export default new Vuex.Store({
             version: true
         },
         fakeHQ: false,
-        fakeAnnounce: false
+        fakeAnnounce: false,
+        baseURL: process.env.VUE_APP_API_BASE_URL
     },
     // Functions to alter the website states
     mutations: {

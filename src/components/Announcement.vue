@@ -29,12 +29,14 @@ export default {
       updateOnNextInterval: false,
       fetchInterval: parseInt(process.env.VUE_APP_ANNOUNCEMENT_UPDATE_INTERVAL), // update announcement every minute
       announcerIndex: 0,
-      baseURL: process.env.VUE_APP_API_BASE_URL,
       rawUpdate: [],  // temporarily stores updated announcements
       raw: []
     }
   },
   computed: {
+    baseURL() {
+      return this.$store.state.baseURL
+    },
     isDarkMode() {
       return this.$store.state.isDarkMode
     },
@@ -100,7 +102,7 @@ export default {
         // Input fake announcement
         this.announcements[0] = {subject: "Debug", body: "This is a fake announcement."};
       } else {
-        // Clear announcements. This clears all announcements, so this developer setting can 
+        // Clear announcements. This clears all announcements, so this developer setting can
         // also be used to hide the announcement bar when there are actual announcements displayed.
         this.announcements.splice(0, this.announcements.length);
       }
@@ -130,20 +132,20 @@ export default {
   beforeMount()
   {
     /*** handles mouse down and touch down **/
-    let pauseAnim = () => { 
-      document.querySelector(".scroll-left .scroll-text").style.setProperty("--animState", "paused"); 
+    let pauseAnim = () => {
+      document.querySelector(".scroll-left .scroll-text").style.setProperty("--animState", "paused");
     }
     // add event listeners for pausing the animation
     "mousedown touchstart".split(" ").forEach(function(e){document.addEventListener(e, pauseAnim, false)});
 
     /*** handles mouse up and touch release ***/
-    let resumeAnim = () => { 
-      document.querySelector(".scroll-left .scroll-text").style.setProperty("--animState", "running"); 
+    let resumeAnim = () => {
+      document.querySelector(".scroll-left .scroll-text").style.setProperty("--animState", "running");
     }
     // add event listeners for resuming the animation
     "mouseup touchend".split(" ").forEach(function(e){document.addEventListener(e, resumeAnim, false)});
   },
-  
+
   mounted() {
     this.getAnnouncements();
     this.updateAnnouncements();
