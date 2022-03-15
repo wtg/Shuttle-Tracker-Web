@@ -11,7 +11,7 @@
     </b-form-checkbox>
     <b-form-checkbox  @change="setAdvMode" :class="[{'text-white': isDarkMode}]" v-model="isAdvMode" name="AdvModeSwitch"
                       v-b-tooltip.hover.lefttop :title="advSettingsExplanation" switch>
-      Enable Advance Settings
+      Enable Advanced Settings
     </b-form-checkbox>
     <b-form-checkbox v-if="devToolsEnabled" v-model="devHQ" name="check-button" switch
                      :class="{'text-white': isDarkMode}">
@@ -38,7 +38,7 @@ export default {
       // Explanation Message when hovering over setting sliders
       cbExplanation: "Changes the icons of buses to + and ! based on the quality of the bus data",
       darkExplanation: "Switches dark mode on or off",
-      advSettingsExplanation: "Enable advance settings",
+      advSettingsExplanation: "Enable advanced settings",
     }
   },
   methods: {
