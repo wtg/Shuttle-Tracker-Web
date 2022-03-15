@@ -94,15 +94,12 @@ export default {
     async getAnnouncements() {
       // Fetch raw data from the announcement API
       const res = await axios.get(this.baseURL + '/announcements');
+      /* FOR DEBUGGING >>*/ //const res = await axios.get('https://staging.shuttletracker.app/announcements');
       this.raw = res.data;
       // Simulate announcement bar
       if(this.devAnnouncement) {
         // Input fake announcement
         this.announcements[0] = {subject: "Debug", body: "This is a fake announcement."};
-      } else {
-        // Clear announcements. This clears all announcements, so this developer setting can 
-        // also be used to hide the announcement bar when there are actual announcements displayed.
-        this.announcements.splice(0, this.announcements.length);
       }
 
       if (this.hasAnnouncements) {
@@ -129,16 +126,20 @@ export default {
 
   beforeMount()
   {
-    /*** handles mouse down and touch down **/
+    var i = document.querySelector(".scroll-left .scroll-text");
+    // handles mouse down and touch down
     let pauseAnim = () => { 
-      document.querySelector(".scroll-left .scroll-text").style.setProperty("--animState", "paused"); 
+      if(i) {
+        i.style.setProperty("--animState", "paused"); 
+      }
     }
     // add event listeners for pausing the animation
     "mousedown touchstart".split(" ").forEach(function(e){document.addEventListener(e, pauseAnim, false)});
-
-    /*** handles mouse up and touch release ***/
-    let resumeAnim = () => { 
-      document.querySelector(".scroll-left .scroll-text").style.setProperty("--animState", "running"); 
+     // handles mouse up and touch release
+    let resumeAnim = () => {
+      if(i) { 
+        i.style.setProperty("--animState", "running");
+      }
     }
     // add event listeners for resuming the animation
     "mouseup touchend".split(" ").forEach(function(e){document.addEventListener(e, resumeAnim, false)});
