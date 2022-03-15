@@ -16,7 +16,11 @@ export default new Vuex.Store({
             version: true
         },
         fakeHQ: false,
-        fakeAnnounce: false
+        fakeAnnounce: false,
+        defaultURL: process.env.VUE_APP_API_BASE_URL,   // keeps track of the default URL, immutable in run time
+        baseURL: process.env.VUE_APP_API_BASE_URL,  // the baseURL that the API calls follows, mutable
+        isOfficialURL: true, // indicates is the API is the official one or not
+        isAdvMode: false    // indicates whether advance settings are enabled
     },
     // Functions to alter the website states
     mutations: {
@@ -60,6 +64,20 @@ export default new Vuex.Store({
         // Set fullscreen mode
         setFsMode(state, status) {
             state.isFsMode = status;
+        },
+        // Set baseURL for the APIs
+        setBaseURL(state, newURL) {
+            state.baseURL = newURL
+            state.isOfficialURL = false
+        },
+        // Set baseURL back to default
+        restoreBaseURL(state) {
+            state.baseURL = this.state.defaultURL
+            state.isOfficialURL = true
+        },
+        // Enable / Disable advance setting tab
+        setAdvMode(state, status){
+            state.isAdvMode = status
         }
     },
     actions: {},
