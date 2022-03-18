@@ -29,12 +29,14 @@ export default {
       updateOnNextInterval: false,
       fetchInterval: parseInt(process.env.VUE_APP_ANNOUNCEMENT_UPDATE_INTERVAL), // update announcement every minute
       announcerIndex: 0,
-      baseURL: process.env.VUE_APP_API_BASE_URL,
       rawUpdate: [],  // temporarily stores updated announcements
       raw: []
     }
   },
   computed: {
+    baseURL() {
+      return this.$store.state.baseURL
+    },
     isDarkMode() {
       return this.$store.state.isDarkMode
     },
@@ -144,7 +146,7 @@ export default {
     // add event listeners for resuming the animation
     "mouseup touchend".split(" ").forEach(function(e){document.addEventListener(e, resumeAnim, false)});
   },
-  
+
   mounted() {
     this.getAnnouncements();
     this.updateAnnouncements();

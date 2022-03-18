@@ -47,7 +47,6 @@ export default {
     return {
       routesInterval: undefined,  // for handling request failures
       stopsInterval: undefined,  // for handling request failures
-      baseURL: process.env.VUE_APP_API_BASE_URL,
       mapObj: undefined,
       tokenID: process.env.VUE_APP_MAP_TOKEN_ID,
       apiVersion: process.env.VUE_APP_API_VERSION,
@@ -57,6 +56,9 @@ export default {
     }
   },
   computed: {
+    baseURL() {
+      return this.$store.state.baseURL;
+    },
     isDarkMode() {
       return this.$store.state.isDarkMode;
     },

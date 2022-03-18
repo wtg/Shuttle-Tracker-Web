@@ -22,6 +22,7 @@
         API
       </b-badge>
     </div>
+    <b-badge v-if="!isOfficialURL" role="button" class="mx-1" variant="warning" v-b-tooltip.hover :title="NonOfficialWarning">Non-Official API</b-badge>
   </div>
 </template>
 
@@ -33,12 +34,16 @@ export default {
       expanded: false,
       compStatus: "If the badge is green, this component is working!",
       APIWarning: "If the badge is red, the app may be broken. You have been warned.",
+      NonOfficialWarning: "You are using the non-official API, which may result in broken features.",
       statusDescription: "Click to see detailed report on server status."
     }
   },
   computed: {
+    isOfficialURL() {
+      return this.$store.state.isOfficialURL
+    },
     /**
-     * Checks each separate status to determin server status
+     * Checks each separate status to determine server status
      * @return{boolean} False if at least one of the statuses are offline
      */
     totalServerStatus() {

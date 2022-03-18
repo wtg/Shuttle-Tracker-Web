@@ -56,6 +56,9 @@ export default {
    * @return{boolean} The dark mode status
    */
   computed: {
+    baseURL() {
+      return this.$store.state.baseURL
+    },
     isDarkMode() {
       return this.$store.state.isDarkMode
     },
@@ -70,7 +73,7 @@ export default {
     async getCurrentSemester() {
 
       // Gets API
-      const response = await axios.get("https://shuttletracker.app/schedule.json")
+      const response = await axios.get(this.baseURL + "/schedule.json")
 
       // API goes in here
       this.schedules = response.data
