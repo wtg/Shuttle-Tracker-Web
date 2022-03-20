@@ -4,9 +4,9 @@
       {{currentSemester}} Schedule
     </h3>
     <ul :class="{'text-white': isDarkMode}">
-      <li> Monday - Friday {{currentWeek.monday.start}} am - {{currentWeek.monday.end}} pm</li>
-      <li> Saturday {{currentWeek.saturday.start}} am - {{currentWeek.saturday.end}} pm</li>
-      <li> Sunday {{currentWeek.sunday.start}} am - {{currentWeek.sunday.end}} pm</li>
+      <li> Monday - Friday {{currentWeek.monday.start}} - {{currentWeek.monday.end}}</li>
+      <li> Saturday {{currentWeek.saturday.start}} - {{currentWeek.saturday.end}}</li>
+      <li> Sunday {{currentWeek.sunday.start}} - {{currentWeek.sunday.end}}</li>
     </ul>
   </b-card>
 </template>
