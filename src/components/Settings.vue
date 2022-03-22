@@ -25,8 +25,12 @@
 </template>
 
 <script>
+
+import darkModeMixin from  '../mixins/darkModeMixin'
+
 export default {
   name: "Settings",
+  mixins: [darkModeMixin],
   data() {
     return {
       isCbMode: false,
@@ -59,9 +63,9 @@ export default {
     }
   },
   computed: {
-    isDarkMode() {
-      return this.$store.state.isDarkMode
-    },
+    // isDarkMode() {
+    //   return this.$store.state.isDarkMode
+    // },
     isFsMode() {
       return !this.$store.state.isFsMode
     }

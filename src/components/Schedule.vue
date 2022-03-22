@@ -13,8 +13,10 @@
 
 <script>
 import axios from 'axios'
+import darkModeMixin from  '../mixins/darkModeMixin'
 
 export default {
+  mixins: [darkModeMixin],
   data() {
     return {
       schedules: [],
@@ -59,9 +61,9 @@ export default {
     baseURL() {
       return this.$store.state.baseURL
     },
-    isDarkMode() {
-      return this.$store.state.isDarkMode
-    },
+    // isDarkMode() {
+    //   return this.$store.state.isDarkMode
+    // },
     isFsMode() {
       return !this.$store.state.isFsMode
     }
