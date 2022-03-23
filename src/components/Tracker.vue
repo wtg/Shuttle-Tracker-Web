@@ -6,7 +6,7 @@
           <div id="map" class="w-100" style="height: 75vh" :class="{'h-100': fullscreen}"></div>
           <div id="serverStatus" class="position-absolute">
             <Status></Status>
-            <b-badge v-if="showFullScreen" v-b-tooltip.hover :title="FullscreenDesc" role="button" variant="primary"
+            <b-badge v-if="showFullScreen && showIcons" v-b-tooltip.hover :title="FullscreenDesc" role="button" variant="primary"
                      @click="toggleFullscreen">
               <BIconFullscreen v-if="!fullscreen"></BIconFullscreen>
               <BIconFullscreenExit v-if="fullscreen"></BIconFullscreenExit>
@@ -53,6 +53,7 @@ export default {
       fullscreen: false,
       FullscreenDesc: 'Toggle fullscreen mode.',
       showFullScreen: false,  // only show fs on non-mobile device
+      showIcons: true
     }
   },
   computed: {
@@ -115,9 +116,20 @@ export default {
       return check;
     },
     toggleFullscreen() {
+      this.showIcons = false;
+      this.$store.commit('showIcons', this.showIcons);
       this.fullscreen = !this.fullscreen
       this.$store.commit('setFsMode', this.fullscreen);
       this.fixRoundedBorders()  // remove/apply rounded corners on the map
+
+      var self = this;
+      setTimeout(function() {
+        self.$nextTick(function() {  
+          self.showIcons = true;
+          this.$store.commit('showIcons', this.showIcons);
+        });
+      }, 600); // set to 600 delay
+
     },
     fixRoundedBorders() {
       const mapDiv = this.$el.querySelector('#map .mk-map-view')
