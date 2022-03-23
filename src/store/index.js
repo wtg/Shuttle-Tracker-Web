@@ -9,6 +9,7 @@ export default new Vuex.Store({
         isDarkMode: false,
         isCbMode: false,
         isFsMode: false,
+        showStatus: true,
         serverStatus: {
             routes: true,
             stops: true,
@@ -64,6 +65,9 @@ export default new Vuex.Store({
         // Set fullscreen mode
         setFsMode(state, status) {
             state.isFsMode = status;
+        },
+        setIconStatus(state, status) {
+            state.showStatus = status;
         },
         // Set baseURL for the APIs
         setBaseURL(state, newURL) {

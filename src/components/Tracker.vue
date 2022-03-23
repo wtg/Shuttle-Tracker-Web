@@ -116,24 +116,27 @@ export default {
       return check;
     },
     toggleFullscreen() {
-      this.showIcons = false;
-      this.$store.commit('showIcons', this.showIcons);
       this.fullscreen = !this.fullscreen
       this.$store.commit('setFsMode', this.fullscreen);
-      this.fixRoundedBorders()  // remove/apply rounded corners on the map
-
-      var self = this;
-      setTimeout(function() {
-        self.$nextTick(function() {  
-          self.showIcons = true;
-          this.$store.commit('showIcons', this.showIcons);
-        });
-      }, 600); // set to 600 delay
-
+      this.fixRoundedBorders();  // remove/apply rounded corners on the map
+      this.hideIcons();
     },
     fixRoundedBorders() {
       const mapDiv = this.$el.querySelector('#map .mk-map-view')
       mapDiv.style.borderRadius = this.fullscreen ? '0' : '7px'
+    },
+    hideIcons() {
+      if(!this.fullscreen) return; // don't hide icons when exiting fullscreen.
+      this.showIcons = false;
+      this.$store.commit('setIconStatus', false);
+      var self = this;
+      var time = 750; // 750 default time
+      setTimeout(function() {
+        self.$nextTick(function() {  
+          this.showIcons = true;
+          this.$store.commit('setIconStatus', true);
+        });
+      }, time);
     },
     async getAPIVersion() {
       try {
