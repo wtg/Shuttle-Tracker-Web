@@ -29,9 +29,9 @@ export default {
      * Checks if in fullscreen mode
      * @return{boolean} The fullscreen status
      */
-    isFsMode() {
-      return !this.$store.state.isFsMode
-    }
+    // isFsMode() {
+    //   return !this.$store.state.isFsMode
+    // }
   }
 }
 </script>

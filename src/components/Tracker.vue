@@ -73,9 +73,9 @@ export default {
     fakeHQ() {
       return this.$store.state.fakeHQ;
     },
-    isFsMode() {
-      return !this.$store.state.isFsMode
-    }
+    // isFsMode() {
+    //   return !this.$store.state.isFsMode
+    // }
   },
   mounted() {
     // initialize map object

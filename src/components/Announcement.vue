@@ -21,11 +21,9 @@
 
 <script>
 import axios from "axios";
-import mixin from '../mixins/mixins.js'
 
 export default {
   name: "Announcement",
-  mixins: [mixin],
   data() {
     return {
       updateOnNextInterval: false,
@@ -39,9 +37,9 @@ export default {
     baseURL() {
       return this.$store.state.baseURL
     },
-    // isDarkMode() {
-    //   return this.$store.state.isDarkMode
-    // },
+    isDarkMode() {
+      return this.$store.state.isDarkMode
+    },
     devAnnouncement() {
       return this.$store.state.fakeAnnounce;
     },

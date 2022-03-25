@@ -64,9 +64,9 @@ export default {
     // isDarkMode() {
     //   return this.$store.state.isDarkMode
     // },
-    isFsMode() {
-      return !this.$store.state.isFsMode
-    }
+    // isFsMode() {
+    //   return !this.$store.state.isFsMode
+    // }
   },
   methods: {
     /**

@@ -27,11 +27,9 @@
 </template>
 
 <script>
-import mixin from '../mixins/mixins.js'
 
 export default {
   name: "Status",
-  mixins: [mixin],
   data() {
     return {
       expanded: false,
@@ -69,9 +67,9 @@ export default {
      * Checks if in dark mode
      * @return{boolean} The dark mode status
      */
-    // isDarkMode() {
-    //   return this.$store.state.isDarkMode
-    // }
+    isDarkMode() {
+      return this.$store.state.isDarkMode
+    }
   },
   methods: {
     /**
