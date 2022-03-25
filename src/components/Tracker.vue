@@ -73,15 +73,14 @@ export default {
     Status,
     Announcement,
     Fullscrn_qrcode,
-    Fullscrn_Schedule,
     BIconFullscreen,
     BIconFullscreenExit,
+    Fullscrn_Schedule
   },
   data() {
     return {
-      routesInterval: undefined, // for handling request failures
-      stopsInterval: undefined, // for handling request failures
-      baseURL: process.env.VUE_APP_API_BASE_URL,
+      routesInterval: undefined,  // for handling request failures
+      stopsInterval: undefined,  // for handling request failures
       mapObj: undefined,
       tokenID: process.env.VUE_APP_MAP_TOKEN_ID,
       apiVersion: process.env.VUE_APP_API_VERSION,
@@ -91,6 +90,9 @@ export default {
     };
   },
   computed: {
+    baseURL() {
+      return this.$store.state.baseURL;
+    },
     isDarkMode() {
       return this.$store.state.isDarkMode;
     },
@@ -103,6 +105,9 @@ export default {
     fakeHQ() {
       return this.$store.state.fakeHQ;
     },
+    isFsMode() {
+      return !this.$store.state.isFsMode
+    }
   },
   mounted() {
     // initialize map object
@@ -153,8 +158,9 @@ export default {
       return check;
     },
     toggleFullscreen() {
-      this.fullscreen = !this.fullscreen;
-      this.fixRoundedBorders(); // remove/apply rounded corners on the map
+      this.fullscreen = !this.fullscreen
+      this.$store.commit('setFsMode', this.fullscreen);
+      this.fixRoundedBorders()  // remove/apply rounded corners on the map
     },
     fixRoundedBorders() {
       const mapDiv = this.$el.querySelector("#map .mk-map-view");

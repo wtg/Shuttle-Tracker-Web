@@ -29,14 +29,19 @@ export default {
       updateOnNextInterval: false,
       fetchInterval: parseInt(process.env.VUE_APP_ANNOUNCEMENT_UPDATE_INTERVAL), // update announcement every minute
       announcerIndex: 0,
-      baseURL: process.env.VUE_APP_API_BASE_URL,
       rawUpdate: [],  // temporarily stores updated announcements
       raw: []
     }
   },
   computed: {
+    baseURL() {
+      return this.$store.state.baseURL
+    },
     isDarkMode() {
       return this.$store.state.isDarkMode
+    },
+    devAnnouncement() {
+      return this.$store.state.fakeAnnounce;
     },
     announcements() {
       // filter out unwanted announcements
@@ -62,6 +67,12 @@ export default {
       }
     }
   },
+  watch: {
+    // simulates the announcement bar
+    devAnnouncement() {
+      this.getAnnouncements();
+    }
+  },
   methods: {
     async updateAnnouncements() {
       const vm = this
@@ -83,13 +94,15 @@ export default {
       }, this.fetchInterval)
     },
     async getAnnouncements() {
-      //  Fetch raw data from the announcement API
-      const res = await axios.get(this.baseURL + '/announcements')
-      this.raw = res.data
-
-      /* FOR DEBUGGING, MAKES ANNOUNCEMENT BAR VISIBLE */
-      //this.hasAnnouncements = true;
-      //this.announcements[0] = "";
+      // Fetch raw data from the announcement API
+      const res = await axios.get(this.baseURL + '/announcements');
+      /* FOR DEBUGGING >>*/ //const res = await axios.get('https://staging.shuttletracker.app/announcements');
+      this.raw = res.data;
+      // Simulate announcement bar
+      if(this.devAnnouncement) {
+        // Input fake announcement
+        this.announcements[0] = {subject: "Debug", body: "This is a fake announcement."};
+      }
 
       if (this.hasAnnouncements) {
         this.$nextTick(this.loadAnnouncer)
@@ -115,21 +128,25 @@ export default {
 
   beforeMount()
   {
-    /*** handles mouse down and touch down **/
+    var i = document.querySelector(".scroll-left .scroll-text");
+    // handles mouse down and touch down
     let pauseAnim = () => { 
-      document.querySelector(".scroll-left .scroll-text").style.setProperty("--animState", "paused"); 
+      if(i) {
+        i.style.setProperty("--animState", "paused"); 
+      }
     }
     // add event listeners for pausing the animation
     "mousedown touchstart".split(" ").forEach(function(e){document.addEventListener(e, pauseAnim, false)});
-
-    /*** handles mouse up and touch release ***/
-    let resumeAnim = () => { 
-      document.querySelector(".scroll-left .scroll-text").style.setProperty("--animState", "running"); 
+     // handles mouse up and touch release
+    let resumeAnim = () => {
+      if(i) { 
+        i.style.setProperty("--animState", "running");
+      }
     }
     // add event listeners for resuming the animation
     "mouseup touchend".split(" ").forEach(function(e){document.addEventListener(e, resumeAnim, false)});
   },
-  
+
   mounted() {
     this.getAnnouncements();
     this.updateAnnouncements();

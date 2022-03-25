@@ -1,22 +1,98 @@
 <template>
-  <b-card class="mt-3" :class="[{'bubble-dark': isDarkMode},{'bubble-light': !isDarkMode}]">
+  <b-card v-if="isFsMode" class="mt-3" :class="[{'bubble-dark': isDarkMode},{'bubble-light': !isDarkMode}]">
     <h3 :class="{'text-white': isDarkMode}">
-      Spring 2022 Schedule
+      {{currentSemester}} Schedule
     </h3>
     <ul :class="{'text-white': isDarkMode}">
-      <li> Monday - Friday 7:00 am - 11:45 pm</li>
-      <li> Saturday 9:00 am - 11:45 pm</li>
-      <li> Sunday 9:00 am - 8:00 pm</li>
+      <li> Monday - Friday {{currentWeek.monday.start}} - {{currentWeek.monday.end}}</li>
+      <li> Saturday {{currentWeek.saturday.start}} - {{currentWeek.saturday.end}}</li>
+      <li> Sunday {{currentWeek.sunday.start}} - {{currentWeek.sunday.end}}</li>
     </ul>
   </b-card>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
+  data() {
+    return {
+      schedules: [],
+      currentWeek: {
+			"monday": {
+				"start": "01:00",
+				"end": "23:00"
+			},
+			"tuesday": {
+				"start": "01:00",
+				"end": "23:00"
+			},
+			"wednesday": {
+				"start": "01:00",
+				"end": "23:00"
+			},
+			"thursday": {
+				"start": "01:00",
+				"end": "23:00"
+			},
+			"friday": {
+				"start": "01:00",
+				"end": "23:00"
+			},
+			"saturday": {
+				"start": "01:00",
+				"end": "23:00"
+			},
+			"sunday": {
+				"start": "01:00",
+				"end": "23:00"
+			}
+		},
+      currentSemester: "Spring 2022"
+    };
+  },
+  /**
+   * Checks if in dark mode
+   * @return{boolean} The dark mode status
+   */
   computed: {
+    baseURL() {
+      return this.$store.state.baseURL
+    },
     isDarkMode() {
       return this.$store.state.isDarkMode
+    },
+    isFsMode() {
+      return !this.$store.state.isFsMode
     }
+  },
+  methods: {
+    /**
+     * Gets and loops through API. Puts schedule from range into variables.
+     */
+    async getCurrentSemester() {
+
+      // Gets API
+      const response = await axios.get(this.baseURL + "/schedule.json")
+
+      // API goes in here
+      this.schedules = response.data
+
+
+      const current = new Date();
+
+      // Checking if current time is between schedule start and end dates
+      for (let i = 0; i < this.schedules.length; i++) {
+        if (this.schedules[i].start <= current.toISOString() && this.schedules[i].end >= current.toISOString()) {
+          this.currentWeek = this.schedules[i].content;
+          this.currentSemester = this.schedules[i].name;
+          break;
+        }
+      }
+    }
+  },
+  mounted () {
+    this.getCurrentSemester();
   }
 }
 </script>
