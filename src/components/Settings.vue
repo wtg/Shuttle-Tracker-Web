@@ -26,11 +26,11 @@
 
 <script>
 
-import darkModeMixin from  '../mixins/darkModeMixin'
+import mixin from  '../mixins/mixins.js'
 
 export default {
   name: "Settings",
-  mixins: [darkModeMixin],
+  mixins: [mixin],
   data() {
     return {
       isCbMode: false,

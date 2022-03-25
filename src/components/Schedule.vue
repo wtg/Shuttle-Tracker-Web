@@ -13,10 +13,10 @@
 
 <script>
 import axios from 'axios'
-import darkModeMixin from  '../mixins/darkModeMixin'
+import mixin from  '../mixins/mixins.js'
 
 export default {
-  mixins: [darkModeMixin],
+  mixins: [mixin],
   data() {
     return {
       schedules: [],
