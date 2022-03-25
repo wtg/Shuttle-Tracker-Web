@@ -126,7 +126,7 @@ export default {
       mapDiv.style.borderRadius = this.fullscreen ? '0' : '7px'
     },
     hideIcons() {
-      if(!this.fullscreen) return; // don't hide icons when exiting fullscreen.
+      //if(!this.fullscreen) return; // don't hide icons when exiting fullscreen.
       this.showIcons = false;
       this.$store.commit('setIconStatus', false);
       var self = this;
