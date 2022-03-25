@@ -39,16 +39,19 @@
 
 <script>
 import { BIconPlusCircleFill, BIconExclamationCircleFill } from "bootstrap-vue";
+import mixin from '../mixins/mixins.js'
+
 export default {
   name: "Modal",
   components: {
     BIconPlusCircleFill,
     BIconExclamationCircleFill,
   },
+  mixins: [mixin],
   computed: {
-    isDarkMode() {
-      return this.$store.state.isDarkMode;
-    },
+    // isDarkMode() {
+    //   return this.$store.state.isDarkMode;
+    // },
     isColorBlind() {
       return this.$store.state.isCbMode;
     },

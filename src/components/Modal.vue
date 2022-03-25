@@ -40,12 +40,15 @@
 </template>
 
 <script>
+import mixin from '../mixins/mixins.js'
+
 export default {
   name: "Modal",
+  mixins: [mixin],
   computed: {
-    isDarkMode() {
-      return this.$store.state.isDarkMode;
-    },
+    // isDarkMode() {
+    //   return this.$store.state.isDarkMode;
+    // },
     themeBg() {
       return this.isDarkMode ? "dark" : "light";
     },

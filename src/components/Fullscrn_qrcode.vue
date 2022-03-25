@@ -17,12 +17,15 @@
 </template>
 
 <script>
+import mixin from '../mixins/mixins.js'
+
 export default {
   name: "Fullscrn_qrcode",
+  mixins: [mixin],
   computed: {
-    isDarkMode() {
-      return this.$store.state.isDarkMode;
-    },
+    // isDarkMode() {
+    //   return this.$store.state.isDarkMode;
+    // },
     isFsMode() {
       return !this.$store.state.isFsMode
     }
