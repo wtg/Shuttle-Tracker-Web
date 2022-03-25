@@ -61,9 +61,6 @@ export default {
     baseURL() {
       return this.$store.state.baseURL;
     },
-    // isDarkMode() {
-    //   return this.$store.state.isDarkMode;
-    // },
     serverStatus() {
       return this.$store.state.serverStatus;
     },
@@ -72,10 +69,7 @@ export default {
     },
     fakeHQ() {
       return this.$store.state.fakeHQ;
-    },
-    // isFsMode() {
-    //   return !this.$store.state.isFsMode
-    // }
+    }
   },
   mounted() {
     // initialize map object

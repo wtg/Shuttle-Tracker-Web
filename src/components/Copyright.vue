@@ -38,15 +38,7 @@ export default {
   components: {
     BIconGithub
   },
-  mixins: [mixin],
-  computed: {
-    // isDarkMode() {
-    //   return this.$store.state.isDarkMode
-    // },
-    // isFsMode() {
-    //   return !this.$store.state.isFsMode
-    // }
-  }
+  mixins: [mixin]
 }
 </script>
 

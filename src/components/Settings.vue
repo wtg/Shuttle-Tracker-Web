@@ -62,14 +62,6 @@ export default {
       this.$store.commit('setAdvMode', this.isAdvMode)
     }
   },
-  computed: {
-    // isDarkMode() {
-    //   return this.$store.state.isDarkMode
-    // },
-    // isFsMode() {
-    //   return !this.$store.state.isFsMode
-    // }
-  },
   watch: {
     isDarkMode(val) {
       this.isDark = val // dynamically sync state

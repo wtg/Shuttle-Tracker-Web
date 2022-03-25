@@ -60,13 +60,7 @@ export default {
   computed: {
     baseURL() {
       return this.$store.state.baseURL
-    },
-    // isDarkMode() {
-    //   return this.$store.state.isDarkMode
-    // },
-    // isFsMode() {
-    //   return !this.$store.state.isFsMode
-    // }
+    }
   },
   methods: {
     /**

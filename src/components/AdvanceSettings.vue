@@ -20,15 +20,9 @@ export default {
     }
   },
   computed: {
-    // isDarkMode() {
-    //   return this.$store.state.isDarkMode
-    // },
-    // isFsMode() {
-    //   return !this.$store.state.isFsMode
-    // },
     isAdvMode() {
       return this.$store.state.isAdvMode
-    },
+    }
   },
   watch: {
     isDarkMode(val) {
