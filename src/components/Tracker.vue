@@ -11,14 +11,8 @@
           ></div>
           <div v-if="!fullscreen" id="serverStatus" class="position-absolute">
             <Status></Status>
-            <b-badge
-              v-if="showFullScreen"
-              v-b-tooltip.hover
-              :title="FullscreenDesc"
-              role="button"
-              variant="primary"
-              @click="toggleFullscreen"
-            >
+            <b-badge v-if="showFullScreen && showIcons" v-b-tooltip.hover :title="FullscreenDesc" role="button" variant="primary"
+                     @click="toggleFullscreen">
               <BIconFullscreen v-if="!fullscreen"></BIconFullscreen>
               <BIconFullscreenExit v-if="fullscreen"></BIconFullscreenExit>
               {{ fullscreen ? "Exit" : "Enter" }} Fullscreen
@@ -85,9 +79,10 @@ export default {
       tokenID: process.env.VUE_APP_MAP_TOKEN_ID,
       apiVersion: process.env.VUE_APP_API_VERSION,
       fullscreen: false,
-      FullscreenDesc: "Toggle fullscreen mode.",
-      showFullScreen: false, // only show fs on non-mobile device
-    };
+      FullscreenDesc: 'Toggle fullscreen mode.',
+      showFullScreen: false,  // only show fs on non-mobile device
+      showIcons: true
+    }
   },
   computed: {
     baseURL() {
@@ -160,11 +155,25 @@ export default {
     toggleFullscreen() {
       this.fullscreen = !this.fullscreen
       this.$store.commit('setFsMode', this.fullscreen);
-      this.fixRoundedBorders()  // remove/apply rounded corners on the map
+      this.fixRoundedBorders();  // remove/apply rounded corners on the map
+      this.hideIcons();
     },
     fixRoundedBorders() {
       const mapDiv = this.$el.querySelector("#map .mk-map-view");
       mapDiv.style.borderRadius = this.fullscreen ? "0" : "7px";
+    },
+    hideIcons() {
+      //if(!this.fullscreen) return; // don't hide icons when exiting fullscreen.
+      this.showIcons = false;
+      this.$store.commit('setIconStatus', false);
+      var self = this;
+      var time = 750; // 750 default time
+      setTimeout(function() {
+        self.$nextTick(function() {  
+          this.showIcons = true;
+          this.$store.commit('setIconStatus', true);
+        });
+      }, time);
     },
     async getAPIVersion() {
       try {
