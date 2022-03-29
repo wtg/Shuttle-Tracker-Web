@@ -4,9 +4,9 @@
       {{currentSemester}} Schedule
     </h3>
     <ul :class="{'text-white': isDarkMode}">
-      <li> Monday - Friday {{currentWeek.monday.start}} - {{currentWeek.monday.end}}</li>
-      <li> Saturday {{currentWeek.saturday.start}} - {{currentWeek.saturday.end}}</li>
-      <li> Sunday {{currentWeek.sunday.start}} - {{currentWeek.sunday.end}}</li>
+      <li> Weekdays: {{currentWeek.monday.start}} - {{currentWeek.monday.end}}</li>
+      <li> Saturday:<span style="margin-left: 13px">{{currentWeek.saturday.start}} - {{currentWeek.saturday.end}}</span></li>
+      <li> Sunday: <span style="margin-left: 18.5px">{{currentWeek.sunday.start}} - {{currentWeek.sunday.end}}</span></li>
     </ul>
   </b-card>
 </template>
@@ -120,5 +120,9 @@ ul {
 .bubble-dark {
   background-color: rgb(71, 71, 71);
   border-color: rgb(71, 71, 71);
+}
+
+.list-schedule {
+  float: right;
 }
 </style>
