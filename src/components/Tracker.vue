@@ -11,7 +11,7 @@
           ></div>
           <div v-if="!fullscreen" id="serverStatus" class="position-absolute">
             <Status></Status>
-            <b-badge v-if="showFullScreen && showIcons" v-b-tooltip.hover :title="FullscreenDesc" role="button" variant="primary"
+            <b-badge v-if="showFullScreen && showFSIcon" v-b-tooltip.hover :title="FullscreenDesc" role="button" variant="primary"
                      @click="toggleFullscreen">
               <BIconFullscreen v-if="!fullscreen"></BIconFullscreen>
               <BIconFullscreenExit v-if="fullscreen"></BIconFullscreenExit>
@@ -23,7 +23,7 @@
               <img id="logo" src="../../public/logo.png" alt="logo" />
               <Status></Status>
               <b-badge
-                v-if="showFullScreen"
+                v-if="showFullScreen && showFSIcon" 
                 v-b-tooltip.hover
                 :title="FullscreenDesc"
                 role="button"
@@ -81,7 +81,7 @@ export default {
       fullscreen: false,
       FullscreenDesc: 'Toggle fullscreen mode.',
       showFullScreen: false,  // only show fs on non-mobile device
-      showIcons: true
+      showFSIcon: true
     }
   },
   computed: {
@@ -153,7 +153,7 @@ export default {
       return check;
     },
     toggleFullscreen() {
-      this.fullscreen = !this.fullscreen
+      this.fullscreen = !this.fullscreen;
       this.$store.commit('setFsMode', this.fullscreen);
       this.fixRoundedBorders();  // remove/apply rounded corners on the map
       this.hideIcons();
@@ -163,17 +163,19 @@ export default {
       mapDiv.style.borderRadius = this.fullscreen ? "0" : "7px";
     },
     hideIcons() {
-      //if(!this.fullscreen) return; // don't hide icons when exiting fullscreen.
-      this.showIcons = false;
-      this.$store.commit('setIconStatus', false);
+      if(!this.fullscreen) return; // don't hide icons when exiting fullscreen.
+      var time = 450; // 450 default time
       var self = this;
-      var time = 750; // 750 default time
-      setTimeout(function() {
-        self.$nextTick(function() {  
-          this.showIcons = true;
-          this.$store.commit('setIconStatus', true);
-        });
-      }, time);
+      self.$nextTick(function() {
+        this.showFSIcon = false;
+        this.$store.commit('setIconStatus', false);
+        setTimeout(function() {
+          self.$nextTick(function() {  
+            this.showFSIcon = true;
+            this.$store.commit('setIconStatus', true);
+          });
+        }, time);
+      });
     },
     async getAPIVersion() {
       try {
@@ -356,7 +358,7 @@ export default {
       if (val.stops && this.stopsInterval) {
         clearInterval(this.stopsInterval);
       }
-    },
+    }
   },
 };
 </script>

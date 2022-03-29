@@ -1,5 +1,5 @@
 <template>
-  <b-card v-if="isFsMode"
+  <b-card v-if="isFsMode && showQR"
     class="mt-3"
     :class="[{ 'bubble-dark': isDarkMode }, { 'bubble-light': !isDarkMode }]"
   >
@@ -22,6 +22,11 @@
 <script>
 export default {
   name: "Fullscrn_qrcode",
+  data() {
+    return {
+      showQR: false
+    }
+  },
   computed: {
     isDarkMode() {
       return this.$store.state.isDarkMode;
@@ -30,6 +35,11 @@ export default {
       return this.$store.state.isFsMode
     }
   },
+  watch: {
+    '$store.state.showIcons': function() {
+      this.showQR = this.$store.state.showIcons;
+    }
+  }
 };
 </script>
 

@@ -80,10 +80,10 @@ export default {
     }
   },
   watch: {
-  '$store.state.showStatus': function() {
-    this.showStatus = this.$store.state.showStatus;
+    '$store.state.showIcons': function() {
+      this.showStatus = this.$store.state.showIcons;
+    }
   }
-}
 }
 </script>
 

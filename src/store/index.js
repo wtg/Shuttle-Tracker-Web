@@ -9,7 +9,7 @@ export default new Vuex.Store({
         isDarkMode: false,
         isCbMode: false,
         isFsMode: false,
-        showStatus: true,
+        showIcons: true,
         serverStatus: {
             routes: true,
             stops: true,
@@ -67,7 +67,7 @@ export default new Vuex.Store({
             state.isFsMode = status;
         },
         setIconStatus(state, status) {
-            state.showStatus = status;
+            state.showIcons = status;
         },
         // Set baseURL for the APIs
         setBaseURL(state, newURL) {
