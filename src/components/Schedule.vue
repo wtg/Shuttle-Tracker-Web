@@ -5,8 +5,8 @@
     </h3>
     <ul :class="{'text-white': isDarkMode}">
       <li> Weekdays: {{currentWeek.monday.start}} - {{currentWeek.monday.end}}</li>
-      <li> Saturday:<span style="margin-left: 13px">{{currentWeek.saturday.start}} - {{currentWeek.saturday.end}}</span></li>
-      <li> Sunday: <span style="margin-left: 18.5px">{{currentWeek.sunday.start}} - {{currentWeek.sunday.end}}</span></li>
+      <li> Saturday:<span style="margin-left: 13.5px">{{currentWeek.saturday.start}} - {{currentWeek.saturday.end}}</span></li>
+      <li> Sunday:<span style="margin-left: 23.5px">{{currentWeek.sunday.start}} - {{currentWeek.sunday.end}}</span></li>
     </ul>
   </b-card>
 </template>
