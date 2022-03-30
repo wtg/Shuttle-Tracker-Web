@@ -19,7 +19,7 @@
             </b-badge>
           </div>
           <div v-if="fullscreen" id="sidebar" class="position-absolute">
-            <div v-if="fullscreen" id="serverStatusFullscreen">
+            <div v-if="fullscreen && showFSIcon" id="serverStatusFullscreen">
               <img id="logo" src="../../public/logo.png" alt="logo" />
               <Status></Status>
               <b-badge
