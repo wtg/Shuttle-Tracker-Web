@@ -81,7 +81,8 @@ export default {
       fullscreen: false,
       FullscreenDesc: 'Toggle fullscreen mode.',
       showFullScreen: false,  // only show fs on non-mobile device
-      showFSIcon: true
+      showFSIcon: true,
+      fullscreenDelay: 0
     }
   },
   computed: {
@@ -136,6 +137,10 @@ export default {
     if (!this.isMobile()) {
       this.showFullScreen = true;
     }
+    var f = navigator.userAgent.search("Firefox"); // detect if browser is firefox
+    if (f > -1) {
+      this.fullscreenDelay = 200; // delay to show icons for firefox users, since firefox has fullscreen animation by default
+    }
   },
   methods: {
     isMobile() {
@@ -164,7 +169,6 @@ export default {
     },
     hideIcons() {
       if(!this.fullscreen) return; // don't hide icons when exiting fullscreen.
-      var time = 450; // 450 default time
       var self = this;
       self.$nextTick(function() {
         this.showFSIcon = false;
@@ -174,7 +178,7 @@ export default {
             this.showFSIcon = true;
             this.$store.commit('setIconStatus', true);
           });
-        }, time);
+        }, this.fullscreenDelay);
       });
     },
     async getAPIVersion() {
