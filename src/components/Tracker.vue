@@ -122,7 +122,10 @@ export default {
       ? mapkit.Map.ColorSchemes.Dark
       : mapkit.Map.ColorSchemes.Light;
     // center map
-    this.recenterMap();
+    const center = new mapkit.Coordinate(42.73029109316892, -73.67655873298646);
+    const span = new mapkit.CoordinateSpan(0.016, 0.032);
+    const region = new mapkit.CoordinateRegion(center, span);
+    this.mapObj.setRegionAnimated(region);
     // render map structures
     this.getAPIVersion();
     this.renderRoutes();
@@ -154,7 +157,6 @@ export default {
       this.$store.commit('setFsMode', this.fullscreen);
       this.fixRoundedBorders();  // remove/apply rounded corners on the map
       this.hideIcons();
-      this.recenterMap();
     },
     fixRoundedBorders() {
       const mapDiv = this.$el.querySelector("#map .mk-map-view");
@@ -172,12 +174,6 @@ export default {
           this.$store.commit('setIconStatus', true);
         });
       }, time);
-    },
-    recenterMap() {
-      var center = new mapkit.Coordinate(42.72929109316892, -73.67655873298646 - (this.fullscreen ? 0.005 : 0));
-      var span = new mapkit.CoordinateSpan(.012, .012);
-      const region = new mapkit.CoordinateRegion(center, span);
-      this.mapObj.setRegionAnimated(region);
     },
     async getAPIVersion() {
       try {
@@ -427,7 +423,7 @@ export default {
 
 #logo {
   width: 25%;
-  /* display: inline-block; */
+  display: inline-block;
   float: right;
 }
 </style>
