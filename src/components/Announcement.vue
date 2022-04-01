@@ -71,6 +71,9 @@ export default {
     // simulates the announcement bar
     devAnnouncement() {
       this.getAnnouncements();
+    },
+    baseURL() {
+      this.getAnnouncements();
     }
   },
   methods: {
@@ -130,16 +133,16 @@ export default {
   {
     var i = document.querySelector(".scroll-left .scroll-text");
     // handles mouse down and touch down
-    let pauseAnim = () => { 
+    let pauseAnim = () => {
       if(i) {
-        i.style.setProperty("--animState", "paused"); 
+        i.style.setProperty("--animState", "paused");
       }
     }
     // add event listeners for pausing the animation
     "mousedown touchstart".split(" ").forEach(function(e){document.addEventListener(e, pauseAnim, false)});
      // handles mouse up and touch release
     let resumeAnim = () => {
-      if(i) { 
+      if(i) {
         i.style.setProperty("--animState", "running");
       }
     }

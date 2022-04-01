@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="showStatus">
     <b-badge role="button" @click="toggleExpand" v-if="!expanded" class="mr-1"
              :variant="totalServerStatus ? 'success': 'danger'" v-b-tooltip.hover :title="statusDescription">
       Server: {{ totalServerStatus ? 'online' : 'offline' }}
@@ -36,7 +36,8 @@ export default {
       compStatus: "If the badge is green, this component is working!",
       APIWarning: "If the badge is red, the app may be broken. You have been warned.",
       NonOfficialWarning: "You are using the non-official API, which may result in broken features.",
-      statusDescription: "Click to see detailed report on server status."
+      statusDescription: "Click to see detailed report on server status.",
+      showStatus: true
     }
   },
   computed: {
@@ -78,7 +79,12 @@ export default {
     toggleExpand() {
       this.expanded = !this.expanded
     }
+  },
+  watch: {
+  '$store.state.showStatus': function() {
+    this.showStatus = this.$store.state.showStatus;
   }
+}
 }
 </script>
 
