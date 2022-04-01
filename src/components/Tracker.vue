@@ -52,12 +52,13 @@
 <script>
 import axios from "axios";
 import Status from "./Status";
-import Announcement from "./Announcement";
-import { BIconFullscreen, BIconFullscreenExit } from "bootstrap-vue";
-import Vue from "vue";
-import VueFullscreen from "vue-fullscreen";
-import Fullscrn_Schedule from "./Fullscrn_Schedule.vue";
-import Fullscrn_qrcode from "./Fullscrn_qrcode.vue";
+import Announcement from "./Announcement"
+import {BIconFullscreen, BIconFullscreenExit} from "bootstrap-vue"
+import Vue from 'vue'
+import VueFullscreen from 'vue-fullscreen'
+import Fullscrn_qrcode from "./Fullscrn_qrcode.vue"
+import mixin from '../mixins/mixins.js'
+
 
 Vue.use(VueFullscreen);
 
@@ -71,6 +72,7 @@ export default {
     BIconFullscreenExit,
     Fullscrn_Schedule
   },
+  mixins: [mixin],
   data() {
     return {
       routesInterval: undefined,  // for handling request failures
@@ -89,9 +91,6 @@ export default {
     baseURL() {
       return this.$store.state.baseURL;
     },
-    isDarkMode() {
-      return this.$store.state.isDarkMode;
-    },
     serverStatus() {
       return this.$store.state.serverStatus;
     },
@@ -100,9 +99,6 @@ export default {
     },
     fakeHQ() {
       return this.$store.state.fakeHQ;
-    },
-    isFsMode() {
-      return !this.$store.state.isFsMode
     }
   },
   mounted() {

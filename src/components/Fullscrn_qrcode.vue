@@ -20,19 +20,14 @@
 </template>
 
 <script>
+import mixin from '../mixins/mixins.js'
+
 export default {
   name: "Fullscrn_qrcode",
+  mixins: [mixin],
   data() {
     return {
       showQR: false
-    }
-  },
-  computed: {
-    isDarkMode() {
-      return this.$store.state.isDarkMode;
-    },
-    isFsMode() {
-      return this.$store.state.isFsMode
     }
   },
   watch: {

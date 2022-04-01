@@ -9,23 +9,20 @@
 </template>
 
 <script>
+import mixin from '../mixins/mixins.js'
+
 export default {
   name: "AdvanceSettings",
+  mixins: [mixin],
   data() {
     return {
       customAPI: ''
     }
   },
   computed: {
-    isDarkMode() {
-      return this.$store.state.isDarkMode
-    },
-    isFsMode() {
-      return !this.$store.state.isFsMode
-    },
     isAdvMode() {
       return this.$store.state.isAdvMode
-    },
+    }
   },
   watch: {
     isDarkMode(val) {

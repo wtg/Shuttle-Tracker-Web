@@ -4,17 +4,19 @@
       {{currentSemester}} Schedule
     </h3>
     <ul :class="{'text-white': isDarkMode}">
-      <li> Monday - Friday {{currentWeek.monday.start}} - {{currentWeek.monday.end}}</li>
-      <li> Saturday {{currentWeek.saturday.start}} - {{currentWeek.saturday.end}}</li>
-      <li> Sunday {{currentWeek.sunday.start}} - {{currentWeek.sunday.end}}</li>
+      <li> Weekdays: {{currentWeek.monday.start}} - {{currentWeek.monday.end}}</li>
+      <li> Saturday:<span class='saturday-times'>{{currentWeek.saturday.start}} - {{currentWeek.saturday.end}}</span></li>
+      <li> Sunday:<span class='sunday-times'>{{currentWeek.sunday.start}} - {{currentWeek.sunday.end}}</span></li>
     </ul>
   </b-card>
 </template>
 
 <script>
 import axios from 'axios'
+import mixin from  '../mixins/mixins.js'
 
 export default {
+  mixins: [mixin],
   data() {
     return {
       schedules: [],
@@ -58,12 +60,6 @@ export default {
   computed: {
     baseURL() {
       return this.$store.state.baseURL
-    },
-    isDarkMode() {
-      return this.$store.state.isDarkMode
-    },
-    isFsMode() {
-      return !this.$store.state.isFsMode
     }
   },
   methods: {
@@ -120,5 +116,13 @@ ul {
 .bubble-dark {
   background-color: rgb(71, 71, 71);
   border-color: rgb(71, 71, 71);
+}
+
+.saturday-times {
+  margin-left: 13.5px;
+}
+
+.sunday-times {
+  margin-left: 23.5px;
 }
 </style>
