@@ -40,6 +40,7 @@
 </template>
 
 <script>
+
 export default {
   name: "Modal",
   computed: {

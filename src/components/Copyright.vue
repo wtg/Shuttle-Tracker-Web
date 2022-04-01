@@ -31,20 +31,14 @@
 
 <script>
 import {BIconGithub} from 'bootstrap-vue'
+import mixin from '../mixins/mixins.js'
 
 export default {
   name: "Copyright",
   components: {
     BIconGithub
   },
-  computed: {
-    isDarkMode() {
-      return this.$store.state.isDarkMode
-    },
-    isFsMode() {
-      return !this.$store.state.isFsMode
-    }
-  }
+  mixins: [mixin]
 }
 </script>
 

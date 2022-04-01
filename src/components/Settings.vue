@@ -25,8 +25,12 @@
 </template>
 
 <script>
+
+import mixin from  '../mixins/mixins.js'
+
 export default {
   name: "Settings",
+  mixins: [mixin],
   data() {
     return {
       isCbMode: false,
@@ -56,14 +60,6 @@ export default {
     },
     setAdvMode() {
       this.$store.commit('setAdvMode', this.isAdvMode)
-    }
-  },
-  computed: {
-    isDarkMode() {
-      return this.$store.state.isDarkMode
-    },
-    isFsMode() {
-      return !this.$store.state.isFsMode
     }
   },
   watch: {
