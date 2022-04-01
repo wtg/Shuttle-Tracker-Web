@@ -58,6 +58,7 @@ import Vue from 'vue'
 import VueFullscreen from 'vue-fullscreen'
 import Fullscrn_qrcode from "./Fullscrn_qrcode.vue"
 import mixin from '../mixins/mixins.js'
+import Fullscrn_Schedule from "./Fullscrn_Schedule";
 
 
 Vue.use(VueFullscreen);
@@ -165,7 +166,7 @@ export default {
       var self = this;
       var time = 750; // 750 default time
       setTimeout(function() {
-        self.$nextTick(function() {  
+        self.$nextTick(function() {
           this.showIcons = true;
           this.$store.commit('setIconStatus', true);
         });
