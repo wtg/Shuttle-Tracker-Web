@@ -46,38 +46,53 @@ export default {
     }
   },
   methods: {
+    /**
+     * @brief Sets the state for Colorblind mode
+     */
     setCbMode() {
       this.$store.commit('setCbMode', this.isCbMode)
     },
+    /**
+     * @brief Sets the state for Dark mode
+     */
     setDarkMode() {
       this.$store.commit('setDarkMode', this.isDark)
     },
+    /**
+     * @brief Sets the state for Dev mode
+     */
     setHQData() {
       this.$store.commit('setFakeHQ', this.devHQ)
     },
+    /**
+     * @brief Sets the state for the fake Announcement
+     */
     simulateAnnouncementBar() {
       this.$store.commit('fakeAnnouncement', this.devAnnouncement);
     },
+    /**
+     * @brief Sets the state for Advanced mode
+     */
     setAdvMode() {
       this.$store.commit('setAdvMode', this.isAdvMode)
     }
   },
   watch: {
     /**
-     * Dynamically syncs the state
+     * @brief Dynamically syncs the state
      * @param val the dark mode state
      */
     isDarkMode(val) {
       this.isDark = val
     },
     /**
-     * Calls the setHQData method
+     * @brief Calls the setHQData method
      */
     devHQ() {
       this.setHQData()
     },
     /**
-     * Calls the simulateAnnouncementBar method
+     * @brief Calls the simulateAnnouncementBar method
      */
     devAnnouncement() {
       this.simulateAnnouncementBar();
