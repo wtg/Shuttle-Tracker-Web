@@ -63,12 +63,22 @@ export default {
     }
   },
   watch: {
+    /**
+     * Dynamically syncs the state
+     * @param val the dark mode state
+     */
     isDarkMode(val) {
-      this.isDark = val // dynamically sync state
+      this.isDark = val
     },
+    /**
+     * Calls the setHQData method
+     */
     devHQ() {
       this.setHQData()
     },
+    /**
+     * Calls the simulateAnnouncementBar method
+     */
     devAnnouncement() {
       this.simulateAnnouncementBar();
     }
