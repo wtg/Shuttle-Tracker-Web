@@ -1,8 +1,9 @@
 <template>
   <b-alert
       v-model="hasAnnouncements"
-      :class="[{'announcement-dark': isDarkMode}, {'announcement-light': !isDarkMode}]"
-      class="position-fixed fixed-top m-0 rounded-0 p-0 py-2 border-0"
+      :class="[{'announcement-dark': isDarkMode}, {'announcement-light': !isDarkMode}, 
+      {'fixed-top': !isFsMode}, {'fixed-bottom': isFsMode}]"
+      class="position-fixed m-0 rounded-0 p-0 py-2 border-0"
       style="z-index: 2000;">
     <div ref="announcer" class="scroll-left">
       <div class="position-absolute px-3" style="left: 0;top: 0;z-index: 2000;"
@@ -42,6 +43,9 @@ export default {
     },
     devAnnouncement() {
       return this.$store.state.fakeAnnounce;
+    },
+    isFsMode() {
+      return this.$store.state.isFsMode;
     },
     announcements() {
       // filter out unwanted announcements
