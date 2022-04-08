@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isFsMode">
+  <div v-if="!isFsMode">
     <h1 class="display-4" :class="{'text-white': isDarkMode}">
       Shuttle Tracker <span v-if="showBeta" class="text-muted h4">BETA</span>
     </h1>
