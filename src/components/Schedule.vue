@@ -53,11 +53,11 @@ export default {
       currentSemester: "Spring 2022"
     };
   },
-  /**
-   * Checks if in dark mode
-   * @return{boolean} The dark mode status
-   */
   computed: {
+    /**
+     * @brief Returns the base URL
+     * @return the state of baseURL
+     */
     baseURL() {
       return this.$store.state.baseURL
     }
@@ -73,7 +73,6 @@ export default {
 
       // API goes in here
       this.schedules = response.data
-
 
       const current = new Date();
 
