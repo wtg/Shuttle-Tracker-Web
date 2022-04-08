@@ -1,5 +1,5 @@
 <template>
-  <b-card v-if="isFsMode"
+  <b-card v-if="isFsMode && showQR"
     class="mt-3"
     :class="[{ 'bubble-dark': isDarkMode }, { 'bubble-light': !isDarkMode }]"
   >
@@ -24,7 +24,17 @@ import mixin from '../mixins/mixins.js'
 
 export default {
   name: "Fullscrn_qrcode",
-  mixins: [mixin]
+  mixins: [mixin],
+  data() {
+    return {
+      showQR: false
+    }
+  },
+  watch: {
+    '$store.state.showIcons': function() {
+      this.showQR = this.$store.state.showIcons;
+    }
+  }
 };
 </script>
 

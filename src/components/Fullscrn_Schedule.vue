@@ -1,5 +1,5 @@
 <template>
-  <b-card
+  <b-card v-if="showSchedule"
     class="mt-3"
     :class="[{ 'bubble-dark': isDarkMode }, { 'bubble-light': !isDarkMode }]"
   >
@@ -15,11 +15,21 @@
 <script>
 export default {
   name: "Fullscrn_schedule",
+  data() {
+    return {
+      showSchedule: false
+    }
+  },
   computed: {
     isDarkMode() {
       return this.$store.state.isDarkMode;
     },
   },
+  watch: {
+    '$store.state.showIcons': function() {
+      this.showSchedule = this.$store.state.showIcons;
+    }
+  }
 };
 </script>
 
