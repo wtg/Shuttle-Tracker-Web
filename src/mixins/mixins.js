@@ -12,7 +12,7 @@ export default {
      * @return{boolean} The fullscreen status
      */
     isFsMode() {
-      return !this.$store.state.isFsMode
+      return this.$store.state.isFsMode
     }
-  }  
+  }
 }
