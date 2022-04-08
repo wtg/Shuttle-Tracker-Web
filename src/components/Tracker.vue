@@ -58,6 +58,7 @@ import Vue from 'vue'
 import VueFullscreen from 'vue-fullscreen'
 import Fullscrn_qrcode from "./Fullscrn_qrcode.vue"
 import mixin from '../mixins/mixins.js'
+import Fullscrn_Schedule from "./Fullscrn_Schedule";
 
 
 Vue.use(VueFullscreen);
