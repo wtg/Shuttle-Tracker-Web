@@ -132,22 +132,35 @@ export default {
   beforeMount()
   {
     var i = document.querySelector(".scroll-left .scroll-text");
-    // handles mouse down and touch down
-    let pauseAnim = () => {
-      if(i) {
-        i.style.setProperty("--animState", "paused");
-      }
-    }
-    // add event listeners for pausing the animation
-    "mousedown touchstart".split(" ").forEach(function(e){document.addEventListener(e, pauseAnim, false)});
-     // handles mouse up and touch release
-    let resumeAnim = () => {
-      if(i) {
-        i.style.setProperty("--animState", "running");
-      }
-    }
-    // add event listeners for resuming the animation
-    "mouseup touchend".split(" ").forEach(function(e){document.addEventListener(e, resumeAnim, false)});
+    // attempt to get ".scroll-left .scroll-text" every 500ms until not null
+    let check = function() {
+      setTimeout(function () {
+        if(i === null)
+        {
+          i = document.querySelector(".scroll-left .scroll-text");
+          check();
+        }
+        else {
+          // handles mouse down and touch down
+          let pauseAnim = () => {
+            if(i) {
+              i.style.setProperty("--animState", "paused");
+            }
+          }
+          // add event listeners for pausing the animation
+          "mousedown touchstart".split(" ").forEach(function(e){document.addEventListener(e, pauseAnim, false)});
+          // handles mouse up and touch release
+          let resumeAnim = () => {
+            if(i) {
+              i.style.setProperty("--animState", "running");
+            }
+          }
+          // add event listeners for resuming the animation
+          "mouseup touchend".split(" ").forEach(function(e){document.addEventListener(e, resumeAnim, false)});
+        }
+      }, 500);
+    };
+    check();
   },
 
   mounted() {
