@@ -1,6 +1,6 @@
 <template>
 
-  <footer v-if="isFsMode"
+  <footer v-if="!isFsMode"
   class="text-center" :class="[{'text-white': isDarkMode}]">
     © 2021
     <b-link class="mr-1" :class="[{'text-white': isDarkMode}, {'text-black': !isDarkMode}]"

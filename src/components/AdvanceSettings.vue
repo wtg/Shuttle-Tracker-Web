@@ -1,5 +1,5 @@
 <template>
-  <b-card v-if="isFsMode" class="mt-3" :class="[{'bubble-dark': isDarkMode},{'bubble-light': !isDarkMode}]">
+  <b-card v-if="!isFsMode" class="mt-3" :class="[{'bubble-dark': isDarkMode},{'bubble-light': !isDarkMode}]">
     <h3 :class="{'text-white': isDarkMode}">Advanced Settings</h3>
 <!--    <label for="input-custom-api">Custom API:</label><b-form-input id="input-custom-api" size="sm">HELLO</b-form-input>-->
     <b-form-group :label-class="{'text-white': isDarkMode}" label="Custom API:" label-for="input-custom-api">
