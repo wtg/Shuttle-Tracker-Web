@@ -138,6 +138,11 @@ export default {
     if (f > -1) {
       this.fullscreenDelay = 200; // delay to show icons for firefox users, since firefox has fullscreen animation by default
     }
+    var s = /^((?!chrome|android).)*safari/i.test(navigator.userAgent); // detect if browser is safari
+    if(s) {
+      this.fullscreenDelay = 200; // delay to show icons for safari users, since safari has fullscreen animation.
+      // NOTE: I have no idea what the default delay is for safari so I just set it to 200
+    }
   },
   methods: {
     isMobile() {
