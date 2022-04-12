@@ -2,7 +2,7 @@
   <b-alert
       v-model="hasAnnouncements"
       :class="[{'announcement-dark': isDarkMode}, {'announcement-light': !isDarkMode}, 
-      {'fixed-top': !isFsMode}, {'fixed-bottom': isFsMode}]"
+      {'fixed-top': isFsMode}, {'fixed-bottom': !isFsMode}]"
       class="position-fixed m-0 rounded-0 p-0 py-2 border-0"
       style="z-index: 2000;">
     <div ref="announcer" class="scroll-left">
@@ -22,9 +22,11 @@
 
 <script>
 import axios from "axios";
+import mixin from  '../mixins/mixins.js'
 
 export default {
   name: "Announcement",
+  mixins: [mixin],
   data() {
     return {
       updateOnNextInterval: false,
@@ -43,9 +45,6 @@ export default {
     },
     devAnnouncement() {
       return this.$store.state.fakeAnnounce;
-    },
-    isFsMode() {
-      return this.$store.state.isFsMode;
     },
     announcements() {
       // filter out unwanted announcements
