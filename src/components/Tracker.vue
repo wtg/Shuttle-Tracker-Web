@@ -2,13 +2,17 @@
   <div>
     <fullscreen v-model="fullscreen">
       <div class="d-flex flex-column h-100">
-        <div style="flex: 1 1 auto">
+        <div class="flex-grow-1">
+
+          <!-- Map Component -->
           <div
             id="map"
             class="w-100"
             style="height: 75vh"
             :class="{ 'h-100': fullscreen }"
           ></div>
+
+          <!-- Server Status and Fullscreen Button -->
           <div v-if="!fullscreen" id="serverStatus" class="position-absolute">
             <Status></Status>
             <b-badge v-if="showFullScreen && showFSIcon" v-b-tooltip.hover :title="FullscreenDesc" role="button" variant="primary"
@@ -18,12 +22,14 @@
               {{ fullscreen ? "Exit" : "Enter" }} Fullscreen
             </b-badge>
           </div>
+
+          <!-- Sidebar (fullscreen mode only) -->
           <div v-if="fullscreen" id="sidebar" class="position-absolute">
             <div v-if="fullscreen && showFSIcon" id="serverStatusFullscreen">
               <img id="logo" src="../../public/logo.png" alt="logo" />
               <Status></Status>
               <b-badge
-                v-if="showFullScreen && showFSIcon" 
+                v-if="showFullScreen && showFSIcon"
                 v-b-tooltip.hover
                 :title="FullscreenDesc"
                 role="button"
@@ -42,8 +48,12 @@
               <Fullscrn_qrcode v-if="fullscreen"></Fullscrn_qrcode>
             </div>
           </div>
+
         </div>
+
+        <!-- Announcement Bar -->
         <Announcement v-if="fullscreen"></Announcement>
+
       </div>
     </fullscreen>
   </div>
@@ -178,7 +188,7 @@ export default {
         this.showFSIcon = false;
         this.$store.commit('setIconStatus', false);
         setTimeout(function() {
-          self.$nextTick(function() {  
+          self.$nextTick(function() {
             this.showFSIcon = true;
             this.$store.commit('setIconStatus', true);
           });
