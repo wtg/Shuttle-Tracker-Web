@@ -12,7 +12,7 @@
           <div v-if="!fullscreen" id="serverStatus" class="position-absolute">
             <Status></Status>
             <b-badge v-if="showFullScreen && showFSIcon" v-b-tooltip.hover :title="FullscreenDesc" role="button" variant="primary"
-                     @click="toggleFullscreen">
+                     @click="toggleFullscreen(true)">
               <BIconFullscreen v-if="!fullscreen"></BIconFullscreen>
               <BIconFullscreenExit v-if="fullscreen"></BIconFullscreenExit>
               {{ fullscreen ? "Exit" : "Enter" }} Fullscreen
@@ -28,7 +28,7 @@
                 :title="FullscreenDesc"
                 role="button"
                 variant="primary"
-                @click="toggleFullscreen"
+                @click="toggleFullscreen(false)"
               >
                 <BIconFullscreen v-if="!fullscreen"></BIconFullscreen>
                 <BIconFullscreenExit v-if="fullscreen"></BIconFullscreenExit>
@@ -102,6 +102,13 @@ export default {
       return this.$store.state.fakeHQ;
     }
   },
+  beforeMount() {
+    document.addEventListener('fullscreenchange', () => {
+      if(!document.fullscreenElement) {
+        this.toggleFullscreen(false);
+      }
+    });
+  },
   mounted() {
     // initialize map object
     let vm = this;
@@ -154,18 +161,18 @@ export default {
       })(navigator.userAgent || navigator.vendor || window.opera);
       return check;
     },
-    toggleFullscreen() {
-      this.fullscreen = !this.fullscreen;
+    toggleFullscreen(status) {
+      this.fullscreen = status;
       this.$store.commit('setFsMode', this.fullscreen);
-      this.fixRoundedBorders();  // remove/apply rounded corners on the map
-      this.hideIcons();
+      this.fixRoundedBorders(status);  // remove/apply rounded corners on the map
+      this.hideIcons(status);
     },
-    fixRoundedBorders() {
+    fixRoundedBorders(status) {
       const mapDiv = this.$el.querySelector("#map .mk-map-view");
-      mapDiv.style.borderRadius = this.fullscreen ? "0" : "7px";
+      mapDiv.style.borderRadius = status ? "0" : "7px";
     },
-    hideIcons() {
-      if(!this.fullscreen) return; // don't hide icons when exiting fullscreen.
+    hideIcons(status) {
+      if(!status) return; // don't hide icons when exiting fullscreen.
       var self = this;
       self.$nextTick(function() {
         this.showFSIcon = false;
@@ -426,7 +433,6 @@ export default {
 
 #logo {
   width: 25%;
-  display: inline-block;
   float: right;
 }
 </style>
