@@ -20,11 +20,6 @@
               target="_blank">
         <small>Android App</small>
       </b-link>
-      <b-link :class="[{'text-black': !isDarkMode}, {'text-gray': isDarkMode}]"
-              href="https://old.shuttletracker.app/"
-              target="_blank">
-        <small>Old Web Interface</small>
-      </b-link>
     </div>
   </footer>
 </template>
