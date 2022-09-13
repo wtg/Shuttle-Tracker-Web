@@ -2,7 +2,7 @@
 
   <footer v-if="!isFsMode"
   class="text-center" :class="[{'text-white': isDarkMode}]">
-    © 2021
+    © 2022
     <b-link class="mr-1" :class="[{'text-white': isDarkMode}, {'text-black': !isDarkMode}]"
             href="https://github.com/wtg/Shuttle-Tracker-Web/tree/main">
       Shuttle Tracker
