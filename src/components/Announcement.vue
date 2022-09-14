@@ -1,8 +1,9 @@
 <template>
   <b-alert
       v-model="hasAnnouncements"
-      :class="[{'announcement-dark': isDarkMode}, {'announcement-light': !isDarkMode}]"
-      class="position-fixed fixed-top m-0 rounded-0 p-0 py-2 border-0"
+      :class="[{'announcement-dark': isDarkMode}, {'announcement-light': !isDarkMode},
+      {'fixed-top': !isFsMode}, {'position-fixed': !isFsMode}]"
+      class="m-0 rounded-0 p-0 py-2 border-0"
       style="z-index: 2000;">
     <div ref="announcer" class="scroll-left">
       <div class="position-absolute px-3" style="left: 0;top: 0;z-index: 2000;"
@@ -21,22 +22,29 @@
 
 <script>
 import axios from "axios";
+import mixin from  '../mixins/mixins.js'
 
 export default {
   name: "Announcement",
+  mixins: [mixin],
   data() {
     return {
       updateOnNextInterval: false,
       fetchInterval: parseInt(process.env.VUE_APP_ANNOUNCEMENT_UPDATE_INTERVAL), // update announcement every minute
       announcerIndex: 0,
-      baseURL: process.env.VUE_APP_API_BASE_URL,
       rawUpdate: [],  // temporarily stores updated announcements
       raw: []
     }
   },
   computed: {
+    baseURL() {
+      return this.$store.state.baseURL
+    },
     isDarkMode() {
       return this.$store.state.isDarkMode
+    },
+    devAnnouncement() {
+      return this.$store.state.fakeAnnounce;
     },
     announcements() {
       // filter out unwanted announcements
@@ -62,6 +70,15 @@ export default {
       }
     }
   },
+  watch: {
+    // simulates the announcement bar
+    devAnnouncement() {
+      this.getAnnouncements();
+    },
+    baseURL() {
+      this.getAnnouncements();
+    }
+  },
   methods: {
     async updateAnnouncements() {
       const vm = this
@@ -83,13 +100,15 @@ export default {
       }, this.fetchInterval)
     },
     async getAnnouncements() {
-      //  Fetch raw data from the announcement API
-      const res = await axios.get(this.baseURL + '/announcements')
-      this.raw = res.data
-
-      /* FOR DEBUGGING, MAKES ANNOUNCEMENT BAR VISIBLE */
-      //this.hasAnnouncements = true;
-      //this.announcements[0] = "";
+      // Fetch raw data from the announcement API
+      const res = await axios.get(this.baseURL + '/announcements');
+      /* FOR DEBUGGING >>*/ //const res = await axios.get('https://staging.shuttletracker.app/announcements');
+      this.raw = res.data;
+      // Simulate announcement bar
+      if(this.devAnnouncement) {
+        // Input fake announcement
+        this.announcements[0] = {subject: "Debug", body: "This is a fake announcement."};
+      }
 
       if (this.hasAnnouncements) {
         this.$nextTick(this.loadAnnouncer)
@@ -115,21 +134,38 @@ export default {
 
   beforeMount()
   {
-    /*** handles mouse down and touch down **/
-    let pauseAnim = () => { 
-      document.querySelector(".scroll-left .scroll-text").style.setProperty("--animState", "paused"); 
-    }
-    // add event listeners for pausing the animation
-    "mousedown touchstart".split(" ").forEach(function(e){document.addEventListener(e, pauseAnim, false)});
-
-    /*** handles mouse up and touch release ***/
-    let resumeAnim = () => { 
-      document.querySelector(".scroll-left .scroll-text").style.setProperty("--animState", "running"); 
-    }
-    // add event listeners for resuming the animation
-    "mouseup touchend".split(" ").forEach(function(e){document.addEventListener(e, resumeAnim, false)});
+    var i = document.querySelector(".scroll-left .scroll-text");
+    // attempt to get ".scroll-left .scroll-text" every 500ms until not null
+    let check = function() {
+      setTimeout(function () {
+        if(i === null)
+        {
+          i = document.querySelector(".scroll-left .scroll-text");
+          check();
+        }
+        else {
+          // handles mouse down and touch down
+          let pauseAnim = () => {
+            if(i) {
+              i.style.setProperty("--animState", "paused");
+            }
+          }
+          // add event listeners for pausing the animation
+          "mousedown touchstart".split(" ").forEach(function(e){document.addEventListener(e, pauseAnim, false)});
+          // handles mouse up and touch release
+          let resumeAnim = () => {
+            if(i) {
+              i.style.setProperty("--animState", "running");
+            }
+          }
+          // add event listeners for resuming the animation
+          "mouseup touchend".split(" ").forEach(function(e){document.addEventListener(e, resumeAnim, false)});
+        }
+      }, 500);
+    };
+    check();
   },
-  
+
   mounted() {
     this.getAnnouncements();
     this.updateAnnouncements();

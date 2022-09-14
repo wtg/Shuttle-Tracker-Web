@@ -18,6 +18,9 @@
         <div class="col-md">
           <Settings></Settings>
         </div>
+        <div v-if="isAdvMode" class="col-md">
+          <AdvanceSettings></AdvanceSettings>
+        </div>
       </div>
       <div class="row mt-3">
         <div class="col">
@@ -41,6 +44,7 @@ import ColorBlindIconModal from "../components/ColorBlindIconModal";
 import Settings from "../components/Settings";
 import Copyright from "../components/Copyright";
 import Announcement from "../components/Announcement";
+import AdvanceSettings from "../components/AdvanceSettings";
 
 export default {
   name: 'Home',
@@ -52,7 +56,13 @@ export default {
     ColorBlindIconModal,
     Settings,
     Copyright,
-    Announcement
+    Announcement,
+    AdvanceSettings
+  },
+  computed: {
+    isAdvMode() {
+      return this.$store.state.isAdvMode
+    }
   }
 }
 </script>

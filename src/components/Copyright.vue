@@ -1,6 +1,7 @@
 <template>
 
-  <footer class="text-center" :class="[{'text-white': isDarkMode}]">
+  <footer v-if="!isFsMode"
+  class="text-center" :class="[{'text-white': isDarkMode}]">
     © 2021
     <b-link class="mr-1" :class="[{'text-white': isDarkMode}, {'text-black': !isDarkMode}]"
             href="https://github.com/wtg/Shuttle-Tracker-Web/tree/main">
@@ -19,28 +20,20 @@
               target="_blank">
         <small>Android App</small>
       </b-link>
-      <b-link :class="[{'text-black': !isDarkMode}, {'text-gray': isDarkMode}]"
-              href="https://old.shuttletracker.app/"
-              target="_blank">
-        <small>Old Web Interface</small>
-      </b-link>
     </div>
   </footer>
 </template>
 
 <script>
 import {BIconGithub} from 'bootstrap-vue'
+import mixin from '../mixins/mixins.js'
 
 export default {
   name: "Copyright",
   components: {
     BIconGithub
   },
-  computed: {
-    isDarkMode() {
-      return this.$store.state.isDarkMode
-    }
-  }
+  mixins: [mixin]
 }
 </script>
 

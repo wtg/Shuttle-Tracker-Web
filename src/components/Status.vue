@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="showStatus">
     <b-badge role="button" @click="toggleExpand" v-if="!expanded" class="mr-1"
              :variant="totalServerStatus ? 'success': 'danger'" v-b-tooltip.hover :title="statusDescription">
       Server: {{ totalServerStatus ? 'online' : 'offline' }}
@@ -22,10 +22,12 @@
         API
       </b-badge>
     </div>
+    <b-badge v-if="!isOfficialURL" role="button" class="mx-1" variant="warning" v-b-tooltip.hover :title="NonOfficialWarning">Non-Official API</b-badge>
   </div>
 </template>
 
 <script>
+
 export default {
   name: "Status",
   data() {
@@ -33,11 +35,19 @@ export default {
       expanded: false,
       compStatus: "If the badge is green, this component is working!",
       APIWarning: "If the badge is red, the app may be broken. You have been warned.",
-      statusDescription: "Click to see detailed report on server status."
+      NonOfficialWarning: "You are using the non-official API, which may result in broken features.",
+      statusDescription: "Click to see detailed report on server status.",
+      showStatus: true
     }
   },
   computed: {
-    // Checks each separate status to determin server status
+    isOfficialURL() {
+      return this.$store.state.isOfficialURL
+    },
+    /**
+     * Checks each separate status to determine server status
+     * @return{boolean} False if at least one of the statuses are offline
+     */
     totalServerStatus() {
       let status = true
       Object.values(this.serverStatus).forEach((option) => {
@@ -47,17 +57,32 @@ export default {
       })
       return status
     },
-    // Set server status
+    /**
+     * Sets the server status
+     * @return{boolean} The current server status
+     */
     serverStatus() {
       return this.$store.state.serverStatus
     },
+    /**
+     * Checks if in dark mode
+     * @return{boolean} The dark mode status
+     */
     isDarkMode() {
       return this.$store.state.isDarkMode
     }
   },
   methods: {
+    /**
+     * Toggles the list of all four difference server statuses
+     */
     toggleExpand() {
       this.expanded = !this.expanded
+    }
+  },
+  watch: {
+    '$store.state.showIcons': function() {
+      this.showStatus = this.$store.state.showIcons;
     }
   }
 }

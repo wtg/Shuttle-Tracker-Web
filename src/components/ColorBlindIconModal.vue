@@ -39,6 +39,7 @@
 
 <script>
 import { BIconPlusCircleFill, BIconExclamationCircleFill } from "bootstrap-vue";
+
 export default {
   name: "Modal",
   components: {
