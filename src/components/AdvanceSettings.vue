@@ -3,7 +3,7 @@
     <h3 :class="{'text-white': isDarkMode}">Advanced Settings</h3>
 <!--    <label for="input-custom-api">Custom API:</label><b-form-input id="input-custom-api" size="sm">HELLO</b-form-input>-->
     <b-form-group :label-class="{'text-white': isDarkMode}" label="Custom API:" label-for="input-custom-api">
-      <b-form-input @change="setBaseURL" id="input-custom-api" v-model="customAPI" size="sm" placeholder="Blank for default" debounce="500"></b-form-input>
+      <b-form-input @change="setBaseURL" id="input-custom-api" v-model="customAPI" size="sm" placeholder="https://shuttletracker.app" debounce="500"></b-form-input>
     </b-form-group>
   </b-card>
 </template>
