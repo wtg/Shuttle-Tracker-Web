@@ -3,7 +3,7 @@
     <h3 :class="{'text-white': isDarkMode}">Settings</h3>
     <b-form-checkbox @change="setCbMode" :class="[{'text-white': isDarkMode}]" v-model="isCbMode" name="cbModeSwitch"
                      v-b-tooltip.hover.lefttop :title="cbExplanation" switch>
-      Colorblind Mode
+      Color-Blind Mode
     </b-form-checkbox>
     <b-form-checkbox @change="setDarkMode" :class="[{'text-white': isDarkMode}]" v-model="isDark" name="DarkModeSwitch"
                      v-b-tooltip.hover.lefttop :title="darkExplanation" switch>
