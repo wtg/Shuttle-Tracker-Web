@@ -11,7 +11,7 @@
     </b-form-checkbox>
     <b-form-checkbox  @change="setAdvMode" :class="[{'text-white': isDarkMode}]" v-model="isAdvMode" name="AdvModeSwitch"
                       v-b-tooltip.hover.lefttop :title="advSettingsExplanation" switch>
-      Enable Advanced Settings
+      {{isAdvMode?'Hide':'Enable'}} Advanced Settings
     </b-form-checkbox>
     <b-form-checkbox v-if="devToolsEnabled" v-model="devHQ" name="check-button" switch
                      :class="{'text-white': isDarkMode}">
