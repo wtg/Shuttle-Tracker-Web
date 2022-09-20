@@ -1,51 +1,102 @@
 <template>
-  <b-card v-if="showSchedule"
-    class="mt-3"
-    :class="[{ 'bubble-dark': isDarkMode }, { 'bubble-light': !isDarkMode }]"
-  >
-    <h3 :class="{ 'text-white': isDarkMode }">Shuttle Schedule</h3>
-    <ul :class="{ 'text-white': isDarkMode }">
-      <li>Mon-Fri: 7am - 11:45pm</li>
-      <li>Sat: 9am - 11:45pm</li>
-      <li>Sun: 9am - 8pm</li>
+  <b-card v-if="isFsMode" class="mt-3" :class="[{'bubble-dark': isDarkMode},{'bubble-light': !isDarkMode}]">
+    <h3 :class="{'text-white': isDarkMode}">
+      {{currentSemester}} Schedule
+    </h3>
+    <ul :class="{'text-white': isDarkMode}">
+      <li> Weekdays: {{currentWeek.monday.start}} - {{currentWeek.monday.end}}</li>
+      <li> Saturday:<span class='saturday-times'>{{currentWeek.saturday.start}} - {{currentWeek.saturday.end}}</span></li>
+      <li> Sunday:<span class='sunday-times'>{{currentWeek.sunday.start}} - {{currentWeek.sunday.end}}</span></li>
     </ul>
   </b-card>
 </template>
 
 <script>
+import axios from 'axios'
+import mixin from  '../mixins/mixins.js'
+
 export default {
-  name: "Fullscrn_schedule",
+  mixins: [mixin],
   data() {
     return {
-      showSchedule: false
-    }
+      schedules: [],
+      currentWeek: {
+			"monday": {
+				"start": "01:00",
+				"end": "23:00"
+			},
+			"tuesday": {
+				"start": "01:00",
+				"end": "23:00"
+			},
+			"wednesday": {
+				"start": "01:00",
+				"end": "23:00"
+			},
+			"thursday": {
+				"start": "01:00",
+				"end": "23:00"
+			},
+			"friday": {
+				"start": "01:00",
+				"end": "23:00"
+			},
+			"saturday": {
+				"start": "01:00",
+				"end": "23:00"
+			},
+			"sunday": {
+				"start": "01:00",
+				"end": "23:00"
+			}
+		},
+      currentSemester: "Spring 2022"
+    };
   },
   computed: {
-    isDarkMode() {
-      return this.$store.state.isDarkMode;
-    },
-  },
-  watch: {
-    '$store.state.showIcons': function() {
-      this.showSchedule = this.$store.state.showIcons;
+    /**
+     * @brief Returns the base URL
+     * @return the state of baseURL
+     */
+    baseURL() {
+      return this.$store.state.baseURL
     }
+  },
+  methods: {
+    /**
+     * Gets and loops through API. Puts schedule from range into variables.
+     */
+    async getCurrentSemester() {
+
+      // Gets API
+      const response = await axios.get(this.baseURL + "/schedule.json")
+
+      // API goes in here
+      this.schedules = response.data
+
+      const current = new Date();
+
+      // Checking if current time is between schedule start and end dates
+      for (let i = 0; i < this.schedules.length; i++) {
+        if (this.schedules[i].start <= current.toISOString() && this.schedules[i].end >= current.toISOString()) {
+          this.currentWeek = this.schedules[i].content;
+          this.currentSemester = this.schedules[i].name;
+          break;
+        }
+      }
+    }
+  },
+  mounted () {
+    this.getCurrentSemester();
   }
-};
+}
 </script>
 
 <style scoped>
-h3 {
-  font-size: 22px;
-}
-
 ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
-}
-
-li {
-  font-size: 15px;
 }
 
 .card {
@@ -53,16 +104,24 @@ li {
 }
 
 .card-body {
-  padding: 0.5rem;
+  padding: 1rem;
 }
 
 .bubble-light {
-  background-color: rgba(235, 235, 235, 0.75);
-  border-color: rgba(235, 235, 235, 0.75);
+  background-color: rgb(235, 235, 235);
+  border-color: rgb(235, 235, 235);
 }
 
 .bubble-dark {
-  background-color: rgba(71, 71, 71, 0.8);
-  border-color: rgba(71, 71, 71, 0.8);
+  background-color: rgb(71, 71, 71);
+  border-color: rgb(71, 71, 71);
+}
+
+.saturday-times {
+  margin-left: 13.5px;
+}
+
+.sunday-times {
+  margin-left: 23.5px;
 }
 </style>

@@ -43,6 +43,7 @@
             </div>
             <div id="schedule">
               <Fullscrn_Schedule v-if="fullscreen"></Fullscrn_Schedule>
+              <!-- <Schedule v-if="fullscreen"></Schedule> -->
             </div>
             <div id="qrcode">
               <Fullscrn_qrcode v-if="fullscreen"></Fullscrn_qrcode>
@@ -69,6 +70,7 @@ import VueFullscreen from 'vue-fullscreen'
 import Fullscrn_qrcode from "./Fullscrn_qrcode.vue"
 import mixin from '../mixins/mixins.js'
 import Fullscrn_Schedule from "./Fullscrn_Schedule";
+// import Schedule from "./Schedule";
 
 
 Vue.use(VueFullscreen);
@@ -81,7 +83,8 @@ export default {
     Fullscrn_qrcode,
     BIconFullscreen,
     BIconFullscreenExit,
-    Fullscrn_Schedule
+    // Schedule,
+    Fullscrn_Schedule,
   },
   mixins: [mixin],
   data() {
