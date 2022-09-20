@@ -19,7 +19,7 @@
                      @click="toggleFullscreen(true)">
               <BIconFullscreen v-if="!fullscreen"></BIconFullscreen>
               <BIconFullscreenExit v-if="fullscreen"></BIconFullscreenExit>
-              {{ fullscreen ? "Exit" : "Enter" }} Full-Screen
+              {{ fullscreen ? "Exit" : "Enter" }} Full-Screen Mode
             </b-badge>
           </div>
 
@@ -38,7 +38,7 @@
               >
                 <BIconFullscreen v-if="!fullscreen"></BIconFullscreen>
                 <BIconFullscreenExit v-if="fullscreen"></BIconFullscreenExit>
-                {{ fullscreen ? "Exit" : "Enter" }} Full-Screen
+                {{ fullscreen ? "Exit" : "Enter" }} Full-Screen Mode
               </b-badge>
             </div>
             <div id="schedule">
