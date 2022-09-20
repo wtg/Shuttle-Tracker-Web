@@ -2,7 +2,7 @@
   <div v-if="showStatus">
     <b-badge role="button" @click="toggleExpand" v-if="!expanded" class="mr-1"
              :variant="totalServerStatus ? 'success': 'danger'" v-b-tooltip.hover :title="statusDescription">
-      Server: {{ totalServerStatus ? 'online' : 'offline' }}
+      Server: {{ totalServerStatus ? 'Online' : 'Offline' }}
     </b-badge>
     <div v-else>
       <b-badge role="button" @click="toggleExpand" class="mr-1" :variant="serverStatus.routes ? 'success': 'danger'"
