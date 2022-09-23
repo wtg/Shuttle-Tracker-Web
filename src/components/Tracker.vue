@@ -12,15 +12,25 @@
             :class="{ 'h-100': fullscreen }"
           ></div>
 
-          <!-- Server Status and Fullscreen Button -->
+          <!-- Server Status, Fullscreen Button, and Routes Legend -->
           <div v-if="!fullscreen" id="serverStatus" class="position-absolute">
+            <!-- API status -->
             <Status></Status>
+            <!-- fullscreen button -->
             <b-badge v-if="showFullScreen && showFSIcon" v-b-tooltip.hover :title="FullscreenDesc" role="button" variant="primary"
                      @click="toggleFullscreen(true)">
               <BIconFullscreen v-if="!fullscreen"></BIconFullscreen>
               <BIconFullscreenExit v-if="fullscreen"></BIconFullscreenExit>
               {{ fullscreen ? "Exit" : "Enter" }} Fullscreen
             </b-badge>
+            <!-- Routes Legend -->
+            <div>
+              <div class="rounded mt-1 d-inline-block" :class="[{'frosted-glass-dark': !isDarkMode}, {'frosted-glass': isDarkMode}]">
+                <div v-for="(r, i) in routes" :key="i" class="d-flex align-items-center mx-2 my-1">
+                  <span class="mr-1 d-inline-block route-legend-marker" :style="[{'background-color': r.colorName}]"> </span> <span class="text-white">{{r.name}}</span>
+                </div>
+              </div>
+            </div>
           </div>
 
           <!-- Sidebar (fullscreen mode only) -->
@@ -95,7 +105,8 @@ export default {
       FullscreenDesc: 'Toggle fullscreen mode.',
       showFullScreen: false,  // only show fs on non-mobile device
       showFSIcon: true,
-      fullscreenDelay: 0
+      fullscreenDelay: 0,
+      routes: [], // active route name and color
     }
   },
   computed: {
@@ -286,24 +297,52 @@ export default {
     async renderRoutes() {
       try {
         // fetch api
-        const res = await axios.get(this.baseURL + "/routes");
-        // extract coordinates
-        const coordinates = res.data[0].coordinates.map((coordinate) => {
-          return new mapkit.Coordinate(
-            coordinate.latitude,
-            coordinate.longitude
-          );
-        });
-        // render overlay
-        const routesOverlay = new mapkit.PolylineOverlay(coordinates, {
-          style: new mapkit.Style({
-            lineWidth: 2,
-            lineJoin: "round",
-            strokeColor: "steelblue",
-          }),
-        });
-        this.mapObj.addOverlay(routesOverlay);
-        this.$store.commit("setServerStatus", { routes: true });
+        // TODO: UNCOMMENT THIS
+        // const res = await axios.get(this.baseURL + "/routes");
+
+        // TODO: DELETE THIS SHIT (FAKE DATA)
+        const res = {data:[
+          {
+            "coordinates": [{"longitude":-73.677212,"latitude":42.730777},{"longitude":-73.678042,"latitude":42.727822},{"longitude":-73.678057,"latitude":42.727686},{"longitude":-73.678052,"latitude":42.727024},{"longitude":-73.678119,"latitude":42.726666},{"longitude":-73.678447,"latitude":42.72572},{"longitude":-73.67866,"latitude":42.725144},{"longitude":-73.678766,"latitude":42.724628},{"longitude":-73.67883,"latitude":42.724418},{"longitude":-73.67907,"latitude":42.723666},{"longitude":-73.679284,"latitude":42.723212},{"longitude":-73.679415,"latitude":42.723037},{"longitude":-73.679537,"latitude":42.722925},{"longitude":-73.679789,"latitude":42.722735},{"longitude":-73.679789,"latitude":42.722735},{"longitude":-73.680271,"latitude":42.723084},{"longitude":-73.680428,"latitude":42.723209},{"longitude":-73.680597,"latitude":42.723358},{"longitude":-73.680686,"latitude":42.723458},{"longitude":-73.680777,"latitude":42.723603},{"longitude":-73.681176,"latitude":42.72447},{"longitude":-73.681375,"latitude":42.724994},{"longitude":-73.68145,"latitude":42.725268},{"longitude":-73.681511,"latitude":42.725583},{"longitude":-73.681578,"latitude":42.726272},{"longitude":-73.681618,"latitude":42.726371},{"longitude":-73.681732,"latitude":42.726536},{"longitude":-73.681824,"latitude":42.726626},{"longitude":-73.681914,"latitude":42.726691},{"longitude":-73.682042,"latitude":42.726753},{"longitude":-73.683272,"latitude":42.727174},{"longitude":-73.683953,"latitude":42.727398},{"longitude":-73.684491,"latitude":42.727528},{"longitude":-73.684823,"latitude":42.727583},{"longitude":-73.684991,"latitude":42.72759},{"longitude":-73.685138,"latitude":42.72767},{"longitude":-73.685303,"latitude":42.727728},{"longitude":-73.685607,"latitude":42.727798},],
+            "name": "Route A",
+            "schedule": {},
+            "colorName": "red"
+          },
+          {
+            "coordinates": [{"longitude":-73.671688,"latitude":42.732407},{"longitude":-73.671347,"latitude":42.733623},{"longitude":-73.671072,"latitude":42.734622},{"longitude":-73.670561,"latitude":42.736457},{"longitude":-73.670061,"latitude":42.738271},{"longitude":-73.670061,"latitude":42.738271},{"longitude":-73.666549,"latitude":42.737767},{"longitude":-73.666549,"latitude":42.737767},{"longitude":-73.667084,"latitude":42.73596},{"longitude":-73.667084,"latitude":42.73596},{"longitude":-73.666767,"latitude":42.735914},{"longitude":-73.666266,"latitude":42.735843},{"longitude":-73.665014,"latitude":42.735664},{"longitude":-73.663337,"latitude":42.735424},{"longitude":-73.663246,"latitude":42.735403},{"longitude":-73.663181,"latitude":42.735361},{"longitude":-73.663181,"latitude":42.735361},{"longitude":-73.66315,"latitude":42.735276},{"longitude":-73.663444,"latitude":42.734186},{"longitude":-73.663505,"latitude":42.734049},{"longitude":-73.6636,"latitude":42.733933},{"longitude":-73.664479,"latitude":42.733216},{"longitude":-73.664866,"latitude":42.732894},{"longitude":-73.665987,"latitude":42.731967},{"longitude":-73.666282,"latitude":42.731643},{"longitude":-73.666773,"latitude":42.73102},{"longitude":-73.66693,"latitude":42.730921},{"longitude":-73.667073,"latitude":42.730887},{"longitude":-73.667215,"latitude":42.730877},{"longitude":-73.667215,"latitude":42.730877},{"longitude":-73.667405,"latitude":42.730914},{"longitude":-73.667789,"latitude":42.731071},{"longitude":-73.668605,"latitude":42.731404},{"longitude":-73.669124,"latitude":42.731619},{"longitude":-73.670219,"latitude":42.731802},{"longitude":-73.670328,"latitude":42.73183},{"longitude":-73.670497,"latitude":42.731898},{"longitude":-73.670558,"latitude":42.731939},{"longitude":-73.670658,"latitude":42.732032},{"longitude":-73.670686,"latitude":42.732084},{"longitude":-73.670788,"latitude":42.73224},{"longitude":-73.670893,"latitude":42.732293},{"longitude":-73.671547,"latitude":42.732389},{"longitude":-73.671688,"latitude":42.732407}],
+            "name": "Route B",
+            "schedule": {},
+            "colorName": "blue"
+          },
+        ]};
+
+        // Routes
+        this.routes = [];
+        res.data.forEach((routes) => {
+          // update active routes
+          this.routes.push({
+            name: routes.name,
+            colorName: routes.colorName
+          })
+          // extract coordinates
+          const coordinates = routes.coordinates.map((coordinate) => {
+            return new mapkit.Coordinate(
+                coordinate.latitude,
+                coordinate.longitude
+            );
+          });
+          // render overlay
+          const routesOverlay = new mapkit.PolylineOverlay(coordinates, {
+            style: new mapkit.Style({
+              lineWidth: 2,
+              lineJoin: "round",
+              strokeColor: routes.colorName,
+            }),
+          });
+          this.mapObj.addOverlay(routesOverlay);
+          this.$store.commit("setServerStatus", { routes: true });
+        })
+
       } catch {
         // fetch api failed, update server status
         this.$store.commit("setServerStatus", { routes: false });
@@ -412,6 +451,22 @@ export default {
   border-color: rgba(255, 255, 255, 0.25) transparent transparent transparent;
   transition-duration: 0.3s;
   transition-property: transform;
+}
+
+.frosted-glass {
+  background-color: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(5px);
+}
+
+.frosted-glass-dark {
+  background-color: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(5px);
+}
+
+.route-legend-marker {
+  height: .8em;
+  width: .8em;
+  border-radius: 50%;
 }
 
 #map > .mk-map-view {
