@@ -24,7 +24,7 @@
               {{ fullscreen ? "Exit" : "Enter" }} Fullscreen
             </b-badge>
             <!-- Routes Legend -->
-            <div>
+            <div v-if="routes.length > 0">
               <div class="rounded mt-1 d-inline-block" :class="[{'frosted-glass-dark': !isDarkMode}, {'frosted-glass': isDarkMode}]">
                 <div v-for="(r, i) in routes" :key="i" class="d-flex align-items-center mx-2 my-1">
                   <span class="mr-1 d-inline-block route-legend-marker" :style="[{'background-color': r.colorName}]"> </span> <span class="text-white">{{r.name}}</span>
@@ -145,8 +145,8 @@ export default {
     this.mapObj.tintColor = "red";
     this.mapObj.mapType = mapkit.Map.MapTypes.MutedStandard;
     this.mapObj.colorScheme = this.isDarkMode
-      ? mapkit.Map.ColorSchemes.Dark
-      : mapkit.Map.ColorSchemes.Light;
+        ? mapkit.Map.ColorSchemes.Dark
+        : mapkit.Map.ColorSchemes.Light;
     // center map
     const center = new mapkit.Coordinate(42.73029109316892, -73.67655873298646);
     const span = new mapkit.CoordinateSpan(0.016, 0.032);
@@ -297,24 +297,7 @@ export default {
     async renderRoutes() {
       try {
         // fetch api
-        // TODO: UNCOMMENT THIS
-        // const res = await axios.get(this.baseURL + "/routes");
-
-        // TODO: DELETE THIS SHIT (FAKE DATA)
-        const res = {data:[
-          {
-            "coordinates": [{"longitude":-73.677212,"latitude":42.730777},{"longitude":-73.678042,"latitude":42.727822},{"longitude":-73.678057,"latitude":42.727686},{"longitude":-73.678052,"latitude":42.727024},{"longitude":-73.678119,"latitude":42.726666},{"longitude":-73.678447,"latitude":42.72572},{"longitude":-73.67866,"latitude":42.725144},{"longitude":-73.678766,"latitude":42.724628},{"longitude":-73.67883,"latitude":42.724418},{"longitude":-73.67907,"latitude":42.723666},{"longitude":-73.679284,"latitude":42.723212},{"longitude":-73.679415,"latitude":42.723037},{"longitude":-73.679537,"latitude":42.722925},{"longitude":-73.679789,"latitude":42.722735},{"longitude":-73.679789,"latitude":42.722735},{"longitude":-73.680271,"latitude":42.723084},{"longitude":-73.680428,"latitude":42.723209},{"longitude":-73.680597,"latitude":42.723358},{"longitude":-73.680686,"latitude":42.723458},{"longitude":-73.680777,"latitude":42.723603},{"longitude":-73.681176,"latitude":42.72447},{"longitude":-73.681375,"latitude":42.724994},{"longitude":-73.68145,"latitude":42.725268},{"longitude":-73.681511,"latitude":42.725583},{"longitude":-73.681578,"latitude":42.726272},{"longitude":-73.681618,"latitude":42.726371},{"longitude":-73.681732,"latitude":42.726536},{"longitude":-73.681824,"latitude":42.726626},{"longitude":-73.681914,"latitude":42.726691},{"longitude":-73.682042,"latitude":42.726753},{"longitude":-73.683272,"latitude":42.727174},{"longitude":-73.683953,"latitude":42.727398},{"longitude":-73.684491,"latitude":42.727528},{"longitude":-73.684823,"latitude":42.727583},{"longitude":-73.684991,"latitude":42.72759},{"longitude":-73.685138,"latitude":42.72767},{"longitude":-73.685303,"latitude":42.727728},{"longitude":-73.685607,"latitude":42.727798},],
-            "name": "Route A",
-            "schedule": {},
-            "colorName": "red"
-          },
-          {
-            "coordinates": [{"longitude":-73.671688,"latitude":42.732407},{"longitude":-73.671347,"latitude":42.733623},{"longitude":-73.671072,"latitude":42.734622},{"longitude":-73.670561,"latitude":42.736457},{"longitude":-73.670061,"latitude":42.738271},{"longitude":-73.670061,"latitude":42.738271},{"longitude":-73.666549,"latitude":42.737767},{"longitude":-73.666549,"latitude":42.737767},{"longitude":-73.667084,"latitude":42.73596},{"longitude":-73.667084,"latitude":42.73596},{"longitude":-73.666767,"latitude":42.735914},{"longitude":-73.666266,"latitude":42.735843},{"longitude":-73.665014,"latitude":42.735664},{"longitude":-73.663337,"latitude":42.735424},{"longitude":-73.663246,"latitude":42.735403},{"longitude":-73.663181,"latitude":42.735361},{"longitude":-73.663181,"latitude":42.735361},{"longitude":-73.66315,"latitude":42.735276},{"longitude":-73.663444,"latitude":42.734186},{"longitude":-73.663505,"latitude":42.734049},{"longitude":-73.6636,"latitude":42.733933},{"longitude":-73.664479,"latitude":42.733216},{"longitude":-73.664866,"latitude":42.732894},{"longitude":-73.665987,"latitude":42.731967},{"longitude":-73.666282,"latitude":42.731643},{"longitude":-73.666773,"latitude":42.73102},{"longitude":-73.66693,"latitude":42.730921},{"longitude":-73.667073,"latitude":42.730887},{"longitude":-73.667215,"latitude":42.730877},{"longitude":-73.667215,"latitude":42.730877},{"longitude":-73.667405,"latitude":42.730914},{"longitude":-73.667789,"latitude":42.731071},{"longitude":-73.668605,"latitude":42.731404},{"longitude":-73.669124,"latitude":42.731619},{"longitude":-73.670219,"latitude":42.731802},{"longitude":-73.670328,"latitude":42.73183},{"longitude":-73.670497,"latitude":42.731898},{"longitude":-73.670558,"latitude":42.731939},{"longitude":-73.670658,"latitude":42.732032},{"longitude":-73.670686,"latitude":42.732084},{"longitude":-73.670788,"latitude":42.73224},{"longitude":-73.670893,"latitude":42.732293},{"longitude":-73.671547,"latitude":42.732389},{"longitude":-73.671688,"latitude":42.732407}],
-            "name": "Route B",
-            "schedule": {},
-            "colorName": "blue"
-          },
-        ]};
+        const res = await axios.get(this.baseURL + "/routes");
 
         // Routes
         this.routes = [];
@@ -415,8 +398,20 @@ export default {
       if (val.stops && this.stopsInterval) {
         clearInterval(this.stopsInterval);
       }
+    },
+    baseURL() {
+      // refresh if un-official API is used
+      // remove overlays
+      this.mapObj.overlays.forEach((overlay) => {
+        this.mapObj.removeOverlay(overlay)
+      })
+      // re-render all map structures
+      this.getAPIVersion();
+      this.renderRoutes();
+      this.renderStops();
+      this.updateBuses();
     }
-  },
+  }
 };
 </script>
 
