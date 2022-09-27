@@ -9,10 +9,6 @@
                      v-b-tooltip.hover.lefttop :title="darkExplanation" switch>
       Dark Mode
     </b-form-checkbox>
-    <b-form-checkbox  @change="setAdvMode" :class="[{'text-white': isDarkMode}]" v-model="isAdvMode" name="AdvModeSwitch"
-                      v-b-tooltip.hover.lefttop :title="advSettingsExplanation" switch>
-      {{isAdvMode?'Hide':'Enable'}} Advanced Settings
-    </b-form-checkbox>
     <b-form-checkbox v-if="devToolsEnabled" v-model="devHQ" name="check-button" switch
                      :class="{'text-white': isDarkMode}">
       Create Fake HQ data: Bus 69
@@ -21,6 +17,10 @@
                      :class="{'text-white': isDarkMode}">
       Toggle Fake Announcement Bar
     </b-form-checkbox>
+    <b-button pill class="mt-1" :class="[{'text-white': isDarkMode}, {'toggled': isAdvMode}, {'advanced-settings': true}]" variant="secondary" size="sm" @click="toggleAdvMode" v-model="isAdvMode" name="AdvModeSwitch"
+                      v-b-tooltip.hover.lefttop :title="isAdvMode ? hideAdvSettingsExplanation:advSettingsExplanation" switch>
+      {{isAdvMode?'Hide':'Enable'}} Advanced Settings
+    </b-button>
   </b-card>
 </template>
 
@@ -43,6 +43,7 @@ export default {
       cbExplanation: "Changes the icons of buses to + and ! based on the quality of the bus data",
       darkExplanation: "Switches dark mode on or off",
       advSettingsExplanation: "Enable advanced settings",
+      hideAdvSettingsExplanation: "Hide advanced settings",
     }
   },
   methods: {
@@ -75,7 +76,15 @@ export default {
      */
     setAdvMode() {
       this.$store.commit('setAdvMode', this.isAdvMode)
+    },
+    /**
+     * @brief sets the opposite state for Advanced mode
+     */
+    toggleAdvMode() {
+      this.isAdvMode = ! this.isAdvMode;
+      this.setAdvMode()
     }
+
   },
   watch: {
     /**
@@ -125,5 +134,16 @@ export default {
 .bubble-dark {
   background-color: rgb(71, 71, 71);
   border-color: rgb(71, 71, 71);
+}
+
+.advanced-settings {
+  /* outline: none !important; */
+  outline:none !important;
+  outline-width: 0 !important;
+  box-shadow: none;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  /* margin- */
+  /* margin-left: 40px; */
 }
 </style>
