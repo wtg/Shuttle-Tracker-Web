@@ -20,6 +20,10 @@
               target="_blank">
         <small>Android App</small>
       </b-link>
+      <b-link :class="[{'text-black': !isDarkMode}, {'text-gray': isDarkMode}]"
+              to="/privacy-policy">
+        <small>Privacy Policy</small>
+      </b-link>
     </div>
   </footer>
 </template>
