@@ -9,7 +9,7 @@
       <div>
         <div class="row">
           <div class="col">
-            <h2 class="text-white">Privacy Policy</h2>
+            <h2 class="text-white">Privacy</h2>
             <div class="text-white" style="max-width: 600px;">
               Shuttle Tracker sends your location data to our server only when you tap “Board Bus”
               and stops sending these data when you tap “Leave Bus”. Your location data are
