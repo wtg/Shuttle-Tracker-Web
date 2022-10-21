@@ -16,7 +16,7 @@
         <small>iOS/iPadOS/macOS App</small>
       </b-link>
       <b-link class="mx-3" :class="[{'text-black': !isDarkMode}, {'text-gray': isDarkMode}]"
-              href="https://play.google.com/store/apps/details?id=edu.rpi.shuttletracker"
+              href="https://shuttletracker.app/android"
               target="_blank">
         <small>Android App</small>
       </b-link>
