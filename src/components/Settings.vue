@@ -42,7 +42,7 @@ export default {
       // Explanation Message when hovering over setting sliders
       cbExplanation: "Changes the icons of buses to + and ! based on the quality of the bus data",
       darkExplanation: "Switches dark mode on or off",
-      advSettingsExplanation: "Enable advanced settings",
+      advSettingsExplanation: "Show advanced settings",
       hideAdvSettingsExplanation: "Hide advanced settings",
     }
   },
