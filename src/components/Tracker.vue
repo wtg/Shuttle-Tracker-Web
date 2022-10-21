@@ -12,15 +12,25 @@
             :class="{ 'h-100': fullscreen }"
           ></div>
 
-          <!-- Server Status and Fullscreen Button -->
+          <!-- Server Status, Fullscreen Button, and Routes Legend -->
           <div v-if="!fullscreen" id="serverStatus" class="position-absolute">
+            <!-- API status -->
             <Status></Status>
+            <!-- fullscreen button -->
             <b-badge v-if="showFullScreen && showFSIcon" v-b-tooltip.hover :title="FullscreenDesc" role="button" variant="primary"
                      @click="toggleFullscreen(true)">
               <BIconFullscreen v-if="!fullscreen"></BIconFullscreen>
               <BIconFullscreenExit v-if="fullscreen"></BIconFullscreenExit>
-              {{ fullscreen ? "Exit" : "Enter" }} Fullscreen
+              {{ fullscreen ? "Exit" : "Enter" }} Full-Screen Mode
             </b-badge>
+            <!-- Routes Legend -->
+            <div v-if="routes.length > 0">
+              <div class="rounded mt-1 d-inline-block" :class="[{'frosted-glass-dark': !isDarkMode}, {'frosted-glass': isDarkMode}]">
+                <div v-for="(r, i) in routes" :key="i" class="d-flex align-items-center mx-2 my-1">
+                  <span class="mr-1 d-inline-block route-legend-marker" :style="[{'background-color': r.colorName}]"> </span> <span class="text-white">{{r.name}}</span>
+                </div>
+              </div>
+            </div>
           </div>
 
           <!-- Sidebar (fullscreen mode only) -->
@@ -38,11 +48,12 @@
               >
                 <BIconFullscreen v-if="!fullscreen"></BIconFullscreen>
                 <BIconFullscreenExit v-if="fullscreen"></BIconFullscreenExit>
-                {{ fullscreen ? "Exit" : "Enter" }} Fullscreen
+                {{ fullscreen ? "Exit" : "Enter" }} Full-Screen Mode
               </b-badge>
             </div>
             <div id="schedule">
               <Fullscrn_Schedule v-if="fullscreen"></Fullscrn_Schedule>
+              <!-- <Schedule v-if="fullscreen"></Schedule> -->
             </div>
             <div id="qrcode">
               <Fullscrn_qrcode v-if="fullscreen"></Fullscrn_qrcode>
@@ -69,6 +80,7 @@ import VueFullscreen from 'vue-fullscreen'
 import Fullscrn_qrcode from "./Fullscrn_qrcode.vue"
 import mixin from '../mixins/mixins.js'
 import Fullscrn_Schedule from "./Fullscrn_Schedule";
+// import Schedule from "./Schedule";
 
 
 Vue.use(VueFullscreen);
@@ -81,7 +93,8 @@ export default {
     Fullscrn_qrcode,
     BIconFullscreen,
     BIconFullscreenExit,
-    Fullscrn_Schedule
+    // Schedule,
+    Fullscrn_Schedule,
   },
   mixins: [mixin],
   data() {
@@ -95,7 +108,8 @@ export default {
       FullscreenDesc: 'Toggle fullscreen mode.',
       showFullScreen: false,  // only show fs on non-mobile device
       showFSIcon: true,
-      fullscreenDelay: 0
+      fullscreenDelay: 0,
+      routes: [], // active route name and color
     }
   },
   computed: {
@@ -134,8 +148,8 @@ export default {
     this.mapObj.tintColor = "red";
     this.mapObj.mapType = mapkit.Map.MapTypes.MutedStandard;
     this.mapObj.colorScheme = this.isDarkMode
-      ? mapkit.Map.ColorSchemes.Dark
-      : mapkit.Map.ColorSchemes.Light;
+        ? mapkit.Map.ColorSchemes.Dark
+        : mapkit.Map.ColorSchemes.Light;
     // center map
     const center = new mapkit.Coordinate(42.73029109316892, -73.67655873298646);
     const span = new mapkit.CoordinateSpan(0.016, 0.032);
@@ -287,23 +301,34 @@ export default {
       try {
         // fetch api
         const res = await axios.get(this.baseURL + "/routes");
-        // extract coordinates
-        const coordinates = res.data[0].coordinates.map((coordinate) => {
-          return new mapkit.Coordinate(
-            coordinate.latitude,
-            coordinate.longitude
-          );
-        });
-        // render overlay
-        const routesOverlay = new mapkit.PolylineOverlay(coordinates, {
-          style: new mapkit.Style({
-            lineWidth: 2,
-            lineJoin: "round",
-            strokeColor: "steelblue",
-          }),
-        });
-        this.mapObj.addOverlay(routesOverlay);
-        this.$store.commit("setServerStatus", { routes: true });
+
+        // Routes
+        this.routes = [];
+        res.data.forEach((routes) => {
+          // update active routes
+          this.routes.push({
+            name: routes.name,
+            colorName: routes.colorName
+          })
+          // extract coordinates
+          const coordinates = routes.coordinates.map((coordinate) => {
+            return new mapkit.Coordinate(
+                coordinate.latitude,
+                coordinate.longitude
+            );
+          });
+          // render overlay
+          const routesOverlay = new mapkit.PolylineOverlay(coordinates, {
+            style: new mapkit.Style({
+              lineWidth: 2,
+              lineJoin: "round",
+              strokeColor: routes.colorName,
+            }),
+          });
+          this.mapObj.addOverlay(routesOverlay);
+          this.$store.commit("setServerStatus", { routes: true });
+        })
+
       } catch {
         // fetch api failed, update server status
         this.$store.commit("setServerStatus", { routes: false });
@@ -376,8 +401,20 @@ export default {
       if (val.stops && this.stopsInterval) {
         clearInterval(this.stopsInterval);
       }
+    },
+    baseURL() {
+      // refresh if un-official API is used
+      // remove overlays
+      this.mapObj.overlays.forEach((overlay) => {
+        this.mapObj.removeOverlay(overlay)
+      })
+      // re-render all map structures
+      this.getAPIVersion();
+      this.renderRoutes();
+      this.renderStops();
+      this.updateBuses();
     }
-  },
+  }
 };
 </script>
 
@@ -412,6 +449,22 @@ export default {
   border-color: rgba(255, 255, 255, 0.25) transparent transparent transparent;
   transition-duration: 0.3s;
   transition-property: transform;
+}
+
+.frosted-glass {
+  background-color: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(5px);
+}
+
+.frosted-glass-dark {
+  background-color: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(5px);
+}
+
+.route-legend-marker {
+  height: .8em;
+  width: .8em;
+  border-radius: 50%;
 }
 
 #map > .mk-map-view {

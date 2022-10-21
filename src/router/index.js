@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import PrivacyPolicy from "../views/PrivacyPolicy";
+import PageNotFound from "../views/PageNotFound";
 
 Vue.use(VueRouter)
 
@@ -15,6 +16,11 @@ const routes = [
     path: '/privacy-policy',
     name: 'PrivacyPolicy',
     component: PrivacyPolicy
+  },
+  {
+    path: '*',
+    name: 'PageNotFound',
+    component: PageNotFound 
   }
 ]
 
