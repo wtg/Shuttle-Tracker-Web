@@ -19,7 +19,7 @@
     </b-form-checkbox>
     <b-button pill class="mt-1" :class="[{'text-white': isDarkMode}, {'toggled': isAdvMode}, {'advanced-settings': true}]" variant="secondary" size="sm" @click="toggleAdvMode" v-model="isAdvMode" name="AdvModeSwitch"
                       v-b-tooltip.hover.lefttop :title="isAdvMode ? hideAdvSettingsExplanation:advSettingsExplanation" switch>
-      {{isAdvMode?'Hide':'Enable'}} Advanced Settings
+      {{isAdvMode?'Hide':'Show'}} Advanced Settings
     </b-button>
   </b-card>
 </template>
