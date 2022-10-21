@@ -1,9 +1,12 @@
 <template>
-  <b-card v-if="!isFsMode && isCurrent" class="mt-3" :class="[{'bubble-dark': isDarkMode},{'bubble-light': !isDarkMode}]">
-    <h3 :class="{'text-white': isDarkMode}">
+  <b-card v-if="!isFsMode" class="mt-3" :class="[{'bubble-dark': isDarkMode},{'bubble-light': !isDarkMode}]">
+    <h3 v-if="!isCurrent" :class="{'text-white': isDarkMode}">
+      No Current Schedule
+    </h3>
+    <h3 v-if="isCurrent" :class="{'text-white': isDarkMode}">
       {{currentSemester}} Schedule
     </h3>
-    <ul :class="{'text-white': isDarkMode}">
+    <ul v-if="isCurrent" :class="{'text-white': isDarkMode}">
       <li> Weekdays: {{currentWeek.monday.start}} - {{currentWeek.monday.end}}</li>
       <li> Saturday:<span class='saturday-times'>{{currentWeek.saturday.start}} - {{currentWeek.saturday.end}}</span></li>
       <li> Sunday:<span class='sunday-times'>{{currentWeek.sunday.start}} - {{currentWeek.sunday.end}}</span></li>
@@ -65,21 +68,9 @@ export default {
      * @return if there is no current schedule
      */
     isCurrent() {
-      if (Object.keys(this.schedules).length == 0) { return false }
+      if (!this.currentWeek) { return false}
 
-      //look for current schedule
-      Object.keys(this.schedules).map(idx => {
-
-        //assign current schedule and enable display
-        if (Date.parse(this.schedules[idx]["end"]) <= Date.parse(Date()) &&
-            Date.parse(this.schedules[idx]["start"]) >= Date.parse(Date()))
-        {
-          this.currentWeek = this.schedules[idx]["content"]
-          return true
-        } 
-      })
-
-      return false
+      return true
     }
   },
   methods: {
@@ -96,6 +87,8 @@ export default {
 
       const current = new Date();
 
+      this.currentWeek = null
+
       // Checking if current time is between schedule start and end dates
       for (let i = 0; i < this.schedules.length; i++) {
         if (this.schedules[i].start <= current.toISOString() && this.schedules[i].end >= current.toISOString()) {
@@ -104,6 +97,7 @@ export default {
           break;
         }
       }
+
     }
   },
   mounted () {
