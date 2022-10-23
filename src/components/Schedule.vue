@@ -53,8 +53,6 @@ export default {
 
       const current = new Date();
 
-      this.currentWeek = undefined
-
       // Checking if current time is between schedule start and end dates
       for (let i = 0; i < this.schedules.length; i++) {
         if (this.schedules[i].start <= current.toISOString() && this.schedules[i].end >= current.toISOString()) {
