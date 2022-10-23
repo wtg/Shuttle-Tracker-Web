@@ -1,10 +1,7 @@
 <template>
   <b-card v-if="!isFsMode" class="mt-3" :class="[{'bubble-dark': isDarkMode},{'bubble-light': !isDarkMode}]">
-    <h3 v-if="!isCurrent" :class="{'text-white': isDarkMode}">
-      No Current Schedule
-    </h3>
-    <h3 v-if="isCurrent" :class="{'text-white': isDarkMode}">
-      {{currentSemester}} Schedule
+    <h3 :class="{'text-white': isDarkMode}">
+      {{ !isCurrent ? 'No Current Schedule' : currentSemester + ' Schedule' }}
     </h3>
     <ul v-if="isCurrent" :class="{'text-white': isDarkMode}">
       <li> Weekdays: {{currentWeek.monday.start}} - {{currentWeek.monday.end}}</li>
@@ -23,36 +20,7 @@ export default {
   data() {
     return {
       schedules: [],
-      currentWeek: {
-			"monday": {
-				"start": "01:00",
-				"end": "23:00"
-			},
-			"tuesday": {
-				"start": "01:00",
-				"end": "23:00"
-			},
-			"wednesday": {
-				"start": "01:00",
-				"end": "23:00"
-			},
-			"thursday": {
-				"start": "01:00",
-				"end": "23:00"
-			},
-			"friday": {
-				"start": "01:00",
-				"end": "23:00"
-			},
-			"saturday": {
-				"start": "01:00",
-				"end": "23:00"
-			},
-			"sunday": {
-				"start": "01:00",
-				"end": "23:00"
-			}
-		},
+      currentWeek: undefined,
       currentSemester: "Spring 2022"
     };
   },
@@ -68,9 +36,7 @@ export default {
      * @return if there is no current schedule
      */
     isCurrent() {
-      if (!this.currentWeek) { return false}
-
-      return true
+      return !(this.currentWeek === undefined)
     }
   },
   methods: {
@@ -87,7 +53,7 @@ export default {
 
       const current = new Date();
 
-      this.currentWeek = null
+      this.currentWeek = undefined
 
       // Checking if current time is between schedule start and end dates
       for (let i = 0; i < this.schedules.length; i++) {
