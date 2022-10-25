@@ -1,9 +1,9 @@
 <template>
-  <b-card v-if="!isFsMode && isCurrent" class="mt-3" :class="[{'bubble-dark': isDarkMode},{'bubble-light': !isDarkMode}]">
+  <b-card v-if="!isFsMode" class="mt-3" :class="[{'bubble-dark': isDarkMode},{'bubble-light': !isDarkMode}]">
     <h3 :class="{'text-white': isDarkMode}">
-      {{currentSemester}} Schedule
+      {{ !isCurrent ? 'No Current Schedule' : currentSemester + ' Schedule' }}
     </h3>
-    <ul :class="{'text-white': isDarkMode}">
+    <ul v-if="isCurrent" :class="{'text-white': isDarkMode}">
       <li> Weekdays: {{currentWeek.monday.start}} - {{currentWeek.monday.end}}</li>
       <li> Saturday:<span class='saturday-times'>{{currentWeek.saturday.start}} - {{currentWeek.saturday.end}}</span></li>
       <li> Sunday:<span class='sunday-times'>{{currentWeek.sunday.start}} - {{currentWeek.sunday.end}}</span></li>
@@ -20,37 +20,8 @@ export default {
   data() {
     return {
       schedules: [],
-      currentWeek: {
-			"monday": {
-				"start": "01:00",
-				"end": "23:00"
-			},
-			"tuesday": {
-				"start": "01:00",
-				"end": "23:00"
-			},
-			"wednesday": {
-				"start": "01:00",
-				"end": "23:00"
-			},
-			"thursday": {
-				"start": "01:00",
-				"end": "23:00"
-			},
-			"friday": {
-				"start": "01:00",
-				"end": "23:00"
-			},
-			"saturday": {
-				"start": "01:00",
-				"end": "23:00"
-			},
-			"sunday": {
-				"start": "01:00",
-				"end": "23:00"
-			}
-		},
-      currentSemester: "Spring 2022"
+      currentWeek: undefined,
+      currentSemester: undefined
     };
   },
   computed: {
@@ -65,21 +36,7 @@ export default {
      * @return if there is no current schedule
      */
     isCurrent() {
-      if (Object.keys(this.schedules).length == 0) { return false }
-
-      //look for current schedule
-      Object.keys(this.schedules).map(idx => {
-
-        //assign current schedule and enable display
-        if (Date.parse(this.schedules[idx]["end"]) <= Date.parse(Date()) &&
-            Date.parse(this.schedules[idx]["start"]) >= Date.parse(Date()))
-        {
-          this.currentWeek = this.schedules[idx]["content"]
-          return true
-        } 
-      })
-
-      return false
+      return !(this.currentWeek === undefined)
     }
   },
   methods: {
@@ -104,6 +61,7 @@ export default {
           break;
         }
       }
+
     }
   },
   mounted () {
