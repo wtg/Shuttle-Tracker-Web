@@ -14,6 +14,7 @@ export default new Vuex.Store({
             routes: true,
             stops: true,
             buses: true,
+            schedule: true,
             version: true
         },
         fakeHQ: false,
@@ -45,6 +46,9 @@ export default new Vuex.Store({
             }
             if (status.buses !== undefined) {
                 state.serverStatus.buses = status.buses
+            }
+            if (status.schedule !== undefined) {
+                state.serverStatus.schedule = status.buses
             }
             if (status.version !== undefined) {
                 state.serverStatus.version = status.version

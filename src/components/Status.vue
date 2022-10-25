@@ -17,6 +17,10 @@
                v-b-tooltip.hover :title="compStatus">
         Buses
       </b-badge>
+      <b-badge role="button" @click="toggleExpand" class="mx-1" :variant="serverStatus.schedule ? 'success': 'danger'"
+               v-b-tooltip.hover :title="compStatus">
+        Schedule
+      </b-badge>
       <b-badge role="button" @click="toggleExpand" class="mx-1" :variant="serverStatus.version ? 'success': 'danger'"
                v-b-tooltip.hover :title="APIWarning">
         API

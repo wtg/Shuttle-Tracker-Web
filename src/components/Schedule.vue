@@ -46,20 +46,22 @@ export default {
     async getCurrentSemester() {
 
       // Gets API
-      const response = await axios.get(this.baseURL + "/schedule.json")
+      try {
+        // API call
+        const response = await axios.get(this.baseURL + "/schedule.json")
+        this.schedules = response.data
 
-      // API goes in here
-      this.schedules = response.data
-
-      const current = new Date();
-
-      // Checking if current time is between schedule start and end dates
-      for (let i = 0; i < this.schedules.length; i++) {
-        if (this.schedules[i].start <= current.toISOString() && this.schedules[i].end >= current.toISOString()) {
-          this.currentWeek = this.schedules[i].content;
-          this.currentSemester = this.schedules[i].name;
-          break;
+        // Checking if current time is between schedule start and end dates
+        const current = new Date();
+        for (let i = 0; i < this.schedules.length; i++) {
+          if (this.schedules[i].start <= current.toISOString() && this.schedules[i].end >= current.toISOString()) {
+            this.currentWeek = this.schedules[i].content;
+            this.currentSemester = this.schedules[i].name;
+            break;
+          }
         }
+      } catch {
+        this.$store.commit("setServerStatus", { schedule: false });
       }
 
     }
