@@ -48,7 +48,7 @@ export default new Vuex.Store({
                 state.serverStatus.buses = status.buses
             }
             if (status.schedule !== undefined) {
-                state.serverStatus.schedule = status.buses
+                state.serverStatus.schedule = status.schedule
             }
             if (status.version !== undefined) {
                 state.serverStatus.version = status.version
