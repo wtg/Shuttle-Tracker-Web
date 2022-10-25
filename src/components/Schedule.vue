@@ -21,7 +21,7 @@ export default {
     return {
       schedules: [],
       currentWeek: undefined,
-      currentSemester: "Spring 2022"
+      currentSemester: undefined
     };
   },
   computed: {
