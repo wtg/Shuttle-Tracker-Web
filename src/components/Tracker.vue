@@ -15,9 +15,7 @@
           <!-- Server Status, Fullscreen Button, and Routes Legend -->
           <div v-if="!fullscreen" id="serverStatus" class="position-absolute">
             <!-- API status -->
-            <div class="d-flex align-items-baseline">
               <Status></Status> 
-            </div>
             <!-- fullscreen button -->
             <b-badge v-if="showFullScreen && showFSIcon" v-b-tooltip.hover :title="FullscreenDesc" role="button" variant="primary"
                      @click="toggleFullscreen(true)">
