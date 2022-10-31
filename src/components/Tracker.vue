@@ -15,7 +15,7 @@
           <!-- Server Status, Fullscreen Button, and Routes Legend -->
           <div v-if="!fullscreen" id="serverStatus" class="position-absolute">
             <!-- API status -->
-            <Status></Status>
+              <Status></Status> 
             <!-- fullscreen button -->
             <b-badge v-if="showFullScreen && showFSIcon" v-b-tooltip.hover :title="FullscreenDesc" role="button" variant="primary"
                      @click="toggleFullscreen(true)">
@@ -23,6 +23,7 @@
               <BIconFullscreenExit v-if="fullscreen"></BIconFullscreenExit>
               {{ fullscreen ? "Exit" : "Enter" }} Full-Screen Mode
             </b-badge>
+            <b-badge @click="centerMap" role="button" variant="primary" class="ml-1"> <BIconVinyl></BIconVinyl> </b-badge>
             <!-- Routes Legend -->
             <div v-if="routes.length > 0">
               <div class="rounded mt-1 d-inline-block" :class="[{'frosted-glass-dark': !isDarkMode}, {'frosted-glass': isDarkMode}]">
@@ -74,7 +75,7 @@
 import axios from "axios";
 import Status from "./Status";
 import Announcement from "./Announcement"
-import {BIconFullscreen, BIconFullscreenExit} from "bootstrap-vue"
+import {BIconFullscreen, BIconFullscreenExit, BIconVinyl} from "bootstrap-vue"
 import Vue from 'vue'
 import VueFullscreen from 'vue-fullscreen'
 import Fullscrn_qrcode from "./Fullscrn_qrcode.vue"
@@ -93,6 +94,7 @@ export default {
     Fullscrn_qrcode,
     BIconFullscreen,
     BIconFullscreenExit,
+    BIconVinyl,
     // Schedule,
     Fullscrn_Schedule,
   },
@@ -171,6 +173,12 @@ export default {
     }
   },
   methods: {
+    centerMap() {
+      const center = new mapkit.Coordinate(42.73029109316892, -73.67655873298646);
+      const span = new mapkit.CoordinateSpan(0.016, 0.032);
+      const region = new mapkit.CoordinateRegion(center, span);
+      this.mapObj.setRegionAnimated(region);
+    },
     isMobile() {
       // using regex to detect platform, sourced from http://detectmobilebrowsers.com/
       let check = (function (a) {
