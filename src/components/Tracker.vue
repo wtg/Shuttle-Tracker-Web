@@ -88,6 +88,9 @@ Vue.use(VueFullscreen);
 
 export default {
   name: "Tracker",
+  props: {
+    trace_history: Boolean
+  },
   components: {
     Status,
     Announcement,
@@ -296,10 +299,25 @@ export default {
             return annotation.title.indexOf("Bus") === 0;
           }
         );
+        // remove old markers
         this.mapObj.removeAnnotations(existingBusAnnotations); // remove existing markers
-        buses.forEach((bus) => {
-          this.mapObj.addAnnotation(bus); // add updated markers
-        });
+        this.mapObj.addAnnotations(buses);
+        // retain historical bus location
+        if (this.trace_history) {
+          const factory = function (coord, options) {
+            const div = document.createElement("div");
+            div.className = "trace-marker";
+            div.title = options.title;
+            return div;
+          }
+          const traces = buses.map((bus) => {
+            return new mapkit.Annotation(bus.coordinate, factory, {
+              title: bus.title
+            })
+          })
+          this.mapObj.addAnnotations(traces);
+        }
+        // set server status
         this.$store.commit("setServerStatus", { buses: true });
       } catch {
         // fetch api failed, update server status
@@ -458,6 +476,15 @@ export default {
   border-color: rgba(255, 255, 255, 0.25) transparent transparent transparent;
   transition-duration: 0.3s;
   transition-property: transform;
+}
+
+.trace-marker {
+  width: 8px;
+  height: 8px;
+  border: 2px solid salmon;
+  border-radius: 50%;
+  background-color: salmon;
+  opacity: 0.8;
 }
 
 .frosted-glass {
