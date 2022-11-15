@@ -23,7 +23,7 @@
               <BIconFullscreenExit v-if="fullscreen"></BIconFullscreenExit>
               {{ fullscreen ? "Exit" : "Enter" }} Full-Screen Mode
             </b-badge>
-            <b-badge @click="centerMap" role="button" variant="primary" class="ml-1"> <BIconVinyl></BIconVinyl> </b-badge>
+            <b-badge @click="centerMap" v-b-tooltip.hover :title="RecentermapDesc" role="button" variant="primary" class="ml-1"> <BIconVinyl></BIconVinyl> </b-badge>
             <!-- Routes Legend -->
             <div v-if="routes.length > 0">
               <div class="rounded mt-1 d-inline-block" :class="[{'frosted-glass-dark': !isDarkMode}, {'frosted-glass': isDarkMode}]">
@@ -108,6 +108,7 @@ export default {
       apiVersion: process.env.VUE_APP_API_VERSION,
       fullscreen: false,
       FullscreenDesc: 'Toggle fullscreen mode.',
+      RecentermapDesc: 'Recenter map.',
       showFullScreen: false,  // only show fs on non-mobile device
       showFSIcon: true,
       fullscreenDelay: 0,
