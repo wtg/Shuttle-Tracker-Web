@@ -116,6 +116,8 @@ export default {
       showFSIcon: true,
       fullscreenDelay: 0,
       routes: [], // active route name and color
+      currentBuses: [],
+      trailColors: ["red", "blue", "orange", "green", "purple", "maroon", "yellow", "pink", "cyan", "gray", "brown", "darkmagenta", "plum", "steelblue", "seashell", "Lavender", ]
     }
   },
   computed: {
@@ -302,17 +304,26 @@ export default {
         // remove old markers
         this.mapObj.removeAnnotations(existingBusAnnotations); // remove existing markers
         this.mapObj.addAnnotations(buses);
+        buses.forEach((bus) => {
+          if (!this.currentBuses.includes(bus.title)) {
+            this.currentBuses.push(bus.title);
+            console.log("hello");
+          }
+        })
         // retain historical bus location
         if (this.trace_history) {
           const factory = function (coord, options) {
             const div = document.createElement("div");
             div.className = "trace-marker";
             div.title = options.title;
+            div.style.backgroundColor = options.color
+            div.style.borderColor = options.color
             return div;
           }
           const traces = buses.map((bus) => {
             return new mapkit.Annotation(bus.coordinate, factory, {
-              title: bus.title
+              title: bus.title,
+              color: this.trailColors[this.currentBuses.indexOf(bus.title) % this.trailColors.length],
             })
           })
           this.mapObj.addAnnotations(traces);
@@ -481,9 +492,8 @@ export default {
 .trace-marker {
   width: 8px;
   height: 8px;
-  border: 2px solid salmon;
+  border: 2px solid;
   border-radius: 50%;
-  background-color: salmon;
   opacity: 0.8;
 }
 
