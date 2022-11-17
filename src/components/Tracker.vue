@@ -123,8 +123,8 @@ export default {
       showFSIcon: true,
       fullscreenDelay: 0,
       routes: [], // active route name and color
-      currentBuses: [],
-      trailColors: ["orange", "green", "purple", "maroon", "yellow", "pink", "cyan", "gray", "brown", "darkmagenta", "plum", "steelblue", "seashell", "Lavender", ]
+      currentBuses: [], // active buses
+      trailColors: ["orange", "green", "purple", "maroon", "yellow", "pink", "cyan", "gray", "brown", "darkmagenta", "plum", "steelblue", "seashell", "lavender", ] // colors of markers
     }
   },
   computed: {
@@ -322,14 +322,14 @@ export default {
             const div = document.createElement("div");
             div.className = "trace-marker";
             div.title = options.title;
-            div.style.backgroundColor = options.color
+            div.style.backgroundColor = options.color 
             div.style.borderColor = options.color
             return div;
           }
           const traces = buses.map((bus) => {
             return new mapkit.Annotation(bus.coordinate, factory, {
               title: "Marker" + bus.title,
-              color: this.trailColors[this.currentBuses.indexOf(bus.title) % this.trailColors.length],
+              color: this.trailColors[this.currentBuses.indexOf(bus.title) % this.trailColors.length], // assigns each bus with a color
             })
           })
           this.mapObj.addAnnotations(traces);
