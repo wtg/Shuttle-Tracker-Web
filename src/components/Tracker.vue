@@ -327,8 +327,8 @@ export default {
             return div;
           }
           const traces = buses.map((bus) => {
-            return new mapkit.Annotation(bus.coordinate, factory, {
-              title: "Marker" + bus.title,
+            return new mapkit.Annotation(bus.coordinate, factory, { // creating marker for each unique bus
+              title: "Marker " + bus.title,
               color: this.trailColors[this.currentBuses.indexOf(bus.title) % this.trailColors.length], // assigns each bus with a color
             })
           })
