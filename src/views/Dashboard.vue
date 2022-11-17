@@ -3,7 +3,9 @@
     <div class="container">
       <div class="row">
         <div class="col">
-          <h1 :class="{'text-white': isDarkMode}">Dashboard</h1>
+          <h1 class="display-4" :class="{'text-white': isDarkMode}">
+            Shuttle Tracker <span class="text-muted h4">Dashboard</span>
+          </h1>
         </div>
       </div>
       <div class="row">

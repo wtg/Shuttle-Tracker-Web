@@ -32,6 +32,13 @@
                 </div>
               </div>
             </div>
+            <div v-if="currentBuses.length > 0">
+              <div class="rounded mt-1 d-inline-block" :class="[{'frosted-glass-dark': !isDarkMode}, {'frosted-glass': isDarkMode}]">
+                <div v-for="(b, i) in currentBuses" :key="i" class="d-flex align-items-center mx-2 my-1">
+                  <span class="mr-1 d-inline-block route-legend-marker" :style="[{'background-color': trailColors[i%trailColors.length]}]"> </span> <span class="text-white">{{b}}</span>
+                </div>
+              </div>
+            </div>
           </div>
 
           <!-- Sidebar (fullscreen mode only) -->
@@ -117,7 +124,7 @@ export default {
       fullscreenDelay: 0,
       routes: [], // active route name and color
       currentBuses: [],
-      trailColors: ["red", "blue", "orange", "green", "purple", "maroon", "yellow", "pink", "cyan", "gray", "brown", "darkmagenta", "plum", "steelblue", "seashell", "Lavender", ]
+      trailColors: ["orange", "green", "purple", "maroon", "yellow", "pink", "cyan", "gray", "brown", "darkmagenta", "plum", "steelblue", "seashell", "Lavender", ]
     }
   },
   computed: {
@@ -307,7 +314,6 @@ export default {
         buses.forEach((bus) => {
           if (!this.currentBuses.includes(bus.title)) {
             this.currentBuses.push(bus.title);
-            console.log("hello");
           }
         })
         // retain historical bus location
@@ -322,7 +328,7 @@ export default {
           }
           const traces = buses.map((bus) => {
             return new mapkit.Annotation(bus.coordinate, factory, {
-              title: bus.title,
+              title: "Marker" + bus.title,
               color: this.trailColors[this.currentBuses.indexOf(bus.title) % this.trailColors.length],
             })
           })
