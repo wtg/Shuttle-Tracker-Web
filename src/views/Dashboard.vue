@@ -14,17 +14,22 @@
         </div>
       </div>
     </div>
+    <div class="col mt-4" :class="{'text-white': isDarkMode}">
+      <Copyright></Copyright>
+    </div>
   </div>
 </template>
 
 <script>
 import mixin from "../mixins/mixins";
 import Tracker from "../components/Tracker";
+import Copyright from "../components/Copyright";
 
 export default {
   name: "Dashboard",
   components: {
-    Tracker
+    Tracker,
+    Copyright,
   },
   mixins: [mixin],
 }
