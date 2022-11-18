@@ -32,7 +32,8 @@
                 </div>
               </div>
             </div>
-            <div v-if="currentBuses.length > 0">
+            <!-- <div v-if="(currentBuses.length > 0) && trace_history"> -->
+            <div v-if="(currentBuses.length > 0) && (trace_history)">
               <div class="rounded mt-1 d-inline-block" :class="[{'frosted-glass-dark': !isDarkMode}, {'frosted-glass': isDarkMode}]">
                 <div v-for="(b, i) in currentBuses" :key="i" class="d-flex align-items-center mx-2 my-1">
                   <span class="mr-1 d-inline-block route-legend-marker" :style="[{'background-color': trailColors[i%trailColors.length]}]"> </span> <span class="text-white">{{b}}</span>
