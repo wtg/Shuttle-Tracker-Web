@@ -1,5 +1,5 @@
 <template>
-  <b-card v-if="!isFsMode" class="h-100" :class="[{'bubble-dark': isDarkMode},{'bubble-light': !isDarkMode}]">
+  <b-card class="h-100" :class="[{'bubble-dark': isDarkMode},{'bubble-light': !isDarkMode}]">
     <h3 :class="{'text-white': isDarkMode}">
       {{ !isCurrent ? 'No Current Schedule' : currentSemester + ' Schedule' }}
     </h3>
