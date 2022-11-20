@@ -32,6 +32,14 @@
                 </div>
               </div>
             </div>
+            <!-- <div v-if="(currentBuses.length > 0) && trace_history"> -->
+            <div v-if="(currentBuses.length > 0) && (trace_history)">
+              <div class="rounded mt-1 d-inline-block" :class="[{'frosted-glass-dark': !isDarkMode}, {'frosted-glass': isDarkMode}]">
+                <div v-for="(b, i) in currentBuses" :key="i" class="d-flex align-items-center mx-2 my-1">
+                  <span class="mr-1 d-inline-block route-legend-marker" :style="[{'background-color': trailColors[i%trailColors.length]}]"> </span> <span class="text-white">{{b}}</span>
+                </div>
+              </div>
+            </div>
           </div>
 
           <!-- Sidebar (fullscreen mode only) -->
@@ -88,6 +96,9 @@ Vue.use(VueFullscreen);
 
 export default {
   name: "Tracker",
+  props: {
+    trace_history: Boolean
+  },
   components: {
     Status,
     Announcement,
@@ -113,6 +124,8 @@ export default {
       showFSIcon: true,
       fullscreenDelay: 0,
       routes: [], // active route name and color
+      currentBuses: [], // active buses
+      trailColors: ["orange", "green", "purple", "maroon", "yellow", "pink", "cyan", "gray", "brown", "darkmagenta", "plum", "steelblue", "seashell", "lavender", ] // colors of markers
     }
   },
   computed: {
@@ -296,10 +309,33 @@ export default {
             return annotation.title.indexOf("Bus") === 0;
           }
         );
+        // remove old markers
         this.mapObj.removeAnnotations(existingBusAnnotations); // remove existing markers
+        this.mapObj.addAnnotations(buses);
         buses.forEach((bus) => {
-          this.mapObj.addAnnotation(bus); // add updated markers
-        });
+          if (!this.currentBuses.includes(bus.title)) {
+            this.currentBuses.push(bus.title);
+          }
+        })
+        // retain historical bus location
+        if (this.trace_history) {
+          const factory = function (coord, options) {
+            const div = document.createElement("div");
+            div.className = "trace-marker";
+            div.title = options.title;
+            div.style.backgroundColor = options.color 
+            div.style.borderColor = options.color
+            return div;
+          }
+          const traces = buses.map((bus) => {
+            return new mapkit.Annotation(bus.coordinate, factory, { // creating marker for each unique bus
+              title: "Marker " + bus.title,
+              color: this.trailColors[this.currentBuses.indexOf(bus.title) % this.trailColors.length], // assigns each bus with a color
+            })
+          })
+          this.mapObj.addAnnotations(traces);
+        }
+        // set server status
         this.$store.commit("setServerStatus", { buses: true });
       } catch {
         // fetch api failed, update server status
@@ -458,6 +494,14 @@ export default {
   border-color: rgba(255, 255, 255, 0.25) transparent transparent transparent;
   transition-duration: 0.3s;
   transition-property: transform;
+}
+
+.trace-marker {
+  width: 8px;
+  height: 8px;
+  border: 2px solid;
+  border-radius: 50%;
+  opacity: 0.8;
 }
 
 .frosted-glass {

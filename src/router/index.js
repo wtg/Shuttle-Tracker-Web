@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import PrivacyPolicy from "../views/PrivacyPolicy";
 import PageNotFound from "../views/PageNotFound";
+import Dashboard from "../views/Dashboard";
 
 Vue.use(VueRouter)
 
@@ -18,9 +19,14 @@ const routes = [
     component: PrivacyPolicy
   },
   {
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: Dashboard
+  },
+  {
     path: '*',
     name: 'PageNotFound',
-    component: PageNotFound 
+    component: PageNotFound
   }
 ]
 
