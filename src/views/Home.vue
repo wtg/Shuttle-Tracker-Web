@@ -12,10 +12,10 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md">
+        <div class="col-md mt-3">
           <Schedule></Schedule>
         </div>
-        <div class="col-md">
+        <div class="col-md mt-3">
           <Settings></Settings>
         </div>
         <div v-if="isAdvMode" class="col-md">
