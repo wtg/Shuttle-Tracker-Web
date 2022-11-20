@@ -1,9 +1,9 @@
 <template>
-  <b-card v-if="!isFsMode" class="mt-3" :class="[{'bubble-dark': isDarkMode},{'bubble-light': !isDarkMode}]">
+  <b-card v-if="!isFsMode" class="h-100" :class="[{'bubble-dark': isDarkMode},{'bubble-light': !isDarkMode}]">
     <h3 :class="{'text-white': isDarkMode}">
       {{ !isCurrent ? 'No Current Schedule' : currentSemester + ' Schedule' }}
     </h3>
-    <ul v-if="isCurrent" class="panel-height" :class="{'text-white': isDarkMode}">
+    <ul v-if="isCurrent" :class="{'text-white': isDarkMode}">
       <li> Weekdays: {{currentWeek.monday.start}} - {{currentWeek.monday.end}}</li>
       <li> Saturday:<span class='saturday-times'>{{currentWeek.saturday.start}} - {{currentWeek.saturday.end}}</span></li>
       <li> Sunday:<span class='sunday-times'>{{currentWeek.sunday.start}} - {{currentWeek.sunday.end}}</span></li>
@@ -103,8 +103,5 @@ ul {
 
 .sunday-times {
   margin-left: 23.5px;
-}
-.panel-height {
-  margin-bottom: 59px;
 }
 </style>
