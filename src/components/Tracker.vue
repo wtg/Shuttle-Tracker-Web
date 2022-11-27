@@ -15,7 +15,7 @@
           <!-- Server Status, Fullscreen Button, and Routes Legend -->
           <div v-if="!fullscreen" id="serverStatus" class="position-absolute">
             <!-- API status -->
-              <Status></Status> 
+              <Status></Status>
             <!-- fullscreen button -->
             <b-badge v-if="showFullScreen && showFSIcon" v-b-tooltip.hover :title="FullscreenDesc" role="button" variant="primary"
                      @click="toggleFullscreen(true)">
@@ -61,8 +61,7 @@
               </b-badge>
             </div>
             <div id="schedule">
-              <Fullscrn_Schedule v-if="fullscreen"></Fullscrn_Schedule>
-              <!-- <Schedule v-if="fullscreen"></Schedule> -->
+              <Schedule v-if="fullscreen"></Schedule>
             </div>
             <div id="qrcode">
               <Fullscrn_qrcode v-if="fullscreen"></Fullscrn_qrcode>
@@ -86,11 +85,9 @@ import Announcement from "./Announcement"
 import {BIconFullscreen, BIconFullscreenExit, BIconVinyl} from "bootstrap-vue"
 import Vue from 'vue'
 import VueFullscreen from 'vue-fullscreen'
-import Fullscrn_qrcode from "./Fullscrn_qrcode.vue"
 import mixin from '../mixins/mixins.js'
-import Fullscrn_Schedule from "./Fullscrn_Schedule";
-// import Schedule from "./Schedule";
-
+import Schedule from "./Schedule";
+import Fullscrn_qrcode from "./Fullscrn_qrcode";
 
 Vue.use(VueFullscreen);
 
@@ -106,8 +103,7 @@ export default {
     BIconFullscreen,
     BIconFullscreenExit,
     BIconVinyl,
-    // Schedule,
-    Fullscrn_Schedule,
+    Schedule
   },
   mixins: [mixin],
   data() {
@@ -323,7 +319,7 @@ export default {
             const div = document.createElement("div");
             div.className = "trace-marker";
             div.title = options.title;
-            div.style.backgroundColor = options.color 
+            div.style.backgroundColor = options.color
             div.style.borderColor = options.color
             return div;
           }
