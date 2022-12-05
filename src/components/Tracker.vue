@@ -38,7 +38,7 @@
                 </div>
               </div>
             </div>
-            <!-- <div v-if="(currentBuses.length > 0) && trace_history"> -->
+            <!-- Dashboard Historical Bus Trace Legend -->
             <div v-if="(currentBuses.length > 0) && (trace_history)">
               <div class="rounded mt-1 d-inline-block"
                    :class="[{'frosted-glass-dark': !isDarkMode}, {'frosted-glass': isDarkMode}]">
@@ -52,7 +52,7 @@
           </div>
 
           <!-- Sidebar (fullscreen mode only) -->
-          <div v-if="fullscreen" id="sidebar" class="position-absolute">
+          <div v-if="fullscreen" id="sidebar" class="position-absolute vh-100">
             <div v-if="fullscreen && showFSIcon" id="serverStatusFullscreen">
               <img id="logo" src="../../public/logo.png" alt="logo"/>
               <Status></Status>
@@ -62,11 +62,15 @@
                   :title="FullscreenDesc"
                   role="button"
                   variant="primary"
+                  class="mr-1"
                   @click="toggleFullscreen(false)"
               >
                 <BIconFullscreen v-if="!fullscreen"></BIconFullscreen>
                 <BIconFullscreenExit v-if="fullscreen"></BIconFullscreenExit>
                 {{ fullscreen ? "Exit" : "Enter" }} Full-Screen Mode
+              </b-badge>
+              <b-badge @click="centerMap" v-b-tooltip.hover :title="RecentermapDesc" role="button" variant="primary">
+                <BIconVinyl></BIconVinyl>
               </b-badge>
             </div>
             <div id="schedule">
@@ -539,8 +543,7 @@ export default {
 }
 
 #sidebar {
-  height: 100%;
-  width: 265px;
+  width: 15%;
   padding-left: 15px;
   padding-right: 24px;
   top: 0px;
