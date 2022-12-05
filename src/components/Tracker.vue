@@ -6,37 +6,46 @@
 
           <!-- Map Component -->
           <div
-            id="map"
-            class="w-100"
-            style="height: 75vh"
-            :class="{ 'h-100': fullscreen }"
+              id="map"
+              class="w-100"
+              style="height: 75vh"
+              :class="{ 'h-100': fullscreen }"
           ></div>
 
           <!-- Server Status, Fullscreen Button, and Routes Legend -->
           <div v-if="!fullscreen" id="serverStatus" class="position-absolute">
             <!-- API status -->
-              <Status></Status>
+            <Status></Status>
             <!-- fullscreen button -->
-            <b-badge v-if="showFullScreen && showFSIcon" v-b-tooltip.hover :title="FullscreenDesc" role="button" variant="primary" class="mr-1"
+            <b-badge v-if="showFullScreen && showFSIcon" v-b-tooltip.hover :title="FullscreenDesc" role="button"
+                     variant="primary" class="mr-1"
                      @click="toggleFullscreen(true)">
               <BIconFullscreen v-if="!fullscreen"></BIconFullscreen>
               <BIconFullscreenExit v-if="fullscreen"></BIconFullscreenExit>
               {{ fullscreen ? "Exit" : "Enter" }} Full-Screen Mode
             </b-badge>
-            <b-badge @click="centerMap" v-b-tooltip.hover :title="RecentermapDesc" role="button" variant="primary"> <BIconVinyl></BIconVinyl> </b-badge>
+            <b-badge @click="centerMap" v-b-tooltip.hover :title="RecentermapDesc" role="button" variant="primary">
+              <BIconVinyl></BIconVinyl>
+            </b-badge>
             <!-- Routes Legend -->
             <div v-if="routes.length > 0">
-              <div class="rounded mt-1 d-inline-block" :class="[{'frosted-glass-dark': !isDarkMode}, {'frosted-glass': isDarkMode}]">
+              <div class="rounded mt-1 d-inline-block"
+                   :class="[{'frosted-glass-dark': !isDarkMode}, {'frosted-glass': isDarkMode}]">
                 <div v-for="(r, i) in routes" :key="i" class="d-flex align-items-center mx-2 my-1">
-                  <span class="mr-1 d-inline-block route-legend-marker" :style="[{'background-color': r.colorName}]"> </span> <span class="text-white">{{r.name}}</span>
+                  <span class="mr-1 d-inline-block route-legend-marker"
+                        :style="[{'background-color': r.colorName}]"> </span> <span
+                    class="text-white">{{ r.name }}</span>
                 </div>
               </div>
             </div>
             <!-- <div v-if="(currentBuses.length > 0) && trace_history"> -->
             <div v-if="(currentBuses.length > 0) && (trace_history)">
-              <div class="rounded mt-1 d-inline-block" :class="[{'frosted-glass-dark': !isDarkMode}, {'frosted-glass': isDarkMode}]">
+              <div class="rounded mt-1 d-inline-block"
+                   :class="[{'frosted-glass-dark': !isDarkMode}, {'frosted-glass': isDarkMode}]">
                 <div v-for="(b, i) in currentBuses" :key="i" class="d-flex align-items-center mx-2 my-1">
-                  <span class="mr-1 d-inline-block route-legend-marker" :style="[{'background-color': trailColors[i%trailColors.length]}]"> </span> <span class="text-white">{{b}}</span>
+                  <span class="mr-1 d-inline-block route-legend-marker"
+                        :style="[{'background-color': trailColors[i%trailColors.length]}]"> </span> <span
+                    class="text-white">{{ b }}</span>
                 </div>
               </div>
             </div>
@@ -45,15 +54,15 @@
           <!-- Sidebar (fullscreen mode only) -->
           <div v-if="fullscreen" id="sidebar" class="position-absolute">
             <div v-if="fullscreen && showFSIcon" id="serverStatusFullscreen">
-              <img id="logo" src="../../public/logo.png" alt="logo" />
+              <img id="logo" src="../../public/logo.png" alt="logo"/>
               <Status></Status>
               <b-badge
-                v-if="showFullScreen && showFSIcon"
-                v-b-tooltip.hover
-                :title="FullscreenDesc"
-                role="button"
-                variant="primary"
-                @click="toggleFullscreen(false)"
+                  v-if="showFullScreen && showFSIcon"
+                  v-b-tooltip.hover
+                  :title="FullscreenDesc"
+                  role="button"
+                  variant="primary"
+                  @click="toggleFullscreen(false)"
               >
                 <BIconFullscreen v-if="!fullscreen"></BIconFullscreen>
                 <BIconFullscreenExit v-if="fullscreen"></BIconFullscreenExit>
@@ -121,7 +130,7 @@ export default {
       fullscreenDelay: 0,
       routes: [], // active route name and color
       currentBuses: [], // active buses
-      trailColors: ["orange", "green", "purple", "maroon", "yellow", "pink", "cyan", "gray", "brown", "darkmagenta", "plum", "steelblue", "seashell", "lavender", ] // colors of markers
+      trailColors: ["orange", "green", "purple", "maroon", "yellow", "pink", "cyan", "gray", "brown", "darkmagenta", "plum", "steelblue", "seashell", "lavender",] // colors of markers
     }
   },
   computed: {
@@ -140,7 +149,7 @@ export default {
   },
   beforeMount() {
     document.addEventListener('fullscreenchange', () => {
-      if(!document.fullscreenElement) {
+      if (!document.fullscreenElement) {
         this.toggleFullscreen(false);
       }
     });
@@ -193,12 +202,12 @@ export default {
       // using regex to detect platform, sourced from http://detectmobilebrowsers.com/
       let check = (function (a) {
         return (
-          /(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(
-            a
-          ) ||
-          /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw-(n|u)|c55\/|capi|ccwa|cdm-|cell|chtm|cldc|cmd-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc-s|devi|dica|dmob|do(c|p)o|ds(12|-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(-|_)|g1 u|g560|gene|gf-5|g-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd-(m|p|t)|hei-|hi(pt|ta)|hp( i|ip)|hs-c|ht(c(-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i-(20|go|ma)|i230|iac( |-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|-[a-w])|libw|lynx|m1-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|-([1-8]|c))|phil|pire|pl(ay|uc)|pn-2|po(ck|rt|se)|prox|psio|pt-g|qa-a|qc(07|12|21|32|60|-[2-7]|i-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h-|oo|p-)|sdk\/|se(c(-|0|1)|47|mc|nd|ri)|sgh-|shar|sie(-|m)|sk-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h-|v-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl-|tdg-|tel(i|m)|tim-|t-mo|to(pl|sh)|ts(70|m-|m3|m5)|tx-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas-|your|zeto|zte-/i.test(
-            a.substr(0, 4)
-          )
+            /(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(
+                a
+            ) ||
+            /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw-(n|u)|c55\/|capi|ccwa|cdm-|cell|chtm|cldc|cmd-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc-s|devi|dica|dmob|do(c|p)o|ds(12|-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(-|_)|g1 u|g560|gene|gf-5|g-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd-(m|p|t)|hei-|hi(pt|ta)|hp( i|ip)|hs-c|ht(c(-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i-(20|go|ma)|i230|iac( |-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|-[a-w])|libw|lynx|m1-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|-([1-8]|c))|phil|pire|pl(ay|uc)|pn-2|po(ck|rt|se)|prox|psio|pt-g|qa-a|qc(07|12|21|32|60|-[2-7]|i-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h-|oo|p-)|sdk\/|se(c(-|0|1)|47|mc|nd|ri)|sgh-|shar|sie(-|m)|sk-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h-|v-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl-|tdg-|tel(i|m)|tim-|t-mo|to(pl|sh)|ts(70|m-|m3|m5)|tx-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas-|your|zeto|zte-/i.test(
+                a.substr(0, 4)
+            )
         );
       })(navigator.userAgent || navigator.vendor || window.opera);
       return check;
@@ -214,13 +223,13 @@ export default {
       mapDiv.style.borderRadius = status ? "0" : "7px";
     },
     hideIcons(status) {
-      if(!status) return; // don't hide icons when exiting fullscreen.
+      if (!status) return; // don't hide icons when exiting fullscreen.
       var self = this;
-      self.$nextTick(function() {
+      self.$nextTick(function () {
         this.showFSIcon = false;
         this.$store.commit('setIconStatus', false);
-        setTimeout(function() {
-          self.$nextTick(function() {
+        setTimeout(function () {
+          self.$nextTick(function () {
             this.showFSIcon = true;
             this.$store.commit('setIconStatus', true);
           });
@@ -234,7 +243,7 @@ export default {
           version: res.data === parseInt(this.apiVersion),
         }); // hardcoded API version
       } catch {
-        this.$store.commit("setServerStatus", { version: false });
+        this.$store.commit("setServerStatus", {version: false});
       }
     },
     async updateBuses() {
@@ -247,7 +256,7 @@ export default {
           res.data.push({
             id: "69",
             location: {
-              coordinate: { latitude: 42.73031, longitude: -73.68521 },
+              coordinate: {latitude: 42.73031, longitude: -73.68521},
               id: "385FF2A4-EB53-42FE-B754-DAA3DCE04351",
               type: "user",
               date: now.toISOString(),
@@ -257,53 +266,53 @@ export default {
         // filter and extract data
         let now = Date.now();
         const buses = res.data
-          .filter((bus) => {
-            return now - Date.parse(bus.location.date) <= 300000; // 5 minutes
-          })
-          .map((bus) => {
-            let color = "gray";
-            let busIcon = "🚍";
-            switch (bus.location.type) {
-              case "user":
-                color = "mediumseagreen";
-                if (this.isCbMode) {
-                  busIcon = "+";
-                }
-                break;
-              case "system":
-                color = "red";
-                if (this.isCbMode) {
-                  busIcon = "!";
-                  color = "#7951b3";
-                }
-                break;
-            }
-            let timeDelta = Math.ceil(
-              (Date.parse(bus.location.date) - now) / 1000
-            );
-            let unit = "seconds";
-            if (timeDelta <= -60) {
-              timeDelta = Math.ceil(timeDelta / 60);
-              unit = "minutes";
-            }
-            const formatter = new Intl.RelativeTimeFormat();
-            const subtitle = formatter.format(timeDelta, unit);
-            const coordinate = new mapkit.Coordinate(
-              bus.location.coordinate.latitude,
-              bus.location.coordinate.longitude
-            );
-            return new mapkit.MarkerAnnotation(coordinate, {
-              title: `Bus ${bus.id}`,
-              subtitle: subtitle,
-              color: color,
-              glyphText: busIcon,
+            .filter((bus) => {
+              return now - Date.parse(bus.location.date) <= 300000; // 5 minutes
+            })
+            .map((bus) => {
+              let color = "gray";
+              let busIcon = "🚍";
+              switch (bus.location.type) {
+                case "user":
+                  color = "mediumseagreen";
+                  if (this.isCbMode) {
+                    busIcon = "+";
+                  }
+                  break;
+                case "system":
+                  color = "red";
+                  if (this.isCbMode) {
+                    busIcon = "!";
+                    color = "#7951b3";
+                  }
+                  break;
+              }
+              let timeDelta = Math.ceil(
+                  (Date.parse(bus.location.date) - now) / 1000
+              );
+              let unit = "seconds";
+              if (timeDelta <= -60) {
+                timeDelta = Math.ceil(timeDelta / 60);
+                unit = "minutes";
+              }
+              const formatter = new Intl.RelativeTimeFormat();
+              const subtitle = formatter.format(timeDelta, unit);
+              const coordinate = new mapkit.Coordinate(
+                  bus.location.coordinate.latitude,
+                  bus.location.coordinate.longitude
+              );
+              return new mapkit.MarkerAnnotation(coordinate, {
+                title: `Bus ${bus.id}`,
+                subtitle: subtitle,
+                color: color,
+                glyphText: busIcon,
+              });
             });
-          });
         // filter and render buses
         const existingBusAnnotations = this.mapObj.annotations.filter(
-          (annotation) => {
-            return annotation.title.indexOf("Bus") === 0;
-          }
+            (annotation) => {
+              return annotation.title.indexOf("Bus") === 0;
+            }
         );
         // remove old markers
         this.mapObj.removeAnnotations(existingBusAnnotations); // remove existing markers
@@ -332,10 +341,10 @@ export default {
           this.mapObj.addAnnotations(traces);
         }
         // set server status
-        this.$store.commit("setServerStatus", { buses: true });
+        this.$store.commit("setServerStatus", {buses: true});
       } catch {
         // fetch api failed, update server status
-        this.$store.commit("setServerStatus", { buses: false });
+        this.$store.commit("setServerStatus", {buses: false});
       }
     },
     async renderRoutes() {
@@ -367,12 +376,12 @@ export default {
             }),
           });
           this.mapObj.addOverlay(routesOverlay);
-          this.$store.commit("setServerStatus", { routes: true });
+          this.$store.commit("setServerStatus", {routes: true});
         })
 
       } catch {
         // fetch api failed, update server status
-        this.$store.commit("setServerStatus", { routes: false });
+        this.$store.commit("setServerStatus", {routes: false});
       }
     },
     async renderStops() {
@@ -403,8 +412,8 @@ export default {
         // extract data
         const stops = res.data.map((stop) => {
           const coordinate = new mapkit.Coordinate(
-            stop.coordinate.latitude,
-            stop.coordinate.longitude
+              stop.coordinate.latitude,
+              stop.coordinate.longitude
           );
           return new mapkit.Annotation(coordinate, factory, {
             callout: popoverFactory,
@@ -414,18 +423,18 @@ export default {
         });
         // render stops
         this.mapObj.addAnnotations(stops);
-        this.$store.commit("setServerStatus", { stops: true });
+        this.$store.commit("setServerStatus", {stops: true});
       } catch {
         // fetch api failed, update server status
-        this.$store.commit("setServerStatus", { stops: false });
+        this.$store.commit("setServerStatus", {stops: false});
       }
     },
   },
   watch: {
     isDarkMode(val) {
       this.mapObj.colorScheme = val
-        ? mapkit.Map.ColorSchemes.Dark
-        : mapkit.Map.ColorSchemes.Light;
+          ? mapkit.Map.ColorSchemes.Dark
+          : mapkit.Map.ColorSchemes.Light;
     },
     serverStatus(val) {
       // retry failed api every 5 seconds
