@@ -17,13 +17,13 @@
             <!-- API status -->
               <Status></Status>
             <!-- fullscreen button -->
-            <b-badge v-if="showFullScreen && showFSIcon" v-b-tooltip.hover :title="FullscreenDesc" role="button" variant="primary"
+            <b-badge v-if="showFullScreen && showFSIcon" v-b-tooltip.hover :title="FullscreenDesc" role="button" variant="primary" class="mr-1"
                      @click="toggleFullscreen(true)">
               <BIconFullscreen v-if="!fullscreen"></BIconFullscreen>
               <BIconFullscreenExit v-if="fullscreen"></BIconFullscreenExit>
               {{ fullscreen ? "Exit" : "Enter" }} Full-Screen Mode
             </b-badge>
-            <b-badge @click="centerMap" v-b-tooltip.hover :title="RecentermapDesc" role="button" variant="primary" class="ml-1"> <BIconVinyl></BIconVinyl> </b-badge>
+            <b-badge @click="centerMap" v-b-tooltip.hover :title="RecentermapDesc" role="button" variant="primary"> <BIconVinyl></BIconVinyl> </b-badge>
             <!-- Routes Legend -->
             <div v-if="routes.length > 0">
               <div class="rounded mt-1 d-inline-block" :class="[{'frosted-glass-dark': !isDarkMode}, {'frosted-glass': isDarkMode}]">
