@@ -13,13 +13,13 @@
           ></div>
 
           <!-- Server Status, Fullscreen Button, and Routes Legend -->
-          <div v-if="!fullscreen" id="serverStatus" class="position-absolute">
+          <div class="position-absolute" :class="[{'fullscreen-sidebar': fullscreen}, {'vh-100': fullscreen}, {'server-status': !fullscreen}, {'p-2': fullscreen}]">
             <!-- API status -->
             <Status></Status>
             <!-- fullscreen button -->
             <b-badge v-if="showFullScreen && showFSIcon" v-b-tooltip.hover :title="FullscreenDesc" role="button"
                      variant="primary" class="mr-1"
-                     @click="toggleFullscreen(true)">
+                     @click="toggleFullscreen(!fullscreen)">
               <BIconFullscreen v-if="!fullscreen"></BIconFullscreen>
               <BIconFullscreenExit v-if="fullscreen"></BIconFullscreenExit>
               {{ fullscreen ? "Exit" : "Enter" }} Full-Screen Mode
@@ -49,38 +49,14 @@
                 </div>
               </div>
             </div>
-          </div>
-
-          <!-- Sidebar (fullscreen mode only) -->
-          <div v-if="fullscreen" id="sidebar" class="position-absolute vh-100">
-            <div v-if="fullscreen && showFSIcon" id="serverStatusFullscreen">
-              <img id="logo" src="../../public/logo.png" alt="logo"/>
-              <Status></Status>
-              <b-badge
-                  v-if="showFullScreen && showFSIcon"
-                  v-b-tooltip.hover
-                  :title="FullscreenDesc"
-                  role="button"
-                  variant="primary"
-                  class="mr-1"
-                  @click="toggleFullscreen(false)"
-              >
-                <BIconFullscreen v-if="!fullscreen"></BIconFullscreen>
-                <BIconFullscreenExit v-if="fullscreen"></BIconFullscreenExit>
-                {{ fullscreen ? "Exit" : "Enter" }} Full-Screen Mode
-              </b-badge>
-              <b-badge @click="centerMap" v-b-tooltip.hover :title="RecentermapDesc" role="button" variant="primary">
-                <BIconVinyl></BIconVinyl>
-              </b-badge>
+            <!-- Widgets -->
+            <div>
+              <Schedule v-if="fullscreen" class="mt-3"></Schedule>
             </div>
-            <div id="schedule">
-              <Schedule v-if="fullscreen"></Schedule>
-            </div>
-            <div id="qrcode">
-              <Fullscrn_qrcode v-if="fullscreen"></Fullscrn_qrcode>
+            <div>
+              <Fullscrn_qrcode v-if="fullscreen" class="mt-3"></Fullscrn_qrcode>
             </div>
           </div>
-
         </div>
 
         <!-- Announcement Bar -->
@@ -533,30 +509,15 @@ export default {
   border-radius: 7px;
 }
 
-#serverStatus {
+.server-status {
   top: 6px;
   left: 24px;
 }
 
-#serverStatusFullscreen {
-  margin-top: 10px;
-}
-
-#sidebar {
-  width: 15%;
-  padding-left: 15px;
-  padding-right: 24px;
-  top: 0px;
-  left: 0px;
+.fullscreen-sidebar {
+  min-width: 15%;
+  top: 0;
+  left: 0;
   background-color: rgba(104, 104, 104, 0.425);
-}
-
-#schedule {
-  margin-top: 60px;
-}
-
-#logo {
-  width: 25%;
-  float: right;
 }
 </style>
