@@ -312,6 +312,14 @@ export default {
             div.style.borderColor = options.color
             return div;
           }
+          /**
+           * The marker code works by storing all bus ids that appear on the mapinto an array called currentBuses. 
+           * For every new unique bus that appears on the map, a new color will be assigned to it. The colors 
+           * assigned to the bus will handpicked and placed into the trailColors array. The colors in trailColors 
+           * can always be changed in the future. If the number of buses somehow exceed the number 
+           * of available colors, the trailColors array will be recycled, but it is unlikely that the number of 
+           * buses will exceed the number of colors. Given enough location data, a trail should form for each bus.
+           */
           const traces = buses.map((bus) => {
             return new mapkit.Annotation(bus.coordinate, factory, { // creating marker for each unique bus
               title: "Marker " + bus.title,
