@@ -1,5 +1,5 @@
 <template>
-  <b-card v-if="!isFsMode" class="mt-3" :class="[{'bubble-dark': isDarkMode},{'bubble-light': !isDarkMode}]">
+  <b-card v-if="!isFsMode" class="h-100" :class="[{'bubble-dark': isDarkMode},{'bubble-light': !isDarkMode}]">
     <h3 :class="{'text-white': isDarkMode}">Settings</h3>
     <b-form-checkbox @change="setCbMode" :class="[{'text-white': isDarkMode}]" v-model="isCbMode" name="cbModeSwitch"
                      v-b-tooltip.hover.lefttop :title="cbExplanation" switch>
@@ -19,7 +19,7 @@
     </b-form-checkbox>
     <b-button pill class="mt-1" :class="[{'text-white': isDarkMode}, {'toggled': isAdvMode}, {'advanced-settings': true}]" variant="secondary" size="sm" @click="toggleAdvMode" v-model="isAdvMode" name="AdvModeSwitch"
                       v-b-tooltip.hover.lefttop :title="isAdvMode ? hideAdvSettingsExplanation:advSettingsExplanation" switch>
-      {{isAdvMode?'Hide':'Enable'}} Advanced Settings
+      {{isAdvMode?'Hide':'Show'}} Advanced Settings
     </b-button>
   </b-card>
 </template>
@@ -42,7 +42,7 @@ export default {
       // Explanation Message when hovering over setting sliders
       cbExplanation: "Changes the icons of buses to + and ! based on the quality of the bus data",
       darkExplanation: "Switches dark mode on or off",
-      advSettingsExplanation: "Enable advanced settings",
+      advSettingsExplanation: "Show advanced settings",
       hideAdvSettingsExplanation: "Hide advanced settings",
     }
   },

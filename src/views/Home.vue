@@ -11,11 +11,11 @@
           <Tracker></Tracker>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md">
+      <div v-if="!isFsMode" class="row">
+        <div class="col-md mt-3">
           <Schedule></Schedule>
         </div>
-        <div class="col-md">
+        <div class="col-md mt-3">
           <Settings></Settings>
         </div>
         <div v-if="isAdvMode" class="col-md">
@@ -45,9 +45,11 @@ import Settings from "../components/Settings";
 import Copyright from "../components/Copyright";
 import Announcement from "../components/Announcement";
 import AdvanceSettings from "../components/AdvanceSettings";
+import mixin from "../mixins/mixins";
 
 export default {
   name: 'Home',
+  mixins: [mixin],
   components: {
     Tracker,
     Header,
