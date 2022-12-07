@@ -41,7 +41,9 @@ export default {
   },
   methods: {
     /**
-     * Gets and loops through API. Puts schedule from range into variables.
+     * Schedule is dynamically updated from through API. The shuttle schedules are
+     * updated from the server side so any errors with the schedule times will require
+     * communication with server team.
      */
     async getCurrentSemester() {
 

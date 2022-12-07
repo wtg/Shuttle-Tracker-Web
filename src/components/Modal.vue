@@ -40,6 +40,13 @@
 </template>
 
 <script>
+/**
+ * The instruction modal introduces new users to the basic functionality of the web app,
+ * including what each bus icon represents, links to the ios and android app, and why 
+ * the web interface was changed from the old interface. A new user is determined by 
+ * the instructionModal cookie. If the cookie is found, the instruction modal will no longer appear when
+ * a user enters the web app.
+ */
 
 export default {
   name: "Modal",
@@ -57,11 +64,12 @@ export default {
   // Only show modal if there is no cookie data 
   mounted() {
     if (!this.$cookies.isKey("shownInstructionModal")) {
-      this.$cookies.set("shownInstructionModal", true); // true if shown already
+      this.$cookies.set("shownInstructionModal", true); // true if cookie is found, else false
       this.showModal();
     }
   },
   methods: {
+    // Checks for the instructionModal cookie exists
     showModal() {
       this.$refs["instructionModal"].show();
     },

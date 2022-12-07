@@ -14,6 +14,9 @@ export default {
   mixins: [mixin],
   data() {
     return {
+      /**
+       * showBeta is used to determine if the beta version of title should be shown 
+       */
       showBeta: process.env.VUE_APP_IS_BETA === "true"
     }
   }
