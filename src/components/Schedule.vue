@@ -1,4 +1,7 @@
 <template>
+  <!--Schedule is dynamically updated from through API. The shuttle schedules are
+     updated from the server side so any errors with the schedule times might
+     require communication with server team-->
   <b-card class="h-100" :class="[{'bubble-dark': isDarkMode},{'bubble-light': !isDarkMode}]">
     <h3 :class="{'text-white': isDarkMode}">
       {{ !isCurrent ? 'No Current Schedule' : currentSemester + ' Schedule' }}
@@ -19,6 +22,7 @@ export default {
   mixins: [mixin],
   data() {
     return {
+      // stores the schedule retrieved from API call
       schedules: [],
       currentWeek: undefined,
       currentSemester: undefined
@@ -41,12 +45,12 @@ export default {
   },
   methods: {
     /**
-     * Schedule is dynamically updated from through API. The shuttle schedules are
-     * updated from the server side so any errors with the schedule times will require
-     * communication with server team.
+     * Calls API to get shuttle schedule information. Verifies the schedule is correct
+     * by checking if the current date falls in the schedule's start and end date. If
+     * so, set currentWeek and currentSemester to the contents of the API call. Else,
+     * set schedule to false.
      */
     async getCurrentSemester() {
-
       // Gets API
       try {
         // API call
