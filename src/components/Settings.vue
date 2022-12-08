@@ -1,22 +1,27 @@
 <template>
   <b-card v-if="!isFsMode" class="h-100" :class="[{'bubble-dark': isDarkMode},{'bubble-light': !isDarkMode}]">
     <h3 :class="{'text-white': isDarkMode}">Settings</h3>
+    <!-- Color-Blind Setting -->
     <b-form-checkbox @change="setCbMode" :class="[{'text-white': isDarkMode}]" v-model="isCbMode" name="cbModeSwitch"
                      v-b-tooltip.hover.lefttop :title="cbExplanation" switch>
       Color-Blind Mode
     </b-form-checkbox>
+    <!-- Dark-Mode-Setting -->
     <b-form-checkbox @change="setDarkMode" :class="[{'text-white': isDarkMode}]" v-model="isDark" name="DarkModeSwitch"
                      v-b-tooltip.hover.lefttop :title="darkExplanation" switch>
       Dark Mode
     </b-form-checkbox>
+    <!-- Create Fake Bus Data Setting. Only works for the developer version -->
     <b-form-checkbox v-if="devToolsEnabled" v-model="devHQ" name="check-button" switch
                      :class="{'text-white': isDarkMode}">
       Create Fake HQ data: Bus 69
     </b-form-checkbox>
+    <!-- Create Fake Announcement Bar Setting. Only works for the developer version -->
     <b-form-checkbox v-if="devToolsEnabled" v-model="devAnnouncement" name="AnnouncementBarSwitch" switch
                      :class="{'text-white': isDarkMode}">
       Toggle Fake Announcement Bar
     </b-form-checkbox>
+    <!-- Show Advanced Settings -->
     <b-button pill class="mt-1" :class="[{'text-white': isDarkMode}, {'toggled': isAdvMode}, {'advanced-settings': true}]" variant="secondary" size="sm" @click="toggleAdvMode" v-model="isAdvMode" name="AdvModeSwitch"
                       v-b-tooltip.hover.lefttop :title="isAdvMode ? hideAdvSettingsExplanation:advSettingsExplanation" switch>
       {{isAdvMode?'Hide':'Show'}} Advanced Settings
@@ -33,8 +38,11 @@ export default {
   mixins: [mixin],
   data() {
     return {
+      // Stores the state for Colorblind mode
       isCbMode: false,
+      // Stores the state for Dark mode
       isDark: false,
+      // Stores the state for Advance Mode
       isAdvMode: false,
       devHQ: false,
       devAnnouncement: false,

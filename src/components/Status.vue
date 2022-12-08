@@ -1,4 +1,5 @@
 <template>
+  <!-- If showStatus button is toggled, show the Server Status Button. Else, show the explanced Server Status Buttons-->
   <div v-if="showStatus">
     <b-badge role="button" @click="toggleExpand" v-if="!expanded" class="mr-1"
              :variant="totalServerStatus ? 'success': 'danger'" v-b-tooltip.hover :title="statusDescription">
@@ -37,20 +38,26 @@ export default {
   data() {
     return {
       expanded: false,
+      // Explanation of Server Status Buttons
       compStatus: "If the badge is green, this component is working!",
       APIWarning: "If the badge is red, the app may be broken. You have been warned.",
       NonOfficialWarning: "You are using the non-official API, which may result in broken features.",
       statusDescription: "Click to see detailed report on server status.",
+      // Stores the state of whether the server is working
       showStatus: true
     }
   },
   computed: {
+    /**
+     * Checks if the official API is being used
+     * @return{boolean} returns true is api is official. Else return False 
+     */
     isOfficialURL() {
       return this.$store.state.isOfficialURL
     },
     /**
      * Checks each separate status to determine server status
-     * @return{boolean} False if at least one of the statuses are offline
+     * @return{boolean} False if at least one of the statuses are offline. Else True
      */
     totalServerStatus() {
       let status = true
