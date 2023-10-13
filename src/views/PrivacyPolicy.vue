@@ -47,6 +47,18 @@ export default {
 }
 </script>
 
+.custom-bullet {
+  position: relative;
+}
+
+.custom-bullet::before {
+  /* Image width and height can only be adjusted by its original file */ 
+  content: url('../../public/map-marker.png'); 
+  position: absolute;
+  left: -40px;
+  top: 2px;
+}
+
 <style scoped>
 
 </style>
