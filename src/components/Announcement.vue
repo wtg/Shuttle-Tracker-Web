@@ -116,15 +116,16 @@ export default {
     },
     loadAnnouncer() {
       //  Load different announcement for every animation loop
+      if (this.hasAnnouncements) {
+        // adjust scrolling speed
+        this.adjustScrollingSpeed();
+      }
       this.$refs.announcer.addEventListener('animationiteration', () => {
         if (this.updateOnNextInterval) {
           // update announcement
           this.raw = this.rawUpdate
           this.rawUpdate.clear()
           this.updateOnNextInterval = false
-
-          // adjust scrolling speed
-          this.adjustScrollingSpeed();
         }
         // cycle displayed announcement
         this.announcerIndex++
@@ -135,7 +136,7 @@ export default {
     },
     adjustScrollingSpeed() {
       // Set speed of text accordingly, 10 characters per second
-      const speed = this.announcements[this.announcerIndex].length * 0.1
+      const speed = this.announcements[this.announcerIndex].body.length * 0.10
       var i = document.querySelector(".scroll-left .scroll-text");
       i.style.setProperty("--defaultSpeed", speed + "s")
     }
