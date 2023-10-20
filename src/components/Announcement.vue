@@ -117,7 +117,6 @@ export default {
     loadAnnouncer() {
       //  Load different announcement for every animation loop
       if (this.hasAnnouncements) {
-        // adjust scrolling speed
         this.adjustScrollingSpeed();
       }
       this.$refs.announcer.addEventListener('animationiteration', () => {
@@ -135,10 +134,14 @@ export default {
       });
     },
     adjustScrollingSpeed() {
-      // Set speed of text accordingly, 10 characters per second
-      const speed = this.announcements[this.announcerIndex].body.length * 0.10
+      // Set speed of text accordingly, 10 characters per second, minimum 20 seconds
+      const announcementLength = this.announcements[this.announcerIndex].body.length;
+      if (announcementLength <= 200) {
+        return;
+      }
+      const speed = announcementLength * 0.10;
       var i = document.querySelector(".scroll-left .scroll-text");
-      i.style.setProperty("--defaultSpeed", speed + "s")
+      i.style.setProperty("--defaultSpeed", speed + "s");
     }
   },
 
@@ -214,7 +217,7 @@ export default {
   transform: translateX(100%);
 
   /* Animation Variables */
-  --defaultSpeed: 25s;
+  --defaultSpeed: 20s;
   --animState: running;
 
   /* Apply animation to this element */
