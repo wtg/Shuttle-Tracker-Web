@@ -4,10 +4,26 @@
       {{ !isCurrent ? 'No Current Schedule' : currentSemester + ' Schedule' }}
     </h3>
     <ul v-if="isCurrent" :class="{'text-white': isDarkMode}">
-      <li> Weekdays: {{currentWeek.monday.start}} - {{currentWeek.monday.end}}</li>
-      <li> Saturday:<span class='saturday-times'>{{currentWeek.saturday.start}} - {{currentWeek.saturday.end}}</span></li>
-      <li> Sunday:<span class='sunday-times'>{{currentWeek.sunday.start}} - {{currentWeek.sunday.end}}</span></li>
+      <li :class="{ 'bold-day': currentDay === 'weekdays' }" id="weekdaysLi">
+        <div class="pin-container">
+          <img v-if="currentDay === 'weekdays'" src="../../public/map-marker.png">
+        </div>
+        Weekdays: {{ currentWeek.monday.start }} - {{ currentWeek.monday.end }}
+      </li>
+      <li :class="{ 'bold-day': currentDay === 'saturday' }" id="saturdayLi">
+        <div class="pin-container">
+          <img v-if="currentDay === 'saturday'" src="../../public/map-marker.png">
+        </div>
+        Saturday: <span class="saturday-times">{{ currentWeek.saturday.start }} - {{ currentWeek.saturday.end }}</span>
+      </li>
+      <li :class="{ 'bold-day': currentDay === 'sunday' }" id="sundayLi">
+        <div class="pin-container">
+          <img v-if="currentDay === 'sunday'" src="../../public/map-marker.png">
+        </div>
+        Sunday: <span class="sunday-times">{{ currentWeek.sunday.start }} - {{ currentWeek.sunday.end }}</span>
+      </li>
     </ul>
+    <b-form-group :label-class="{'text-white': isDarkMode}" v-if="!available" label="RPI Shuttle Service is currently unavailable at the moment." style="margin-top:5px;"></b-form-group>
   </b-card>
 </template>
 
@@ -21,7 +37,9 @@ export default {
     return {
       schedules: [],
       currentWeek: undefined,
-      currentSemester: undefined
+      currentSemester: undefined,
+      currentDay: 'undefined',
+      available: true
     };
   },
   computed: {
@@ -64,10 +82,36 @@ export default {
         this.$store.commit("setServerStatus", { schedule: false });
       }
 
+    },
+    highlightCurrentSchedule() {
+      // Checks what day of the week is today and highlight the schedule accordingly
+      const current = new Date();
+      const day = current.getDay();
+      const hour = current.getHours();
+      if (day === 0) {
+        if (hour >= 9 && hour < 20) {
+          this.currentDay = 'sunday';
+        } else {
+          this.available = false;
+        }
+      } 
+      if (day === 6) {
+        if (hour >= 9)
+          this.currentDay = 'saturday';
+        else
+         this.available = false;
+      } 
+      if (day > 0 && day < 6) {
+        if (hour >= 7)
+          this.currentDay = 'weekdays';
+        else
+          this.available = false;
+      } 
     }
   },
   mounted () {
     this.getCurrentSemester();
+    this.highlightCurrentSchedule();
   }
 }
 </script>
@@ -77,6 +121,23 @@ ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
+}
+
+li {
+  display: flex;
+  align-items: center;
+}
+
+img {
+  height: 20px;
+  width: 20px;
+}
+.pin-container {
+  width: 20px;
+  margin-right: 5px;
+}
+.bold-day {
+  font-weight: bold;
 }
 
 .card {
