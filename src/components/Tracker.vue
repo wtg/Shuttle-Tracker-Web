@@ -36,6 +36,11 @@
                         :style="[{'background-color': r.colorName}]"> </span> <span
                     class="text-white">{{ r.name }}</span>
                 </div>
+                <!-- <div class="d-flex align-items-center mx-2 my-1">
+                  <span class="mr-1 d-inline-block route-legend-marker"
+                        :style="[{'background-color': r.colorName}]"> </span> <span
+                    class="text-white">{{ "Place Holder Bus" }}</span>
+                </div> -->
               </div>
             </div>
             <!-- Dashboard Historical Bus Trace Legend -->
@@ -109,6 +114,7 @@ export default {
       showFSIcon: true,
       fullscreenDelay: 0,
       routes: [], // active route name and color
+      buses: [], // active bus type and icon
       currentBuses: [], // active buses
       trailColors: ["orange", "green", "purple", "maroon", "yellow", "pink", "cyan", "gray", "brown", "darkmagenta", "plum", "steelblue", "seashell", "lavender",] // colors of markers
     }
@@ -161,6 +167,7 @@ export default {
     this.renderRoutes();
     this.renderStops();
     this.updateBuses();
+    this.renderBuses();
     window.setInterval(this.updateBuses, 5000); // update every 5 seconds
     // check if on mobile
     if (!this.isMobile()) {
@@ -252,20 +259,28 @@ export default {
             .map((bus) => {
               let color = "gray";
               let busIcon = "🚍";
-              switch (bus.location.type) {
-                case "user":
-                  color = "mediumseagreen";
-                  if (this.isCbMode) {
-                    busIcon = "+";
-                  }
-                  break;
-                case "system":
-                  color = "red";
+              if (bus.location.type === "user") {
+                color = "mediumseagreen";
+                if (this.isCbMode) {
+                  busIcon = "+";
+                }
+              }
+              // system location type not available at the moment
+                // case "system":
+                  // color = "red";
+                  // if (this.isCbMode) {
+                  //   busIcon = "!";
+                  //   color = "#7951b3";
+                  // }
+                //  break;
+              // place holder bus id
+              if (parseInt(bus.id) < 0) {
+                busIcon = "🚌";
+                color = "red";
                   if (this.isCbMode) {
                     busIcon = "!";
                     color = "#7951b3";
                   }
-                  break;
               }
               let timeDelta = Math.ceil(
                   (Date.parse(bus.location.date) - now) / 1000
@@ -409,6 +424,10 @@ export default {
         this.$store.commit("setServerStatus", {stops: false});
       }
     },
+
+    renderBuses() {
+      // manually update type of buses
+    }
   },
   watch: {
     isDarkMode(val) {
