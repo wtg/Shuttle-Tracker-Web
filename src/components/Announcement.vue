@@ -4,8 +4,9 @@
       :class="[{'announcement-dark': isDarkMode}, {'announcement-light': !isDarkMode},
       {'fixed-top': !isFsMode}, {'position-fixed': !isFsMode}]"
       class="m-0 rounded-0 p-0 py-2 border-0"
-      style="z-index: 2000;">
-    <div ref="announcer" class="scroll-left">
+      style="z-index: 2000; cursor: pointer;"
+      @click="handleAnnouncementClick">
+      <div ref="announcer" class="scroll-left" @click="handleAnnouncementClick">
       <div class="position-absolute px-3" style="left: 0;top: 0;z-index: 2000;"
            :class="[{'announcement-dark': isDarkMode}, {'announcement-light': !isDarkMode}]">📢:
       </div>
@@ -117,6 +118,7 @@ export default {
     loadAnnouncer() {
       //  Load different announcement for every animation loop
       if (this.hasAnnouncements) {
+        // adjust scrolling speed
         this.adjustScrollingSpeed();
       }
       this.$refs.announcer.addEventListener('animationiteration', () => {
@@ -134,14 +136,14 @@ export default {
       });
     },
     adjustScrollingSpeed() {
-      // Set speed of text accordingly, 10 characters per second, minimum 20 seconds
-      const announcementLength = this.announcements[this.announcerIndex].body.length;
-      if (announcementLength <= 200) {
-        return;
-      }
-      const speed = announcementLength * 0.10;
+      // Set speed of text accordingly, 10 characters per second
+      const speed = this.announcements[this.announcerIndex].body.length * 0.10
       var i = document.querySelector(".scroll-left .scroll-text");
-      i.style.setProperty("--defaultSpeed", speed + "s");
+      i.style.setProperty("--defaultSpeed", speed + "s")
+    },
+    handleAnnouncementClick() {
+      // Emit an event when the announcement bar is clicked
+      this.$store.commit('setAnnouncementClicked', true);
     }
   },
 
@@ -205,6 +207,10 @@ export default {
   height: 1.5em;
 }
 
+.scroll-left:hover {
+  cursor: pointer;
+}
+
 .scroll-left .scroll-text {
   position: absolute;
   min-width: 100%;
@@ -217,7 +223,7 @@ export default {
   transform: translateX(100%);
 
   /* Animation Variables */
-  --defaultSpeed: 20s;
+  --defaultSpeed: 25s;
   --animState: running;
 
   /* Apply animation to this element */

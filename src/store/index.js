@@ -22,7 +22,8 @@ export default new Vuex.Store({
         defaultURL: process.env.VUE_APP_API_BASE_URL,   // keeps track of the default URL, immutable in run time
         baseURL: process.env.VUE_APP_API_BASE_URL,  // the baseURL that the API calls follows, mutable
         isOfficialURL: true, // indicates is the API is the official one or not
-        isAdvMode: false    // indicates whether advance settings are enabled
+        isAdvMode: false,    // indicates whether advance settings are enabled
+        isAnnouncementClicked: false // indicates whether announcement bar is clicked
     },
     // Functions to alter the website states
     mutations: {
@@ -86,7 +87,10 @@ export default new Vuex.Store({
         // Enable / Disable advance setting tab
         setAdvMode(state, status){
             state.isAdvMode = status
-        }
+        },
+        setAnnouncementClicked(state, status) {
+            state.isAnnouncementClicked = status;
+        },
     },
     actions: {},
     modules: {}

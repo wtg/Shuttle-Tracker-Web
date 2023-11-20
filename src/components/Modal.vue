@@ -43,6 +43,12 @@
 
 export default {
   name: "Modal",
+  data() {
+    return {
+      instructionModal: True,
+      announcementModal: false,
+    };
+  },
   computed: {
     isDarkMode() {
       return this.$store.state.isDarkMode;
@@ -54,11 +60,11 @@ export default {
       return this.isDarkMode ? "light" : "dark";
     },
   },
-  // Only show modal if there is no cookie data 
   mounted() {
-    if (!this.$cookies.isKey("shownInstructionModal")) {
+    // Show modal if there is no cookie data 
+    if (!this.$cookies.isKey("shownInstructionModal") && this.instructionModal) {
       this.$cookies.set("shownInstructionModal", true); // true if shown already
-      this.showModal();
+      this.instructionModal = !this.instructionModal;
     }
   },
   methods: {
@@ -66,6 +72,15 @@ export default {
       this.$refs["instructionModal"].show();
     },
   },
+  watch: {
+    '$store.state.isAnnouncementClicked'(newVal) {
+      if (newVal) {
+        this.$store.commit('setAnnouncementClicked', false); // Reset the state
+        this.showModal();
+      }
+    },
+  },
+
 };
 </script>
 
