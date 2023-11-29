@@ -109,6 +109,8 @@ export default {
       if(this.devAnnouncement) {
         // Input fake announcement
         this.announcements[0] = {subject: "Debug", body: "This is a fake announcement."};
+        this.$store.commit('setAllAnnouncements', 'clear');
+        this.$store.commit('setAllAnnouncements', this.announcements[0]);
       }
 
       if (this.hasAnnouncements) {
@@ -121,6 +123,7 @@ export default {
         // adjust scrolling speed
         this.adjustScrollingSpeed();
       }
+      this.$store.commit('setAllAnnouncements', this.announcements);
       this.$refs.announcer.addEventListener('animationiteration', () => {
         if (this.updateOnNextInterval) {
           // update announcement
@@ -136,10 +139,14 @@ export default {
       });
     },
     adjustScrollingSpeed() {
-      // Set speed of text accordingly, 10 characters per second
-      const speed = this.announcements[this.announcerIndex].body.length * 0.10
+      // Set speed of text accordingly, 10 characters per second, minimum 20 seconds
+      const announcementLength = this.announcements[this.announcerIndex].body.length;
+      if (announcementLength <= 200) {
+        return;
+      }
+      const speed = announcementLength * 0.10;
       var i = document.querySelector(".scroll-left .scroll-text");
-      i.style.setProperty("--defaultSpeed", speed + "s")
+      i.style.setProperty("--defaultSpeed", speed + "s");
     },
     handleAnnouncementClick() {
       // Emit an event when the announcement bar is clicked
