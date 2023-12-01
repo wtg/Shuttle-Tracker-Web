@@ -5,7 +5,8 @@
       {'fixed-top': !isFsMode}, {'position-fixed': !isFsMode}]"
       class="m-0 rounded-0 p-0 py-2 border-0"
       style="z-index: 2000; cursor: pointer;"
-      @click="handleAnnouncementClick">
+      @click="handleAnnouncementClick"
+      v-b-tooltip.hover.bottom :title="'Click me for announcements'">
       <div ref="announcer" class="scroll-left" @click="handleAnnouncementClick">
       <div class="position-absolute px-3" style="left: 0;top: 0;z-index: 2000;"
            :class="[{'announcement-dark': isDarkMode}, {'announcement-light': !isDarkMode}]">📢:

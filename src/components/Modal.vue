@@ -106,13 +106,15 @@ export default {
     themeText() {
       return this.isDarkMode ? "light" : "dark";
     },
+    // Adjust modal title
     modalTitle() {
       if (this.instructionModal) {
         return "Welcome to the new Shuttle Tracker!";
       } else if (this.announcementModal) {
         return "Announcements";
       } else {
-        return "Bugged";
+        // will not appear unless logic is flawed
+        return "No Content";
       }
     }
   },
