@@ -23,7 +23,8 @@ export default new Vuex.Store({
         baseURL: process.env.VUE_APP_API_BASE_URL,  // the baseURL that the API calls follows, mutable
         isOfficialURL: true, // indicates is the API is the official one or not
         isAdvMode: false,    // indicates whether advance settings are enabled
-        isAnnouncementClicked: false // indicates whether announcement bar is clicked
+        isAnnouncementClicked: false, // indicates whether announcement bar is clicked
+        allAnnouncements: []
     },
     // Functions to alter the website states
     mutations: {
@@ -88,8 +89,19 @@ export default new Vuex.Store({
         setAdvMode(state, status){
             state.isAdvMode = status
         },
+        // Set announcement clicked
         setAnnouncementClicked(state, status) {
             state.isAnnouncementClicked = status;
+        },
+        // Set all announcement
+        setAllAnnouncements(state, status) {
+            if (status == 'clear') {
+                state.allAnnouncements.clear();
+            } else if (Array.isArray(status)) {
+                state.allAnnouncements = status;
+            } else {
+                state.allAnnouncements.push(status);
+            }
         },
     },
     actions: {},

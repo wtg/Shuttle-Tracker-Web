@@ -5,7 +5,8 @@
       {'fixed-top': !isFsMode}, {'position-fixed': !isFsMode}]"
       class="m-0 rounded-0 p-0 py-2 border-0"
       style="z-index: 2000; cursor: pointer;"
-      @click="handleAnnouncementClick">
+      @click="handleAnnouncementClick"
+      v-b-tooltip.hover.bottom :title="'Click me for announcements'">
       <div ref="announcer" class="scroll-left" @click="handleAnnouncementClick">
       <div class="position-absolute px-3" style="left: 0;top: 0;z-index: 2000;"
            :class="[{'announcement-dark': isDarkMode}, {'announcement-light': !isDarkMode}]">📢:
@@ -109,6 +110,8 @@ export default {
       if(this.devAnnouncement) {
         // Input fake announcement
         this.announcements[0] = {subject: "Debug", body: "This is a fake announcement."};
+        this.$store.commit('setAllAnnouncements', 'clear');
+        this.$store.commit('setAllAnnouncements', this.announcements[0]);
       }
 
       if (this.hasAnnouncements) {
@@ -121,6 +124,7 @@ export default {
         // adjust scrolling speed
         this.adjustScrollingSpeed();
       }
+      this.$store.commit('setAllAnnouncements', this.announcements);
       this.$refs.announcer.addEventListener('animationiteration', () => {
         if (this.updateOnNextInterval) {
           // update announcement
@@ -136,10 +140,14 @@ export default {
       });
     },
     adjustScrollingSpeed() {
-      // Set speed of text accordingly, 10 characters per second
-      const speed = this.announcements[this.announcerIndex].body.length * 0.10
+      // Set speed of text accordingly, 10 characters per second, minimum 20 seconds
+      const announcementLength = this.announcements[this.announcerIndex].body.length;
+      if (announcementLength <= 200) {
+        return;
+      }
+      const speed = announcementLength * 0.10;
       var i = document.querySelector(".scroll-left .scroll-text");
-      i.style.setProperty("--defaultSpeed", speed + "s")
+      i.style.setProperty("--defaultSpeed", speed + "s");
     },
     handleAnnouncementClick() {
       // Emit an event when the announcement bar is clicked
