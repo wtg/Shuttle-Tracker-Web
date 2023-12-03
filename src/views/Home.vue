@@ -11,15 +11,15 @@
           <Tracker></Tracker>
         </div>
       </div>
-      <div v-if="!isFsMode" class="row">
-        <div class="col-md mt-3">
+      <div v-if="!isFsMode" class="flexbox row">
+        <div class="flex col-md mt-3" :class="{ 'other': !isAdvMode }">
           <Schedule></Schedule>
         </div>
-        <div class="col-md mt-3">
+        <div class="flex col-md mt-3" :class="{ 'other': !isAdvMode }">
           <Settings></Settings>
         </div>
-        <div v-if="isAdvMode" class="col-md">
-          <AdvanceSettings></AdvanceSettings>
+        <div :class="[{'flex col-md adv-mode-on' : isAdvMode}, {'adv-mode-off' : !isAdvMode}]">
+          <AdvanceSettings class="advance-settings"></AdvanceSettings>
         </div>
       </div>
       <div class="row mt-3">
@@ -59,15 +59,159 @@ export default {
     Settings,
     Copyright,
     Announcement,
-    AdvanceSettings
-  },
+    AdvanceSettings,
+},
   computed: {
     isAdvMode() {
       return this.$store.state.isAdvMode
+    },
+  },
+  methods: {
+    // Timeout when Advance Mode is activated
+    onTimeout() {
+      const myTimeout = setTimeout(() => this.activateAdvanceModePanel(), 500);
+      return myTimeout;
+    },
+    // Display Advance Settings
+    activateAdvanceModePanel() {
+      let adv = document.querySelector(".advance-settings");
+      adv.style.display = "block";
+    },
+    // Timeout when Advance Mode is deactivated
+    offTimeout() {
+      const myTimeout = setTimeout(() => this.deactivateAdvanceModePanel(), 200);
+      return myTimeout;
+    },
+    // Hide Advance Settings
+    deactivateAdvanceModePanel() {
+      let adv = document.querySelector(".advance-settings");
+      adv.style.display = "none";
     }
+  },
+  mounted() {
+  },
+  watch: {
+    isAdvMode(newVal) {
+      if (newVal == true) {
+        this.onTimeout();
+      }
+      if (newVal == false) {
+        this.offTimeout();
+      }
+    },
   }
 }
-</script>
 
+
+
+</script>
 <style scoped>
+.advance-settings {
+  display: none;
+}
+.flexbox {
+  display: flex;
+  flex-direction: row; 
+  overflow: hidden;
+}
+.flex{
+  flex: 1;
+  transition: all 1s linear;
+}
+/* Animation class for Advanced Settings */
+.adv-mode-on {
+  flex: 0.00001;
+  animation: slideFromRight 1s ease forwards;
+  -webkit-animation: slideFromRight 1s ease forwards;
+  -o-animation: slideFromRight 1s ease forwards;
+}
+.adv-mode-off {
+  flex: 1;
+  animation: slideBack 1s ease forwards;
+  -webkit-animation: slideBack 1s ease forwards;
+  -o-animation: slideBack 1s ease forwards;
+}
+@keyframes slideFromRight {
+  from {
+    transform: translateY(150%);
+    transform: translateX(300%);
+    scale: 0%;
+  }
+  50% {
+    flex: 1;
+  }
+  to {
+    transform: translateY(0%);
+    transform: translateX(0%);
+    flex: 1;
+    scale: 100%;
+  }
+}
+
+@-webkit-keyframes slideFromRight {
+  from {
+    transform: translateY(150%);
+    transform: translateX(300%);
+    scale: 0%;
+  }
+  50% {
+    flex: 1;
+  }
+  to {
+    transform: translateY(0%);
+    transform: translateX(0%);
+    flex: 1;
+    scale: 100%;
+  }
+}
+
+@-o-keyframes slideFromRight {
+  from {
+    transform: translateY(150%);
+    transform: translateX(300%);
+    scale: 0%;
+  }
+  50% {
+    flex: 1;
+  }
+  to {
+    transform: translateY(0%);
+    transform: translateX(0%);
+    flex: 1;
+    scale: 100%;
+  }
+}
+
+@keyframes slideBack {
+  from {
+    transform: translateX(0%);
+    flex: 1;
+  }
+  to {
+    transform: translateX(300%);
+    flex: 0.00001;
+  }
+}
+
+@-webkit-keyframes slideBack {
+  from {
+    transform: translateX(0%);
+    flex: 1;
+  }
+  to {
+    transform: translateX(300%);
+    flex: 0.00001;
+  }
+}
+
+@-o-keyframes slideBack {
+  from {
+    transform: translateX(0%);
+    flex: 1;
+  }
+  to {
+    transform: translateX(300%);
+    flex: 0.00001;
+  }
+}
 </style>
