@@ -38,6 +38,27 @@
                 </div>
               </div>
             </div>
+            <!-- Buses Legend -->
+            <div v-if="busTypes.length > 0" >
+              <div class="rounded mt-1 d-inline-block"
+                    :class="[{'frosted-glass-dark': !isDarkMode}, {'frosted-glass': isDarkMode}]">
+                    <div class="legend-container" style="padding-top: 5px;">
+                      <div v-for="(bus, index) in busTypes" :key="index" class="d-flex align-items-center mx-2 my-1">
+                        <div class="icon-container">
+                          <span v-if="bus.color == 'mediumseagreen'" class="icon-parent position-relative d-inline-block rounded-circle mr-3 bg-success">
+                            <span class="position-absolute icon-text"> {{ bus.icon }}</span>
+                          </span>
+                          <span v-else class="icon-parent position-relative d-inline-block rounded-circle mr-3 bg-danger">
+                            <span class="position-absolute icon-text"> {{ bus.icon }}</span>
+                          </span>
+                        </div>
+                        <span class="text-white" style="position: relative; 
+                        margin-left: -8px;
+                        padding-bottom: 5px;">{{ bus.name }}</span>
+                      </div>
+                  </div>
+              </div>
+            </div>
             <!-- Dashboard Historical Bus Trace Legend -->
             <div v-if="(currentBuses.length > 0) && (trace_history)">
               <div class="rounded mt-1 d-inline-block"
@@ -109,6 +130,12 @@ export default {
       showFSIcon: true,
       fullscreenDelay: 0,
       routes: [], // active route name and color
+      buses: [], // active bus type and icon
+      busTypes: [ // manually update active bus type and icon
+                { name: 'User Bus', icon: '🚍', color: 'mediumseagreen' },
+                // { name: 'System Bus', icon: '...', color: 'red' },
+                { name: 'Placeholder Bus', icon: '🚌', color: 'red' },
+            ],
       currentBuses: [], // active buses
       trailColors: ["orange", "green", "purple", "maroon", "yellow", "pink", "cyan", "gray", "brown", "darkmagenta", "plum", "steelblue", "seashell", "lavender",] // colors of markers
     }
@@ -161,6 +188,7 @@ export default {
     this.renderRoutes();
     this.renderStops();
     this.updateBuses();
+    this.renderBuses();
     window.setInterval(this.updateBuses, 5000); // update every 5 seconds
     // check if on mobile
     if (!this.isMobile()) {
@@ -252,20 +280,28 @@ export default {
             .map((bus) => {
               let color = "gray";
               let busIcon = "🚍";
-              switch (bus.location.type) {
-                case "user":
-                  color = "mediumseagreen";
-                  if (this.isCbMode) {
-                    busIcon = "+";
-                  }
-                  break;
-                case "system":
-                  color = "red";
+              if (bus.location.type === "user") {
+                color = "mediumseagreen";
+                if (this.isCbMode) {
+                  busIcon = "+";
+                }
+              }
+              // system location type not available at the moment
+                // case "system":
+                  // color = "red";
+                  // if (this.isCbMode) {
+                  //   busIcon = "!";
+                  //   color = "#7951b3";
+                  // }
+                //  break;
+              // place holder bus id
+              if (parseInt(bus.id) < 0) {
+                busIcon = "🚌";
+                color = "red";
                   if (this.isCbMode) {
                     busIcon = "!";
                     color = "#7951b3";
                   }
-                  break;
               }
               let timeDelta = Math.ceil(
                   (Date.parse(bus.location.date) - now) / 1000
@@ -409,6 +445,10 @@ export default {
         this.$store.commit("setServerStatus", {stops: false});
       }
     },
+
+    renderBuses() {
+      // manually update type of buses
+    }
   },
   watch: {
     isDarkMode(val) {
@@ -519,5 +559,20 @@ export default {
   top: 0;
   left: 0;
   background-color: rgba(104, 104, 104, 0.425);
+}
+
+.icon-parent {
+  padding: 1rem;
+  position: relative;
+}
+
+.icon-text {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.icon-container {
+  top: 10%;
 }
 </style>
