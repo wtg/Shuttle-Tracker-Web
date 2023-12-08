@@ -6,25 +6,20 @@
           <Header></Header>
         </div>
       </div>
-      <div class="row mt-2">
+      <div class="row mt-2 tracker">
         <div class="col">
           <Tracker></Tracker>
         </div>
       </div>
-      <div class="row" :class="[{'progressbar' : progressBar}, {'progressbarDisabled' : !progressBar}]">
-        <div class="col">
-          <Progressbar></Progressbar>
-        </div>
-      </div>
-      <div v-if="!isFsMode" class="row">
-        <div class="col-md mt-3">
+      <div v-if="!isFsMode" class="flexbox row">
+        <div class="flex col-md mt-3" :class="{ 'other': !isAdvMode }">
           <Schedule></Schedule>
         </div>
-        <div class="col-md mt-3">
+        <div class="flex col-md mt-3" :class="{ 'other': !isAdvMode }">
           <Settings></Settings>
         </div>
-        <div v-if="isAdvMode" class="col-md">
-          <AdvanceSettings></AdvanceSettings>
+        <div :class="[{'flex col-md adv-mode-on' : isAdvMode}, {'adv-mode-off' : !isAdvMode}]">
+          <AdvanceSettings class="advance-settings"></AdvanceSettings>
         </div>
       </div>
       <div class="row mt-3">
@@ -51,7 +46,6 @@ import Copyright from "../components/Copyright";
 import Announcement from "../components/Announcement";
 import AdvanceSettings from "../components/AdvanceSettings";
 import mixin from "../mixins/mixins";
-import Progressbar from "../components/Progressbar";
 
 export default {
   name: 'Home',
@@ -66,126 +60,187 @@ export default {
     Copyright,
     Announcement,
     AdvanceSettings,
-    Progressbar
-  },
+},
   computed: {
     isAdvMode() {
       return this.$store.state.isAdvMode
     },
-    progressBar() {
-      return this.$store.state.progressBar;
+  },
+  methods: {
+    // Timeout when Advance Mode is activated
+    onTimeout() {
+      this.activateTimeout = setTimeout(() => this.activateAdvanceModePanel(), 500);
+    },
+    // Display Advance Settings
+    activateAdvanceModePanel() {
+      let adv = document.querySelector(".advance-settings");
+      adv.style.display = "block";
+    },
+    // Timeout when Advance Mode is deactivated
+    offTimeout() {
+      this.deactivateTimeout = setTimeout(() => this.deactivateAdvanceModePanel(), 200);
+    },
+    // Hide Advance Settings
+    deactivateAdvanceModePanel() {
+      let adv = document.querySelector(".advance-settings");
+      adv.style.display = "none";
+    },
+    clearTimeouts() {
+      if (this.activateTimeout) {
+        clearTimeout(this.activateTimeout);
+      }
+
+      if (this.deactivateTimeout) {
+        clearTimeout(this.deactivateTimeout);
+      }
+    },
+  },
+  beforeDestroy() {
+    this.clearTimeouts();
+  },
+  beforeRouteEnter(to, from, next) {
+    const hasRefreshed = localStorage.getItem('hasRefreshed');
+
+    if (!hasRefreshed) {
+      next(vm => {
+        vm.$nextTick(() => {
+          // set the flag to indicate that the refresh has occurred for testing
+          localStorage.setItem('hasRefreshed', true);
+
+        });
+
+      });
+    } else {
+      next();
+
     }
-  }
+  },
+  watch: {
+    isAdvMode(newVal) {
+      if (newVal == true) {
+        this.onTimeout();
+      }
+      if (newVal == false) {
+        this.offTimeout();
+      }
+    },
+  },
+
 }
+
+
+
 </script>
-
 <style scoped>
-.progressbar {
-  position:relative;
-  z-index: -1;
-  transform: translateY(-200%);
-  animation: slideDown 1s ease forwards;
-  -webkit-animation: slideDown 1s ease forwards;
-  -o-animation: slideDown 1s ease forwards;
+.other {
+  width: 100%;
 }
-.progressbarDisabled {
-  position: relative;
-  z-index: -1;
-  margin: -10px;
-  animation: slideUp 1s ease forwards;
-  -webkit-animation: slideUp 1s ease forwards;
-  -o-animation: slideUp 1s ease forwards;
+.advance-settings {
+  display: none;
 }
-.tracker {
-  z-index: 1;
+.flexbox {
+  display: flex;
+  flex-direction: row; 
+  overflow: hidden;
 }
-@keyframes slideDown {
+.flex{
+  flex: 1;
+  transition: all 1s linear;
+}
+/* Animation class for Advanced Settings */
+.adv-mode-on {
+  flex: 0.00001;
+  animation: slideFromRight 1s ease forwards;
+  -webkit-animation: slideFromRight 1s ease forwards;
+  -o-animation: slideFromRight 1s ease forwards;
+}
+.adv-mode-off {
+  flex: 1;
+  animation: slideBack 1s ease forwards;
+  -webkit-animation: slideBack 1s ease forwards;
+  -o-animation: slideBack 1s ease forwards;
+}
+@keyframes slideFromRight {
   from {
-    margin: -10px;
-    transform: translateY(-100%);
-    opacity: 0;
+    transform: translateY(150%);
+    transform: translateX(300%);
+    scale: 0%;
+  }
+  50% {
+    flex: 1;
   }
   to {
-    margin: 5px;
     transform: translateY(0%);
-    opacity: 1;  
-    margin-bottom: -5px;
+    transform: translateX(0%);
+    flex: 1;
+    scale: 100%;
   }
 }
 
-@-webkit-keyframes slideDown {
+@-webkit-keyframes slideFromRight {
   from {
-    margin: -10px;
-    transform: translateY(-100%);
-    opacity: 0;
+    transform: translateY(150%);
+    transform: translateX(300%);
+    scale: 0%;
+  }
+  50% {
+    flex: 1;
   }
   to {
-    margin: 5px;
     transform: translateY(0%);
-    opacity: 1;  
-    margin-bottom: -5px;
+    transform: translateX(0%);
+    flex: 1;
+    scale: 100%;
   }
 }
 
-@-o-keyframes slideDown {
+@-o-keyframes slideFromRight {
   from {
-    margin: -10px;
-    transform: translateY(-100%);
-    opacity: 0;
+    transform: translateY(150%);
+    transform: translateX(300%);
+    scale: 0%;
+  }
+  50% {
+    flex: 1;
   }
   to {
-    margin: 5px;
     transform: translateY(0%);
-    opacity: 1;  
-    margin-bottom: -5px;
+    transform: translateX(0%);
+    flex: 1;
+    scale: 100%;
   }
 }
 
-@keyframes slideUp {
-  0% {
-    transform: translateY(0%);
-    opacity: 1;
-    margin: 0px;
+@keyframes slideBack {
+  from {
+    transform: translateX(0%);
+    flex: 1;
   }
-  99% {
-    transform: translateY(-100%);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(-100%);
-    display: none;
+  to {
+    transform: translateX(300%);
+    flex: 0.00001;
   }
 }
 
-@-webkit-keyframes slideUp {
-  0% {
-    transform: translateY(0%);
-    opacity: 1;
-    margin: 0px;
+@-webkit-keyframes slideBack {
+  from {
+    transform: translateX(0%);
+    flex: 1;
   }
-  99% {
-    transform: translateY(-100%);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(-100%);
-    display: none;
+  to {
+    transform: translateX(300%);
+    flex: 0.00001;
   }
 }
 
-@-o-keyframes slideUp {
-  0% {
-    transform: translateY(0%);
-    opacity: 1;
-    margin: 0px;
+@-o-keyframes slideBack {
+  from {
+    transform: translateX(0%);
+    flex: 1;
   }
-  99% {
-    transform: translateY(-100%);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(-100%);
-    display: none;
+  to {
+    transform: translateX(300%);
+    flex: 0.00001;
   }
 }
 </style>
