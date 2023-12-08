@@ -195,7 +195,8 @@ export default {
 }
 .dev-setting {
   animation: slideDown 1s ease forwards;
-
+  -webkit-animation: slideDown 1s ease forwards;
+  -o-animation: slideDown 1s ease forwards;
 }
 
 @keyframes slideDown {
@@ -209,7 +210,7 @@ export default {
   }
 }
 
-@keyframes slideDown {
+@-webkit-keyframes slideDown {
   from {
     transform: translateY(-100%);
     opacity: 0;
@@ -220,7 +221,7 @@ export default {
   }
 }
 
-@keyframes slideDown {
+@-o-keyframes slideDown {
   from {
     transform: translateY(-100%);
     opacity: 0;
