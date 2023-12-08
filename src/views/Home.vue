@@ -11,11 +11,6 @@
           <Tracker></Tracker>
         </div>
       </div>
-      <div class="row" :class="[{'progressbar' : progressBar}, {'progressbarDisabled' : !progressBar}]">
-        <div class="col">
-          <Progressbar></Progressbar>
-        </div>
-      </div>
       <div v-if="!isFsMode" class="flexbox row">
         <div class="flex col-md mt-3" :class="{ 'other': !isAdvMode }">
           <Schedule></Schedule>
@@ -51,7 +46,6 @@ import Copyright from "../components/Copyright";
 import Announcement from "../components/Announcement";
 import AdvanceSettings from "../components/AdvanceSettings";
 import mixin from "../mixins/mixins";
-import Progressbar from "../components/Progressbar";
 
 export default {
   name: 'Home',
@@ -66,7 +60,6 @@ export default {
     Copyright,
     Announcement,
     AdvanceSettings,
-    Progressbar
 },
   computed: {
     isAdvMode() {
