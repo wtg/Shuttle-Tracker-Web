@@ -10,18 +10,18 @@
                      v-b-tooltip.hover.lefttop :title="darkExplanation" switch>
       Dark Mode
     </b-form-checkbox>
-    <b-form-checkbox v-if="devToolsEnabled && isDevMode" v-model="devHQ" name="check-button"
-                     :class="[{'text-white': isDarkMode}, {'dev-setting' : isDevMode}]"
+    <b-form-checkbox v-if="devToolsEnabled" v-model="devHQ" name="check-button"
+                     :class="{'text-white': isDarkMode}"
                      v-b-tooltip.hover.lefttop :title="hqExplanation" switch>
       Create Fake HQ data: Bus 69
     </b-form-checkbox>
-    <b-form-checkbox v-if="devToolsEnabled && isDevMode" v-model="devAnnouncement" name="AnnouncementBarSwitch" 
-                     :class="[{'text-white': isDarkMode}, {'dev-setting' : isDevMode}]"
+    <b-form-checkbox v-if="devToolsEnabled" v-model="devAnnouncement" name="AnnouncementBarSwitch" 
+                     :class="{'text-white': isDarkMode}"
                      v-b-tooltip.hover.lefttop :title="devAnnoucementExplanation" switch>
       Toggle Fake Announcement Bar
     </b-form-checkbox>
-    <b-form-checkbox v-if="devToolsEnabled && isDevMode" v-model="progressBarCompute" name="progressBarSwitch" 
-                     :class="[{'text-white': isDarkMode}, {'dev-setting' : isDevMode}]"
+    <b-form-checkbox v-if="devToolsEnabled" v-model="progressBarCompute" name="progressBarSwitch" 
+                     :class="{'text-white': isDarkMode}"
                      v-b-tooltip.hover.lefttop :title="progressBarExplanation" switch>
       Toggle Progressbar
     </b-form-checkbox>
@@ -101,6 +101,7 @@ export default {
         /**
      * @brief Sets the state for the fake progressbar
      */
+
   },
   watch: {
     /**
@@ -125,6 +126,7 @@ export default {
     /**
      * @brief Calls the setProgressBar method
      */
+
   },
   mounted() {
     this.isCbMode = this.$store.state.isCbMode  // sync state
@@ -141,10 +143,7 @@ export default {
         this.$store.commit('setProgressBar', value);
       }
     },
-    isDevMode() {
-      return this.$store.state.devMode;
-    },
-  },
+},
 
 }
 </script>
@@ -192,43 +191,5 @@ export default {
 
 .slide-enter-to, .slide-leave /* .slide-leave-active in <2.1.8 */ {
   transform: translateX(-100%);
-}
-.dev-setting {
-  animation: slideDown 1s ease forwards;
-  -webkit-animation: slideDown 1s ease forwards;
-  -o-animation: slideDown 1s ease forwards;
-}
-
-@keyframes slideDown {
-  from {
-    transform: translateY(-100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0%);
-    opacity: 1;  
-  }
-}
-
-@-webkit-keyframes slideDown {
-  from {
-    transform: translateY(-100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0%);
-    opacity: 1;  
-  }
-}
-
-@-o-keyframes slideDown {
-  from {
-    transform: translateY(-100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0%);
-    opacity: 1;  
-  }
 }
 </style>

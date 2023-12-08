@@ -1,5 +1,5 @@
 <template>
-  <b-card class="mt-3" @click="incrementCounter" :class="[{'bubble-dark': isDarkMode},{'bubble-light': !isDarkMode}]">
+  <b-card class="mt-3" :class="[{'bubble-dark': isDarkMode},{'bubble-light': !isDarkMode}]">
     <h3 :class="{'text-white': isDarkMode}">Advanced Settings</h3>
     <b-form-group :label-class="{'text-white': isDarkMode}" label="Server Base URL" label-for="input-custom-api">
       <b-form-input @change="setBaseURL" id="input-custom-api" v-model="customAPI" size="sm" placeholder="https://shuttletracker.app" debounce="500"></b-form-input>
@@ -15,40 +15,29 @@ export default {
   mixins: [mixin],
   data() {
     return {
-      customAPI: '',
-      counter: 0,
+      customAPI: ''
     }
   },
   computed: {
     isAdvMode() {
       return this.$store.state.isAdvMode
-    },
-    isDevMode() {
-      return this.$store.state.devMode;
     }
   },
   watch: {
+    isDarkMode(val) {
+      this.isDark = val // dynamically sync state
+    }
   },
   methods: {
     // change custom API URL
     setBaseURL() {
       if (this.customAPI.trim() === '') {
-        this.$store.commit('restoreBaseURL');
-        // can customize code for developer's settings to show up
-      } else if (this.customAPI.trim() == 'devMode') {
-        if (this.counter >= 10) {
-          this.$store.commit('setDevMode', true);
-          this.counter = 0;
-        }
-      }
-      else {
+        this.$store.commit('restoreBaseURL')
+      } else {
         this.$store.commit('setBaseURL', this.customAPI)
       }
-    },
-    incrementCounter() {
-      this.counter++;
     }
-  },
+  }
 }
 </script>
 
