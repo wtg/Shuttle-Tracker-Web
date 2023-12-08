@@ -65,9 +65,6 @@ export default {
     isAdvMode() {
       return this.$store.state.isAdvMode
     },
-    progressBar() {
-      return this.$store.state.progressBar;
-    }
   },
   methods: {
     // Timeout when Advance Mode is activated
