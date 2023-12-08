@@ -1,4 +1,5 @@
 <template>
+  <transition name="slide">
   <b-card v-if="!isFsMode" class="h-100" :class="[{'bubble-dark': isDarkMode},{'bubble-light': !isDarkMode}]">
     <h3 :class="{'text-white': isDarkMode}">Settings</h3>
     <b-form-checkbox @change="setCbMode" :class="[{'text-white': isDarkMode}]" v-model="isCbMode" name="cbModeSwitch"
@@ -9,19 +10,28 @@
                      v-b-tooltip.hover.lefttop :title="darkExplanation" switch>
       Dark Mode
     </b-form-checkbox>
-    <b-form-checkbox v-if="devToolsEnabled" v-model="devHQ" name="check-button" switch
-                     :class="{'text-white': isDarkMode}">
+    <b-form-checkbox v-if="devToolsEnabled" v-model="devHQ" name="check-button"
+                     :class="{'text-white': isDarkMode}"
+                     v-b-tooltip.hover.lefttop :title="hqExplanation" switch>
       Create Fake HQ data: Bus 69
     </b-form-checkbox>
-    <b-form-checkbox v-if="devToolsEnabled" v-model="devAnnouncement" name="AnnouncementBarSwitch" switch
-                     :class="{'text-white': isDarkMode}">
+    <b-form-checkbox v-if="devToolsEnabled" v-model="devAnnouncement" name="AnnouncementBarSwitch" 
+                     :class="{'text-white': isDarkMode}"
+                     v-b-tooltip.hover.lefttop :title="devAnnoucementExplanation" switch>
       Toggle Fake Announcement Bar
+    </b-form-checkbox>
+    <b-form-checkbox v-if="devToolsEnabled" v-model="progressBarCompute" name="progressBarSwitch" 
+                     :class="{'text-white': isDarkMode}"
+                     v-b-tooltip.hover.lefttop :title="progressBarExplanation" switch>
+      Toggle Progressbar
     </b-form-checkbox>
     <b-button pill class="mt-1" :class="[{'text-white': isDarkMode}, {'toggled': isAdvMode}, {'advanced-settings': true}]" variant="secondary" size="sm" @click="toggleAdvMode" v-model="isAdvMode" name="AdvModeSwitch"
                       v-b-tooltip.hover.lefttop :title="isAdvMode ? hideAdvSettingsExplanation:advSettingsExplanation" switch>
       {{isAdvMode?'Hide':'Show'}} Advanced Settings
     </b-button>
+    
   </b-card>
+</transition>
 </template>
 
 <script>
@@ -38,12 +48,16 @@ export default {
       isAdvMode: false,
       devHQ: false,
       devAnnouncement: false,
+      progressBar: false,
       devToolsEnabled: process.env.VUE_APP_DEV_TOOLS_ENABLED === "true",
       // Explanation Message when hovering over setting sliders
       cbExplanation: "Changes the icons of buses to + and ! based on the quality of the bus data",
       darkExplanation: "Switches dark mode on or off",
+      hqExplanation: "Creake a fake \"Bus 69\" Data",
+      devAnnoucementExplanation: "Show fake annoucements",
       advSettingsExplanation: "Show advanced settings",
       hideAdvSettingsExplanation: "Hide advanced settings",
+      progressBarExplanation: "Show progress bar on how many buses were collected"
     }
   },
   methods: {
@@ -83,7 +97,10 @@ export default {
     toggleAdvMode() {
       this.isAdvMode = ! this.isAdvMode;
       this.setAdvMode()
-    }
+    },
+        /**
+     * @brief Sets the state for the fake progressbar
+     */
 
   },
   watch: {
@@ -105,13 +122,29 @@ export default {
      */
     devAnnouncement() {
       this.simulateAnnouncementBar();
-    }
+    },
+    /**
+     * @brief Calls the setProgressBar method
+     */
+
   },
   mounted() {
     this.isCbMode = this.$store.state.isCbMode  // sync state
     this.isDark = this.$store.state.isDarkMode
     this.isAdvMode = this.$store.state.isAdvMode
-  }
+    this.progressBar = this.$store.state.progressBar
+  },
+  computed: {
+    progressBarCompute: {
+      get() {
+        return this.$store.state.progressBar;
+      },
+      set(value) {
+        this.$store.commit('setProgressBar', value);
+      }
+    },
+},
+
 }
 </script>
 
@@ -119,6 +152,7 @@ export default {
 
 .card {
   border-radius: 7px;
+  animation: slide 0.5s;
 }
 
 .card-body {
@@ -145,5 +179,17 @@ export default {
   -webkit-box-shadow: none;
   /* margin- */
   /* margin-left: 40px; */
+}
+
+.slide-enter-active, .slide-leave-active {
+  transition: transform 0.5s;
+}
+
+.slide-enter, .slide-leave-to /* .slide-leave-active in <2.1.8 */ {
+  transform: translateX(0);
+}
+
+.slide-enter-to, .slide-leave /* .slide-leave-active in <2.1.8 */ {
+  transform: translateX(-100%);
 }
 </style>

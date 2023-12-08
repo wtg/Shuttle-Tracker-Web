@@ -24,7 +24,8 @@ export default new Vuex.Store({
         isOfficialURL: true, // indicates is the API is the official one or not
         isAdvMode: false,    // indicates whether advance settings are enabled
         isAnnouncementClicked: false, // indicates whether announcement bar is clicked
-        allAnnouncements: []
+        allAnnouncements: [],
+        progressBar: false,
     },
     // Functions to alter the website states
     mutations: {
@@ -92,6 +93,10 @@ export default new Vuex.Store({
         // Set announcement clicked
         setAnnouncementClicked(state, status) {
             state.isAnnouncementClicked = status;
+        },
+        // Enable / Disable ProgressBar
+        setProgressBar(state, status) {
+            state.progressBar = status;
         },
         // Set all announcement
         setAllAnnouncements(state, status) {
