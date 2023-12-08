@@ -20,7 +20,8 @@
               target="_blank">
         <small>Android App</small>
       </b-link>
-      <b-link :class="[{'text-black': !isDarkMode}, {'text-gray': isDarkMode}]"
+      <b-link @click="resetAdvMode"
+      :class="[{'text-black': !isDarkMode}, {'text-gray': isDarkMode}]"
               to="/privacy-policy">
         <small>Privacy Policy</small>
       </b-link>
@@ -37,7 +38,13 @@ export default {
   components: {
     BIconGithub
   },
-  mixins: [mixin]
+  mixins: [mixin],
+  methods: {
+    resetAdvMode() {
+      // Reset Advanced Mode
+      this.$store.commit('setAdvMode', false);
+    },
+  },
 }
 </script>
 

@@ -6,9 +6,14 @@
           <Header></Header>
         </div>
       </div>
-      <div class="row mt-2">
+      <div class="row mt-2 tracker">
         <div class="col">
           <Tracker></Tracker>
+        </div>
+      </div>
+      <div class="row" :class="[{'progressbar' : progressBar}, {'progressbarDisabled' : !progressBar}]">
+        <div class="col">
+          <Progressbar></Progressbar>
         </div>
       </div>
       <div v-if="!isFsMode" class="flexbox row">
@@ -46,6 +51,7 @@ import Copyright from "../components/Copyright";
 import Announcement from "../components/Announcement";
 import AdvanceSettings from "../components/AdvanceSettings";
 import mixin from "../mixins/mixins";
+import Progressbar from "../components/Progressbar";
 
 export default {
   name: 'Home',
@@ -60,17 +66,20 @@ export default {
     Copyright,
     Announcement,
     AdvanceSettings,
+    Progressbar
 },
   computed: {
     isAdvMode() {
       return this.$store.state.isAdvMode
     },
+    progressBar() {
+      return this.$store.state.progressBar;
+    }
   },
   methods: {
     // Timeout when Advance Mode is activated
     onTimeout() {
-      const myTimeout = setTimeout(() => this.activateAdvanceModePanel(), 500);
-      return myTimeout;
+      this.activateTimeout = setTimeout(() => this.activateAdvanceModePanel(), 500);
     },
     // Display Advance Settings
     activateAdvanceModePanel() {
@@ -79,16 +88,42 @@ export default {
     },
     // Timeout when Advance Mode is deactivated
     offTimeout() {
-      const myTimeout = setTimeout(() => this.deactivateAdvanceModePanel(), 200);
-      return myTimeout;
+      this.deactivateTimeout = setTimeout(() => this.deactivateAdvanceModePanel(), 200);
     },
     // Hide Advance Settings
     deactivateAdvanceModePanel() {
       let adv = document.querySelector(".advance-settings");
       adv.style.display = "none";
-    }
+    },
+    clearTimeouts() {
+      if (this.activateTimeout) {
+        clearTimeout(this.activateTimeout);
+      }
+
+      if (this.deactivateTimeout) {
+        clearTimeout(this.deactivateTimeout);
+      }
+    },
   },
-  mounted() {
+  beforeDestroy() {
+    this.clearTimeouts();
+  },
+  beforeRouteEnter(to, from, next) {
+    const hasRefreshed = localStorage.getItem('hasRefreshed');
+
+    if (!hasRefreshed) {
+      next(vm => {
+        vm.$nextTick(() => {
+          // set the flag to indicate that the refresh has occurred for testing
+          localStorage.setItem('hasRefreshed', true);
+
+        });
+
+      });
+    } else {
+      next();
+
+    }
   },
   watch: {
     isAdvMode(newVal) {
@@ -99,13 +134,17 @@ export default {
         this.offTimeout();
       }
     },
-  }
+  },
+
 }
 
 
 
 </script>
 <style scoped>
+.other {
+  width: 100%;
+}
 .advance-settings {
   display: none;
 }
