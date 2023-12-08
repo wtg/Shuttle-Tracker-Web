@@ -19,7 +19,7 @@
             <!-- fullscreen button -->
             <b-badge v-if="showFullScreen && showFSIcon" v-b-tooltip.hover :title="FullscreenDesc" role="button"
                      variant="primary" class="mr-1"
-                     @click="toggleFullscreen(!fullscreen)">
+                     @click="toggleFullscreen(!fullscreen); resetAdvMode()">
               <BIconFullscreen v-if="!fullscreen"></BIconFullscreen>
               <BIconFullscreenExit v-if="fullscreen"></BIconFullscreenExit>
               {{ fullscreen ? "Exit" : "Enter" }} Full-Screen Mode
@@ -82,8 +82,8 @@
 
         <!-- Announcement Bar -->
         <Announcement v-if="fullscreen"></Announcement>
-
       </div>
+      <Modal v-if="fullscreen" class="modal"></Modal>
     </fullscreen>
   </div>
 </template>
@@ -98,6 +98,7 @@ import VueFullscreen from 'vue-fullscreen'
 import mixin from '../mixins/mixins.js'
 import Schedule from "./Schedule";
 import Fullscrn_qrcode from "./Fullscrn_qrcode";
+import Modal from "../components/Modal";
 
 Vue.use(VueFullscreen);
 
@@ -113,7 +114,8 @@ export default {
     BIconFullscreen,
     BIconFullscreenExit,
     BIconVinyl,
-    Schedule
+    Schedule,
+    Modal
   },
   mixins: [mixin],
   data() {
@@ -135,6 +137,7 @@ export default {
                 { name: 'User Bus', icon: '🚍', color: 'mediumseagreen' },
                 // { name: 'System Bus', icon: '...', color: 'red' },
                 { name: 'Placeholder Bus', icon: '🚌', color: 'red' },
+                // add more bus types as needed
             ],
       currentBuses: [], // active buses
       trailColors: ["orange", "green", "purple", "maroon", "yellow", "pink", "cyan", "gray", "brown", "darkmagenta", "plum", "steelblue", "seashell", "lavender",] // colors of markers
@@ -162,6 +165,7 @@ export default {
     });
   },
   mounted() {
+    
     // initialize map object
     let vm = this;
     mapkit.init({
@@ -198,11 +202,28 @@ export default {
     if (f > -1) {
       this.fullscreenDelay = 200; // delay to show icons for firefox users, since firefox has fullscreen animation by default
     }
+    this.bindDoubleClickEvent();
   },
   methods: {
+    redirectToWebsite(location) {
+      location.replaceAll(' ', '+') 
+      window.open("https://www.google.com/maps/search/" + encodeURIComponent(location), "_blank"); // Redirect to the desired website
+    },
+    bindDoubleClickEvent() {
+      const mapElement = document.getElementById("map");
+      mapElement.addEventListener("dblclick", (event) => {
+        if (event.target.classList.contains("annotation-stop")) {
+          this.redirectToWebsite(event.target.title);
+        }
+      });
+    },
+    resetAdvMode() {
+      // Reset Advanced Mode
+      this.$store.commit('setAdvMode', false);
+    },
     centerMap() {
       const center = new mapkit.Coordinate(42.73029109316892, -73.67655873298646);
-      const span = new mapkit.CoordinateSpan(0.016, 0.032);
+      const span = new mapkit.CoordinateSpacan(0.016, 0.032);
       const region = new mapkit.CoordinateRegion(center, span);
       this.mapObj.setRegionAnimated(region);
     },
@@ -448,7 +469,8 @@ export default {
 
     renderBuses() {
       // manually update type of buses
-    }
+    },
+    
   },
   watch: {
     isDarkMode(val) {
@@ -484,11 +506,14 @@ export default {
       this.renderStops();
       this.updateBuses();
     }
-  }
+  },
 };
 </script>
 
 <style>
+.modal {
+  z-index: 9999;
+}
 .annotation-stop {
   width: 12px;
   height: 12px;
@@ -497,7 +522,9 @@ export default {
   background-color: white;
   opacity: 0.8;
 }
-
+.annotation-stop:hover {
+  cursor: pointer;
+}
 .annotation-popover-light {
   background-color: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(5px);
