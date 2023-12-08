@@ -26,6 +26,7 @@ export default new Vuex.Store({
         isAnnouncementClicked: false, // indicates whether announcement bar is clicked
         allAnnouncements: [],
         progressBar: false,
+        devMode: false,
     },
     // Functions to alter the website states
     mutations: {
@@ -98,10 +99,13 @@ export default new Vuex.Store({
         setProgressBar(state, status) {
             state.progressBar = status;
         },
+        setDevMode(state, status) {
+            state.devMode = status;
+        },
         // Set all announcement
         setAllAnnouncements(state, status) {
             if (status == 'clear') {
-                state.allAnnouncements.clear();
+                state.allAnnouncements = [];
             } else if (Array.isArray(status)) {
                 state.allAnnouncements = status;
             } else {
