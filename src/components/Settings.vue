@@ -10,17 +10,17 @@
                      v-b-tooltip.hover.lefttop :title="darkExplanation" switch>
       Dark Mode
     </b-form-checkbox>
-    <b-form-checkbox v-if="devToolsEnabled && isDevMode" v-model="devHQ" name="check-button"
+    <b-form-checkbox v-if="devToolsEnabled || isDevMode" v-model="devHQ" name="check-button"
                      :class="[{'text-white': isDarkMode}, {'dev-setting' : isDevMode}]"
                      v-b-tooltip.hover.lefttop :title="hqExplanation" switch>
       Create Fake HQ data: Bus 69
     </b-form-checkbox>
-    <b-form-checkbox v-if="devToolsEnabled && isDevMode" v-model="devAnnouncement" name="AnnouncementBarSwitch" 
+    <b-form-checkbox v-if="devToolsEnabled || isDevMode" v-model="devAnnouncement" name="AnnouncementBarSwitch" 
                      :class="[{'text-white': isDarkMode}, {'dev-setting' : isDevMode}]"
                      v-b-tooltip.hover.lefttop :title="devAnnoucementExplanation" switch>
       Toggle Fake Announcement Bar
     </b-form-checkbox>
-    <b-form-checkbox v-if="devToolsEnabled && isDevMode" v-model="progressBarCompute" name="progressBarSwitch" 
+    <b-form-checkbox v-if="devToolsEnabled || isDevMode" v-model="progressBarCompute" name="progressBarSwitch" 
                      :class="[{'text-white': isDarkMode}, {'dev-setting' : isDevMode}]"
                      v-b-tooltip.hover.lefttop :title="progressBarExplanation" switch>
       Toggle Progressbar
