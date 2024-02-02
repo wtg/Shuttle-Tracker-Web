@@ -71,14 +71,14 @@ export default {
      */
     setCbMode() {
       this.$store.commit('setCbMode', this.isCbMode)
+      this.$store.commit('pushLog', new Log("Toggled colorblind mode to" + this.isCbMode));
     },
     /**
      * @brief Sets the state for Dark mode
      */
     setDarkMode() {
       this.$store.commit('setDarkMode', this.isDark)
-      const log = new Log("Toggled dark mode to" + this.isDark);
-      this.$store.commit('pushLog', log);
+      this.$store.commit('pushLog', new Log("Toggled dark mode to" + this.isDark));
     },
     /**
      * @brief Sets the state for Dev mode

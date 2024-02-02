@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 
 import axios from 'axios'
 import { v4 as uuid } from 'uuid';
+import LogBuffer from '../classes/log-buffer';
 
 Vue.use(Vuex)
 
@@ -30,7 +31,7 @@ export default new Vuex.Store({
         allAnnouncements: [],
         progressBar: false,
         devMode: false,
-        logBuffer: [],
+        logBuffer: LogBuffer,
     },
     // Functions to alter the website states
     mutations: {
@@ -116,31 +117,13 @@ export default new Vuex.Store({
                 state.allAnnouncements.push(status);
             }
         },
-        // Push data into the log buffer.
-        pushLog(state, data) {
-            state.logBuffer.push(data);
+        // Push a log into the log buffer.
+        pushLog(state, log) {
+            state.logBuffer.pushLog(log);
         },
         // Upload the log buffer, clearing it afterward.
         async uploadLogs(state) {
-            // Check if there are any logs to upload.
-            if (state.logBuffer.length == 0) {
-                return;
-            }
-            // Create the request.
-            let request = {
-                "id": uuid(),
-                "content": state.logBuffer,
-                "clientPlatform": "web",
-                "date": new Date().toUTCString(),
-            };
-            // Submit a POST request to `/logs` endpoint.
-            await axios.post('/logs', request)
-                .then(function (response) {
-                    console.log(response);
-                })
-                .catch(function (error) {
-                    console.error(error);
-                })
+            state.logBuffer.uploadLogs();
         }
     },
     actions: {},
