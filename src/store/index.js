@@ -133,7 +133,6 @@ export default new Vuex.Store({
                 "clientPlatform": "web",
                 "date": new Date().toUTCString(),
             };
-            console.log(request);
             // Submit a POST request to `/logs` endpoint.
             await axios.post('/logs', request)
                 .then(function (response) {

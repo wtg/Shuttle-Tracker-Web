@@ -25,7 +25,7 @@
                      v-b-tooltip.hover.lefttop :title="progressBarExplanation" switch>
       Toggle Progressbar
     </b-form-checkbox>
-    <b-button pill v-if="devToolsEnabled || isDevMode" @click="uploadLogs">
+    <b-button pill class="mt-1" v-if="devToolsEnabled || isDevMode" @click="uploadLogs" v-b-tooltip.hover.lefttop :title="uploadLogsExplanation" size="sm">
       Manually Upload Logs
     </b-button>
     <b-button pill class="mt-1" :class="[{'text-white': isDarkMode}, {'toggled': isAdvMode}, {'advanced-settings': true}]" variant="secondary" size="sm" @click="toggleAdvMode" v-model="isAdvMode" name="AdvModeSwitch"
@@ -40,6 +40,7 @@
 <script>
 
 import mixin from  '../mixins/mixins.js'
+import Log from '../classes/log.js'
 
 export default {
   name: "Settings",
@@ -60,7 +61,8 @@ export default {
       devAnnoucementExplanation: "Show fake annoucements",
       advSettingsExplanation: "Show advanced settings",
       hideAdvSettingsExplanation: "Hide advanced settings",
-      progressBarExplanation: "Show progress bar on how many buses were collected"
+      progressBarExplanation: "Show progress bar on how many buses were collected",
+      uploadLogsExplanation: "Manually upload the logs"
     }
   },
   methods: {
@@ -75,7 +77,8 @@ export default {
      */
     setDarkMode() {
       this.$store.commit('setDarkMode', this.isDark)
-      this.$store.commit('pushLog', { log: "Set dark mode!" });
+      const log = new Log("Toggled dark mode to" + this.isDark);
+      this.$store.commit('pushLog', log);
     },
     /**
      * @brief Sets the state for Dev mode
