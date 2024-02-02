@@ -25,6 +25,9 @@
                      v-b-tooltip.hover.lefttop :title="progressBarExplanation" switch>
       Toggle Progressbar
     </b-form-checkbox>
+    <b-button pill v-if="devToolsEnabled || isDevMode" @click="uploadLogs">
+      Manually Upload Logs
+    </b-button>
     <b-button pill class="mt-1" :class="[{'text-white': isDarkMode}, {'toggled': isAdvMode}, {'advanced-settings': true}]" variant="secondary" size="sm" @click="toggleAdvMode" v-model="isAdvMode" name="AdvModeSwitch"
                       v-b-tooltip.hover.lefttop :title="isAdvMode ? hideAdvSettingsExplanation:advSettingsExplanation" switch>
       {{isAdvMode?'Hide':'Show'}} Advanced Settings
@@ -72,6 +75,7 @@ export default {
      */
     setDarkMode() {
       this.$store.commit('setDarkMode', this.isDark)
+      this.$store.commit('pushLog', { log: "Set dark mode!" });
     },
     /**
      * @brief Sets the state for Dev mode
@@ -97,6 +101,12 @@ export default {
     toggleAdvMode() {
       this.isAdvMode = ! this.isAdvMode;
       this.setAdvMode()
+    },
+    /**
+     * @brief Upload the logs in the log buffer. 
+     */
+    uploadLogs() {
+      this.$store.commit('uploadLogs');
     },
         /**
      * @brief Sets the state for the fake progressbar
