@@ -1,6 +1,8 @@
 import axios from 'axios'
 import { v4 as uuid } from 'uuid';
 
+import store from '../store/index.js';
+
 /// A buffer for logs.
 export default class LogBuffer {
   /// `LogBuffer` constructor.
@@ -23,7 +25,8 @@ export default class LogBuffer {
       "date": new Date().toUTCString(),
     };
     // Submit a POST request to `/logs` endpoint.
-    await axios.post(this.baseURL + '/logs', request)
+    let endpoint = store.state.baseURL + '/logs';
+    await axios.post(endpoint, request)
       .then(function (response) {
         console.log(response);
         // Clear the log buffer.
