@@ -37,7 +37,7 @@ export default class LogBuffer {
       })
   }
   /// Clear the log buffer.
-  clearLogs() {
+  clear() {
     this.logs.clear();
   }
 }
