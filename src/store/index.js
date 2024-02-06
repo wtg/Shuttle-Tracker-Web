@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import axios from 'axios'
-import { v4 as uuid } from 'uuid';
 import LogBuffer from '../classes/log-buffer';
 
 Vue.use(Vuex)
@@ -31,7 +29,7 @@ export default new Vuex.Store({
         allAnnouncements: [],
         progressBar: false,
         devMode: false,
-        logBuffer: LogBuffer,
+        logBuffer: new LogBuffer(),
     },
     // Functions to alter the website states
     mutations: {
@@ -117,12 +115,12 @@ export default new Vuex.Store({
                 state.allAnnouncements.push(status);
             }
         },
-        // Push a log into the log buffer.
-        pushLog(state, log) {
-            state.logBuffer.pushLog(log);
+        // Enqueue a log into the log buffer.
+        enqueueLog(state, log) {
+            state.logBuffer.enqueueLog(log);
         },
         // Upload the log buffer, clearing it afterward.
-        async uploadLogs(state) {
+        uploadLogs(state) {
             state.logBuffer.uploadLogs();
         }
     },
