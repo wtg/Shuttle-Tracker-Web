@@ -117,11 +117,11 @@ export default new Vuex.Store({
         },
         // Enqueue a log into the log buffer.
         enqueueLog(state, log) {
-            state.logBuffer.enqueueLog(log);
+            state.logBuffer.enqueue(log);
         },
         // Upload the log buffer, clearing it afterward.
         uploadLogs(state) {
-            state.logBuffer.uploadLogs();
+            state.logBuffer.upload();
         }
     },
     actions: {},

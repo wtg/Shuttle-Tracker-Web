@@ -5,23 +5,25 @@ import { v4 as uuid } from 'uuid';
 export default class LogBuffer {
   /// `LogBuffer` constructor.
   constructor() {
-    this.logs = []
+    this.logs = [];
   }
   /// Enqueue a log into the log buffer.
-  enqueueLog(log) {
-    this.logs.push(log)
+  enqueue(log) {
+    this.logs.push(log);
   }
   /// Upload the contents of the log buffer to the server.
-  async uploadLogs() {
+  async upload() {
+    // Concat the logs into the request content.
+    let content = this.logs.join("\n");
     // Create the request.
     let request = {
       "id": uuid(),
-      "content": this.logs,
+      "content": content,
       "clientPlatform": "web",
       "date": new Date().toUTCString(),
     };
     // Submit a POST request to `/logs` endpoint.
-    await axios.post('/logs', request)
+    await axios.post(this.baseURL + '/logs', request)
       .then(function (response) {
         console.log(response);
         // Clear the log buffer.
