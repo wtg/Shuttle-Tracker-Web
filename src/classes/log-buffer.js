@@ -17,12 +17,14 @@ export default class LogBuffer {
   async upload() {
     // Concat the logs into the request content.
     let content = this.logs.join("\n");
+    // Get the date. `Date`'s `toIsoString` method includes milliseconds. These must be removed to follow the logging requirements.
+    let date = new Date().toISOString().slice(0, -5) + 'Z';
     // Create the request.
     let request = {
       "id": uuid(),
       "content": content,
       "clientPlatform": "web",
-      "date": new Date().toUTCString(),
+      "date": date,
     };
     // Submit a POST request to `/logs` endpoint.
     let endpoint = store.state.baseURL + '/logs';
