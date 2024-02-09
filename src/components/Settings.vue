@@ -25,9 +25,12 @@
                      v-b-tooltip.hover.lefttop :title="progressBarExplanation" switch>
       Toggle Progressbar
     </b-form-checkbox>
-    <b-button pill class="mt-1" v-if="devToolsEnabled || isDevMode" @click="uploadLogs" v-b-tooltip.hover.lefttop :title="uploadLogsExplanation" size="sm">
-      Manually Upload Logs
-    </b-button>
+    <div>
+      <b-button pill class="mt-1" v-if="devToolsEnabled || isDevMode" @click="uploadLogs" v-b-tooltip.hover.lefttop :title="uploadLogsExplanation" size="sm" style="margin-right: 10px;">
+        Manually Upload Logs
+      </b-button>
+      <span :class="[{'text-white': isDarkMode}]">{{ this.$store.state.logBuffer.lastUploadUUID }}</span>
+    </div>
     <b-button pill class="mt-1" :class="[{'text-white': isDarkMode}, {'toggled': isAdvMode}, {'advanced-settings': true}]" variant="secondary" size="sm" @click="toggleAdvMode" v-model="isAdvMode" name="AdvModeSwitch"
                       v-b-tooltip.hover.lefttop :title="isAdvMode ? hideAdvSettingsExplanation:advSettingsExplanation" switch>
       {{isAdvMode?'Hide':'Show'}} Advanced Settings
