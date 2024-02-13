@@ -29,6 +29,7 @@ export default new Vuex.Store({
         allAnnouncements: [],
         progressBar: false,
         devMode: false,
+        logModalVisible: false,
         logBuffer: new LogBuffer(),
     },
     // Functions to alter the website states
@@ -114,6 +115,9 @@ export default new Vuex.Store({
             } else {
                 state.allAnnouncements.push(status);
             }
+        },
+        showLogModal(state, visibility) {
+            state.logModalVisible = visibility;
         },
         // Enqueue a log into the log buffer.
         enqueueLog(state, log) {

@@ -10,6 +10,9 @@
                      v-b-tooltip.hover.lefttop :title="darkExplanation" switch>
       Dark Mode
     </b-form-checkbox>
+    <b-button pill class="mt-1" @click="showLogs" v-b-tooltip.hover.lefttop :title="showLogsExplanation" size="sm">
+      Logs
+    </b-button>
     <b-form-checkbox v-if="devToolsEnabled || isDevMode" v-model="devHQ" name="check-button"
                      :class="[{'text-white': isDarkMode}, {'dev-setting' : isDevMode}]"
                      v-b-tooltip.hover.lefttop :title="hqExplanation" switch>
@@ -25,12 +28,9 @@
                      v-b-tooltip.hover.lefttop :title="progressBarExplanation" switch>
       Toggle Progressbar
     </b-form-checkbox>
-    <div>
-      <b-button pill class="mt-1" v-if="devToolsEnabled || isDevMode" @click="uploadLogs" v-b-tooltip.hover.lefttop :title="uploadLogsExplanation" size="sm" style="margin-right: 10px;">
-        Manually Upload Logs
-      </b-button>
-      <span :class="[{'text-white': isDarkMode}]">{{ this.$store.state.logBuffer.lastUploadUUID }}</span>
-    </div>
+    <b-button pill class="mt-1" v-if="devToolsEnabled || isDevMode" @click="uploadLogs" v-b-tooltip.hover.lefttop :title="uploadLogsExplanation" size="sm" style="margin-right: 10px;">
+      Manually Upload Logs
+    </b-button>
     <b-button pill class="mt-1" :class="[{'text-white': isDarkMode}, {'toggled': isAdvMode}, {'advanced-settings': true}]" variant="secondary" size="sm" @click="toggleAdvMode" v-model="isAdvMode" name="AdvModeSwitch"
                       v-b-tooltip.hover.lefttop :title="isAdvMode ? hideAdvSettingsExplanation:advSettingsExplanation" switch>
       {{isAdvMode?'Hide':'Show'}} Advanced Settings
@@ -64,6 +64,7 @@ export default {
       advSettingsExplanation: "Show advanced settings",
       hideAdvSettingsExplanation: "Hide advanced settings",
       progressBarExplanation: "Show progress bar on how many buses were collected",
+      showLogsExplanation: "Shows recent logging information",
       uploadLogsExplanation: "Manually upload the logs"
     }
   },
@@ -81,6 +82,12 @@ export default {
     setDarkMode() {
       this.$store.commit('setDarkMode', this.isDark)
       this.$store.commit('enqueueLog', "Toggled dark mode to " + this.isDark);
+    },
+    /**
+     * @brief Shows logs.
+     */
+    showLogs() {
+      this.$store.commit('showLogModal', true);
     },
     /**
      * @brief Sets the state for Dev mode
