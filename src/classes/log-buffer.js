@@ -7,8 +7,8 @@ import store from '../store/index.js';
 export default class LogBuffer {
   /// `LogBuffer` constructor.
   constructor() {
-    this.lastUploadUUID = "";
     this.logs = [];
+    this.uploads = [];
   }
   /// Enqueue a log into the log buffer.
   enqueue(log) {
@@ -18,8 +18,6 @@ export default class LogBuffer {
   async upload() {
     // Check if there is anything to log.
     if (this.logs.length <= 0) {
-      // Set the last upload UUID to an empty string.
-      this.lastUploadUUID = ""
       return;
     }
     // Concat the logs into the request content.
@@ -38,13 +36,13 @@ export default class LogBuffer {
     let endpoint = store.state.baseURL + '/logs';
     try {
       const response = await axios.post(endpoint, request);
-      // Set the last upload UUID.
-      this.lastUploadUUID = response.data;
+      // Save the upload UUID.
+      this.uploads.push(response.data);
       // Clear the log buffer.
       this.logs = [];
     } catch {
       // Upload to server failed, set status.
-      this.$store.commit("setServerStatus", {api: false});
+      this.$store.commit("setServerStatus", { api: false });
     }
   }
 }

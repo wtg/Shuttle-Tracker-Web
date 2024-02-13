@@ -116,6 +116,7 @@ export default new Vuex.Store({
                 state.allAnnouncements.push(status);
             }
         },
+        // Sets the log modal visibility to either true (visible) or false (invisible).
         showLogModal(state, visibility) {
             state.logModalVisible = visibility;
         },

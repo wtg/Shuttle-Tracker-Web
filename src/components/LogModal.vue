@@ -1,6 +1,6 @@
 <template>
   <b-modal centered
-    title="Log Information"
+    title="Logs"
     :header-text-variant="themeText"
     :footer-bg-variant="themeBg"
     :header-bg-variant="themeBg"
@@ -15,7 +15,7 @@
       <link rel="stylesheet' href='css/bootstrap.min.css" />
     </head>
     <div :class="[{ 'text-white': isDarkMode }, { 'bg-dark': isDarkMode }]">
-      Logs
+      <div v-for="uuid in uploadedLogs" :key="uuid">{{ uuid }}</div>
     </div>
   </b-modal>
 </template>
@@ -33,6 +33,9 @@ export default {
     },
     logModalVisible() {
       return this.$store.state.logModalVisible;
+    },
+    uploadedLogs() {
+      return this.$store.state.logBuffer.uploads;
     },
     themeBg() {
       return this.isDarkMode ? "dark" : "light";
