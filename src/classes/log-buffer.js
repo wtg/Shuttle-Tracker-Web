@@ -23,21 +23,26 @@ export default class LogBuffer {
     // Concat the logs into the request content.
     let content = this.logs.join("\n");
     // Get the date. 
+    let date = new Date();
     // `Date`'s `toIsoString` method includes milliseconds, which must be removed.
-    let date = new Date().toISOString().slice(0, -5) + 'Z';
+    let requestDate = date.toISOString().slice(0, -5) + 'Z';
     // Create the request.
     let request = {
       "id": uuid(),
       "content": content,
       "clientPlatform": "web",
-      "date": date,
+      "date": requestDate,
     };
     // Submit a POST request to `/logs` endpoint.
     let endpoint = store.state.baseURL + '/logs';
     try {
       const response = await axios.post(endpoint, request);
       // Save the upload UUID.
-      this.uploads.push(response.data);
+      this.uploads.push({
+        uuid: response.data,
+        date: date,
+        content: content,
+      });
       // Clear the log buffer.
       this.logs = [];
     } catch {
