@@ -120,7 +120,7 @@ export default new Vuex.Store({
         showLogModal(state, visibility) {
             state.logModalVisible = visibility;
         },
-        // Enqueue a log into the log buffer.
+        // Enqueue a log into the log buffer. 
         enqueueLog(state, log) {
             state.logBuffer.enqueue(log);
         },

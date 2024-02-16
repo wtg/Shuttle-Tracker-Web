@@ -16,23 +16,14 @@
       <link rel="stylesheet' href='css/bootstrap.min.css" />
     </head>
     <div :class="[{ 'text-white': isDarkMode }, { 'bg-dark': isDarkMode }]">
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>UUID</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="log in uploadedLogs" :key="log.uuid">
-            <td>{{ log.date.toLocaleString('en-US', dateFormat) }}</td>
-            <td>{{ log.uuid }}</td>
-          </tr>
-        </tbody>
-      </table>
-      <b-collapse v-for="log in uploadedLogs" :key="log.uuid" v-model="log.expanded">
-        <div class="p-3">{{ log.content }}</div> // THIS ISNT SHOWING TODO!
-      </b-collapse>
+      <b-table v-if="uploadedLogs.length > 0" striped bordered :items="uploadedLogs" :fields="logModalTableFields">
+        <template slot="date" slot-scope="row">{{ formatDate(row.item.date) }}</template>
+        <template slot="uuid" slot-scope="row">{{ row.item.uuid }}</template>
+        <template slot="content" slot-scope="row" >{{ row.item.content }}</template>
+      </b-table>
+      <div v-else>
+        No Recent Logs
+      </div>
     </div>
   </b-modal>
 </template>
@@ -63,6 +54,13 @@ export default {
     },
     dateFormat() {
       return { year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+    },
+    logModalTableFields() {
+      return [
+        { key: 'date', label: 'Date' },
+        { key: 'uuid', label: 'UUID' },
+        { key: 'content', label: 'Content' }
+      ];
     },
   },
   watch: {
