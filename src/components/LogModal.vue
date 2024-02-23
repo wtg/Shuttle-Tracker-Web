@@ -17,7 +17,7 @@
     </head>
     <div :class="[{ 'text-white': isDarkMode }, { 'bg-dark': isDarkMode }]">
       <b-table v-if="uploadedLogs.length > 0" striped bordered :items="uploadedLogs" :fields="logModalTableFields">
-        <template slot="date" slot-scope="row">{{ formatDate(row.item.date) }}</template>
+        <template slot="date" slot-scope="row">{{ row.item.date.toLocaleString('en-US', dateFormat) }}</template>
         <template slot="uuid" slot-scope="row">{{ row.item.uuid }}</template>
         <template slot="content" slot-scope="row" >{{ row.item.content }}</template>
       </b-table>
@@ -80,6 +80,10 @@ export default {
     hideModal() {
       this.$refs["logModal"].hide();
       this.$store.commit("showLogModal", false);
+    },
+    formatDate(date) {
+      const options = this.dateFormat;
+      return new Date(date).toLocaleDateString(undefined, options);
     },
   },
 };
