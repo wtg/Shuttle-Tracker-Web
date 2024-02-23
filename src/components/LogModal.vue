@@ -81,10 +81,6 @@ export default {
       this.$refs["logModal"].hide();
       this.$store.commit("showLogModal", false);
     },
-    formatDate(date) {
-      const options = this.dateFormat;
-      return new Date(date).toLocaleDateString(undefined, options);
-    },
   },
 };
 </script>
