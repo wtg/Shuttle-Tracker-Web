@@ -16,7 +16,7 @@
       <link rel="stylesheet' href='css/bootstrap.min.css" />
     </head>
     <div :class="[{ 'text-white': isDarkMode }, { 'bg-dark': isDarkMode }]">
-      <div v-if="uploadedLogs.length > 0">
+      <div v-if="logTablePages.length > 0">
         <table class="log-table">
           <thead>
             <tr>
@@ -26,7 +26,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="log in uploadedLogs" :key="log.uuid">
+            <tr v-for="log in logTablePages[currentPage - 1]" :key="log.uuid">
               <td>{{ log.date.toLocaleString('en-US', dateFormat) }}</td>
               <td>{{ log.uuid }}</td>
               <td>
@@ -35,6 +35,9 @@
             </tr>
           </tbody>
         </table>
+        <div class="pagination-container">
+          <b-pagination v-model="currentPage" :total-rows="uploadedLogs.length" :per-page="perPage" />
+        </div>
       </div>
       <div v-else>
         No Recent Logs
@@ -46,6 +49,13 @@
 <script>
 export default {
   name: "Modal",
+  data() {
+    return {
+      dateFormat: { year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false },
+      perPage: 3,
+      currentPage: 1,
+    };
+  },
   computed: {
     isDarkMode() {
       return this.$store.state.isDarkMode;
@@ -67,15 +77,19 @@ export default {
     themeText() {
       return this.isDarkMode ? "light" : "dark";
     },
-    dateFormat() {
-      return { year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
-    },
     logModalTableFields() {
       return [
         { key: 'date', label: 'Date' },
         { key: 'uuid', label: 'UUID' },
         { key: 'content', label: 'Content' }
       ];
+    },
+    logTablePages() {
+      const chunks = [];
+      for (let i = 0; i < this.uploadedLogs.length; i += this.perPage) {
+        chunks.push(this.uploadedLogs.slice(i, i + this.perPage));
+      }
+      return chunks;
     },
   },
   watch: {
@@ -114,5 +128,36 @@ export default {
 .log-table th {
   text-align: left;
   background-color: #f2f2f2;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination-container .page-item {
+  display: inline-block;
+  margin-right: 5px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+}
+
+.pagination-container .page-link {
+  padding: 6px 12px;
+  color: #007bff;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+}
+
+.pagination-container .page-link:hover {
+  background-color: #f0f0f0;
+}
+
+.pagination-container .page-item.active .page-link {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
 }
 </style>
