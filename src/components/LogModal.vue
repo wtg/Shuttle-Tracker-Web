@@ -16,11 +16,26 @@
       <link rel="stylesheet' href='css/bootstrap.min.css" />
     </head>
     <div :class="[{ 'text-white': isDarkMode }, { 'bg-dark': isDarkMode }]">
-      <b-table v-if="uploadedLogs.length > 0" striped bordered :items="uploadedLogs" :fields="logModalTableFields">
-        <template slot="date" slot-scope="row">{{ row.item.date.toLocaleString('en-US', dateFormat) }}</template>
-        <template slot="uuid" slot-scope="row">{{ row.item.uuid }}</template>
-        <template slot="content" slot-scope="row" >{{ row.item.content }}</template>
-      </b-table>
+      <div v-if="uploadedLogs.length > 0">
+        <table class="log-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>UUID</th>
+              <th>Content</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="log in uploadedLogs" :key="log.uuid">
+              <td>{{ log.date.toLocaleString('en-US', dateFormat) }}</td>
+              <td>{{ log.uuid }}</td>
+              <td>
+                <div style="white-space: pre-wrap;">{{ log.content }}</div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       <div v-else>
         No Recent Logs
       </div>
@@ -84,3 +99,20 @@ export default {
   },
 };
 </script>
+
+<style>
+.log-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.log-table th, .log-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.log-table th {
+  text-align: left;
+  background-color: #f2f2f2;
+}
+</style>
