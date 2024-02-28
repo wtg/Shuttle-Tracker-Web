@@ -35,6 +35,7 @@
     </div>
     <Modal></Modal>
     <ColorBlindIconModal></ColorBlindIconModal>
+    <LogModal></LogModal>
     <Announcement></Announcement>
   </div>
 </template>
@@ -52,6 +53,7 @@ import Announcement from "../components/Announcement";
 import AdvanceSettings from "../components/AdvanceSettings";
 import mixin from "../mixins/mixins";
 import Progressbar from "../components/Progressbar";
+import LogModal from "../components/LogModal";
 
 export default {
   name: 'Home',
@@ -66,7 +68,8 @@ export default {
     Copyright,
     Announcement,
     AdvanceSettings,
-    Progressbar
+    Progressbar,
+    LogModal
 },
   computed: {
     isAdvMode() {

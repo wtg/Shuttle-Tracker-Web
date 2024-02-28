@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+import LogBuffer from '../classes/log-buffer';
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -27,6 +29,8 @@ export default new Vuex.Store({
         allAnnouncements: [],
         progressBar: false,
         devMode: false,
+        logModalVisible: false,
+        logBuffer: new LogBuffer(),
     },
     // Functions to alter the website states
     mutations: {
@@ -102,7 +106,7 @@ export default new Vuex.Store({
         setDevMode(state, status) {
             state.devMode = status;
         },
-        // Set all announcement
+        // Set all announcement.
         setAllAnnouncements(state, status) {
             if (status == 'clear') {
                 state.allAnnouncements = [];
@@ -112,6 +116,18 @@ export default new Vuex.Store({
                 state.allAnnouncements.push(status);
             }
         },
+        // Sets the log modal visibility to either true (visible) or false (invisible).
+        showLogModal(state, visibility) {
+            state.logModalVisible = visibility;
+        },
+        // Enqueue a log into the log buffer. 
+        enqueueLog(state, log) {
+            state.logBuffer.enqueue(log);
+        },
+        // Upload the log buffer, clearing it afterward.
+        uploadLogs(state) {
+            state.logBuffer.upload();
+        }
     },
     actions: {},
     modules: {}
