@@ -11,7 +11,9 @@
           <div class="col" :class="{'text-white': isDarkMode}" style="max-width: 1140px; ">
             <h2>About</h2>
             <p> 
-              Hello
+                Welcome to Shuttle Tracker, your go-to destination for 
+                real-time RPI shuttle tracking and navigation. Our platform 
+                is designed to make your journey around campus simpler.
             </p>
             <b-button to="/" style="margin-top: 3%;"> Home Page </b-button>
           </div>
