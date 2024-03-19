@@ -6,6 +6,18 @@
           <Header></Header>
         </div>
       </div>
+      <div style="width: 100%;">
+        <div style="width:150px; display:inline-block">
+          <a href="https://shuttletracker.app/swiftui/">
+            <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83&amp;releaseDate=1636675200" alt="Download on the App Store" style="margin:6%;width:88%"/>
+          </a>
+        </div>
+        <div style="width:165px; display:inline-block;">
+          <a href="https://shuttletracker.app/android/">
+            <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play"/>
+          </a>
+        </div>
+      </div>
       <div>
         <div class="row">
           <div class="col" :class="{'text-white': isDarkMode}" style="max-width: 1140px; ">
@@ -40,5 +52,8 @@ export default {
 </script>
 
 <style scoped>
-
+img {
+  max-width: 100%;
+  height: auto;
+}
 </style>
