@@ -8,7 +8,11 @@
             <a href="https://shuttletracker.app" style="margin-right: 10px;">
               <b-icon-house-fill class="mb-1" font-scale="1.25" :style="{ color: isDarkMode ? 'white' : 'black' }" />
             </a>
-            <a href="https://github.com/wtg/Shuttle-Tracker-Web/tree/main" style="margin-right: 10px;">
+            <div style="margin-right: 10px;">
+              <b-icon-sun v-if="isDarkMode" @click="toLightMode" color="white" class="mb-1" font-scale="1.25" />
+              <b-icon-moon v-else @click="toDarkMode" class="mb-1" font-scale="1.25" />
+            </div>
+            <a href="https://github.com/wtg/Shuttle-Tracker-Web/tree/main">
               <b-icon-github class="mb-1" font-scale="1.25" :style="{ color: isDarkMode ? 'white' : 'black' }" />
             </a>
           </div>
@@ -51,7 +55,7 @@
 
 <script>
 import Header from "../components/Header";
-import {BIconGithub, BIconHouseFill} from 'bootstrap-vue'
+import {BIconGithub, BIconHouseFill, BIconSun, BIconMoon} from 'bootstrap-vue'
 import mixin from "../mixins/mixins";
 
 export default {
@@ -60,7 +64,17 @@ export default {
   components: {
     Header,
     BIconGithub,
-    BIconHouseFill
+    BIconHouseFill,
+    BIconSun,
+    BIconMoon
+  },
+  methods: {
+    toLightMode() {
+      this.$store.commit('setDarkMode', false);
+    },
+    toDarkMode() {
+      this.$store.commit('setDarkMode', true);
+    }
   }
 }
 </script>
