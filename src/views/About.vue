@@ -4,12 +4,12 @@
       <div class="row">
         <div class="col" style="display: flex; justify-content: space-between; align-items: center;">
           <Header></Header>
-          <div>
+          <div style="display: flex; align-items: center;">
             <a href="https://shuttletracker.app" style="margin-right: 10px;">
-              <b-icon-house-fill class="mb-1" font-scale="1.25" color="black"/>
+              <b-icon-house-fill class="mb-1" font-scale="1.25" :style="{ color: isDarkMode ? 'white' : 'black' }" />
             </a>
-            <a href="https://github.com/wtg/Shuttle-Tracker-Web/tree/main">
-              <b-icon-github class="mb-1" font-scale="1.25" color="black"/>
+            <a href="https://github.com/wtg/Shuttle-Tracker-Web/tree/main" style="margin-right: 10px;">
+              <b-icon-github class="mb-1" font-scale="1.25" :style="{ color: isDarkMode ? 'white' : 'black' }" />
             </a>
           </div>
         </div>
@@ -39,7 +39,6 @@
                 real-time RPI shuttle tracking and navigation. Our platform 
                 is designed to make your journey around campus simpler.
             </p>
-            <b-button to="/" style="margin-top: 3%;"> Home Page </b-button>
           </div>
         </div>
         <div class="col mt-4" :class="text-white" style="margin-top: 5%;">
