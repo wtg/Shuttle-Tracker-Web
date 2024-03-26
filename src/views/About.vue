@@ -2,8 +2,16 @@
   <div>
     <div class="container">
       <div class="row">
-        <div class="col">
+        <div class="col" style="display: flex; justify-content: space-between; align-items: center;">
           <Header></Header>
+          <div>
+            <a href="https://shuttletracker.app" style="margin-right: 10px;">
+              <b-icon-house-fill class="mb-1" font-scale="1.25" color="black"/>
+            </a>
+            <a href="https://github.com/wtg/Shuttle-Tracker-Web/tree/main">
+              <b-icon-github class="mb-1" font-scale="1.25" color="black"/>
+            </a>
+          </div>
         </div>
       </div>
       <div style="margin-top: 15vh;" :class="{'text-white': isDarkMode}">
@@ -44,13 +52,16 @@
 
 <script>
 import Header from "../components/Header";
+import {BIconGithub, BIconHouseFill} from 'bootstrap-vue'
 import mixin from "../mixins/mixins";
 
 export default {
   name: "About",
   mixins: [mixin],
   components: {
-    Header
+    Header,
+    BIconGithub,
+    BIconHouseFill
   }
 }
 </script>
