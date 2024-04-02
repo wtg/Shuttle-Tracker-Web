@@ -57,6 +57,7 @@
           </tr>
         </tbody>
       </table>
+      <div style="width: 3%;" />
       <table border="1" :class="{'text-white': isDarkMode}" style="font-size: 11px; width: 40%">
         <thead>
           <tr>
