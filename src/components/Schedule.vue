@@ -8,6 +8,75 @@
       <li> Saturday:<span class='saturday-times'>{{currentWeek.saturday.start}} - {{currentWeek.saturday.end}}</span></li>
       <li> Sunday:<span class='sunday-times'>{{currentWeek.sunday.start}} - {{currentWeek.sunday.end}}</span></li>
     </ul>
+    <br>
+    <table border="1" :class="{'text-white': isDarkMode}" style="font-size: 11px; width: 100%;">
+      <thead>
+        <tr>
+          <th>Weekdays</th>
+          <th>7:00AM - 12:00PM</th>
+          <th>12:00PM - 8:00PM</th>
+          <th>8:00PM - 9:30PM</th>
+          <th>10:00PM - 12:00AM</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>North Shuttle</b></td>
+          <td>Every 10 min</td>
+          <td>Every 15 min</td>
+          <td>Every 15 - 45 min</td>
+          <td>Every 15 min</td>
+        </tr>
+        <tr>
+          <td><b>West Shuttle</b></td>
+          <td>Every 7 min</td>
+          <td>Every 11 min</td>
+          <td>Every 15+ min</td>
+          <td>Every 15+ min</td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <div style="display: flex; justify-content: space-between;">
+      <div style="width: 5%;" />
+      <table border="1" :class="{'text-white': isDarkMode}" style="font-size: 11px; width: 40%">
+        <thead>
+          <tr>
+            <th>Saturdays</th>
+            <th>9:00AM - 12:00PM</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>North Shuttle</b></td>
+            <td>Every 13 min</td>
+          </tr>
+          <tr>
+            <td><b>West Shuttle</b></td>
+            <td>Every 11 min</td>
+          </tr>
+        </tbody>
+      </table>
+      <table border="1" :class="{'text-white': isDarkMode}" style="font-size: 11px; width: 40%">
+        <thead>
+          <tr>
+            <th>Sundays</th>
+            <th>9:00AM - 8:00PM</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>North Shuttle</b></td>
+            <td>Every 13 min</td>
+          </tr>
+          <tr>
+            <td><b>West Shuttle</b></td>
+            <td>Every 11 min</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="width: 5%;" />
+    </div>
   </b-card>
 </template>
 
