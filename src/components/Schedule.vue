@@ -10,7 +10,7 @@
     </ul>
     <br>
     <div style="overflow-x: auto; white-space: nowrap;">
-      <table border="1" :class="{'text-white': isDarkMode}" style="font-size: 11px; min-width: 100%;">
+      <table border="1" :class="{'text-white': isDarkMode, 'larger-text': isViewportSmall}" style="font-size: 11px; min-width: 100%;">
         <thead>
           <tr>
             <th>Weekdays</th>
@@ -22,14 +22,14 @@
         </thead>
         <tbody>
           <tr>
-            <td><b>North Shuttle</b></td>
+            <td><b>North</b></td>
             <td>Every 10 min</td>
             <td>Every 15 min</td>
             <td>Every 15 - 45 min</td>
             <td>Every 15 min</td>
           </tr>
           <tr>
-            <td><b>West Shuttle</b></td>
+            <td><b>West</b></td>
             <td>Every 7 min</td>
             <td>Every 11 min</td>
             <td>Every 15+ min</td>
@@ -39,8 +39,8 @@
       </table>
       <br>
       <div style="display: flex; justify-content: space-between;">
-        <div style="min-width: 5%;" />
-        <table border="1" :class="{'text-white': isDarkMode}" style="font-size: 11px; min-width: 40%">
+        <div v-if="!viewportSmall" style="min-width: 5%;"/>
+        <table border="1" :class="{'text-white': isDarkMode, 'larger-text': isViewportSmall}" style="font-size: 11px; min-width: 40%">
           <thead>
             <tr>
               <th>Saturdays</th>
@@ -49,17 +49,17 @@
           </thead>
           <tbody>
             <tr>
-              <td><b>North Shuttle</b></td>
+              <td><b>North</b></td>
               <td>Every 13 min</td>
             </tr>
             <tr>
-              <td><b>West Shuttle</b></td>
+              <td><b>West</b></td>
               <td>Every 11 min</td>
             </tr>
           </tbody>
         </table>
         <div style="min-width: 3%;" />
-        <table border="1" :class="{'text-white': isDarkMode}" style="font-size: 11px; min-width: 40%">
+        <table border="1" :class="{'text-white': isDarkMode, 'larger-text': isViewportSmall}" style="font-size: 11px; min-width: 40%">
           <thead>
             <tr>
               <th>Sundays</th>
@@ -68,11 +68,11 @@
           </thead>
           <tbody>
             <tr>
-              <td><b>North Shuttle</b></td>
+              <td><b>North</b></td>
               <td>Every 13 min</td>
             </tr>
             <tr>
-              <td><b>West Shuttle</b></td>
+              <td><b>West</b></td>
               <td>Every 11 min</td>
             </tr>
           </tbody>
@@ -87,13 +87,18 @@
 import axios from 'axios'
 import mixin from  '../mixins/mixins.js'
 
+/// The minimal width for the viewport to be considered "small". 
+/// `VIEWPORT_SMALL` is used for determining table alignment for the schedule.
+const VIEWPORT_SMALL = 768;
+
 export default {
   mixins: [mixin],
   data() {
     return {
       schedules: [],
       currentWeek: undefined,
-      currentSemester: undefined
+      currentSemester: undefined,
+      isViewportSmall: this.checkSmallViewport()
     };
   },
   computed: {
@@ -109,6 +114,9 @@ export default {
      */
     isCurrent() {
       return !(this.currentWeek === undefined)
+    },
+    viewportSmall() {
+      return this.isViewportSmall;
     }
   },
   methods: {
@@ -136,10 +144,14 @@ export default {
         this.$store.commit("setServerStatus", { schedule: false });
       }
 
+    },
+    checkSmallViewport() {
+      return window.innerWidth < VIEWPORT_SMALL;
     }
   },
   mounted () {
     this.getCurrentSemester();
+    window.addEventListener('resize', this.checkSmallViewport);
   }
 }
 </script>
@@ -175,5 +187,25 @@ ul {
 
 .sunday-times {
   margin-left: 23.5px;
+}
+
+table {
+  text-align: center;
+}
+
+th,
+td {
+  text-align: center;
+}
+
+/* For small viewports, have larger text. */
+.larger-text {
+  font-size: 18px !important;
+}
+
+/* For small viewports, have more padding for the table. */
+.larger-text th,
+.larger-text td {
+  padding: 8px;
 }
 </style>
