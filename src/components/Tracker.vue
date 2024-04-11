@@ -11,78 +11,78 @@
               style="height: 75vh"
               :class="{ 'h-100': fullscreen }"
           ></div>
-
-          <!-- Server Status, Fullscreen Button, and Routes Legend -->
-          <div class="position-absolute" :class="[{'fullscreen-sidebar': fullscreen}, {'vh-100': fullscreen}, {'server-status': !fullscreen}, {'p-2': fullscreen}]">
-            <!-- API status -->
-            <Status></Status>
-            <!-- fullscreen button -->
-            <b-badge v-if="showFullScreen && showFSIcon" v-b-tooltip.hover :title="FullscreenDesc" role="button"
-                     variant="primary" class="mr-1"
-                     @click="toggleFullscreen(!fullscreen)">
-              <BIconFullscreen v-if="!fullscreen"></BIconFullscreen>
-              <BIconFullscreenExit v-if="fullscreen"></BIconFullscreenExit>
-              {{ fullscreen ? "Exit" : "Enter" }} Full-Screen Mode
-            </b-badge>
-            <b-badge @click="centerMap" v-b-tooltip.hover :title="RecentermapDesc" role="button" variant="primary">
-              <BIconVinyl></BIconVinyl>
-            </b-badge>
-            <!-- Routes Legend -->
-            <div v-if="routes.length > 0">
-              <div class="rounded mt-1 d-inline-block"
-                   :class="[{'frosted-glass-dark': !isDarkMode}, {'frosted-glass': isDarkMode}]">
-                <div v-for="(r, i) in routes" :key="i" class="d-flex align-items-center mx-2 my-1">
-                  <span class="mr-1 d-inline-block route-legend-marker"
-                        :style="[{'background-color': r.colorName}]"> </span> <span
-                    class="text-white">{{ r.name }}</span>
-                </div>
-              </div>
-            </div>
-            <!-- Buses Legend -->
-            <div v-if="busTypes.length > 0" >
-              <div class="rounded mt-1 d-inline-block"
+          <div v-if="!only_map">
+            <!-- Server Status, Fullscreen Button, and Routes Legend -->
+            <div class="position-absolute" :class="[{'fullscreen-sidebar': fullscreen}, {'vh-100': fullscreen}, {'server-status': !fullscreen}, {'p-2': fullscreen}]">
+              <!-- API status -->
+              <Status></Status>
+              <!-- fullscreen button -->
+              <b-badge v-if="showFullScreen && showFSIcon" v-b-tooltip.hover :title="FullscreenDesc" role="button"
+                      variant="primary" class="mr-1"
+                      @click="toggleFullscreen(!fullscreen)">
+                <BIconFullscreen v-if="!fullscreen"></BIconFullscreen>
+                <BIconFullscreenExit v-if="fullscreen"></BIconFullscreenExit>
+                {{ fullscreen ? "Exit" : "Enter" }} Full-Screen Mode
+              </b-badge>
+              <b-badge @click="centerMap" v-b-tooltip.hover :title="RecentermapDesc" role="button" variant="primary">
+                <BIconVinyl></BIconVinyl>
+              </b-badge>
+              <!-- Routes Legend -->
+              <div v-if="routes.length > 0">
+                <div class="rounded mt-1 d-inline-block"
                     :class="[{'frosted-glass-dark': !isDarkMode}, {'frosted-glass': isDarkMode}]">
-                    <div class="legend-container" style="padding-top: 5px;">
-                      <div v-for="(bus, index) in busTypes" :key="index" class="d-flex align-items-center mx-2 my-1">
-                        <div class="icon-container">
-                          <span v-if="bus.color == 'mediumseagreen'" class="icon-parent position-relative d-inline-block rounded-circle mr-3 bg-success">
-                            <span class="position-absolute icon-text"> {{ bus.icon }}</span>
-                          </span>
-                          <span v-else class="icon-parent position-relative d-inline-block rounded-circle mr-3 bg-danger">
-                            <span class="position-absolute icon-text"> {{ bus.icon }}</span>
-                          </span>
-                        </div>
-                        <span class="text-white" style="position: relative; 
-                        margin-left: -8px;
-                        padding-bottom: 5px;">{{ bus.name }}</span>
-                      </div>
+                  <div v-for="(r, i) in routes" :key="i" class="d-flex align-items-center mx-2 my-1">
+                    <span class="mr-1 d-inline-block route-legend-marker"
+                          :style="[{'background-color': r.colorName}]"> </span> <span
+                      class="text-white">{{ r.name }}</span>
                   </div>
-              </div>
-            </div>
-            <!-- Dashboard Historical Bus Trace Legend -->
-            <div v-if="(currentBuses.length > 0) && (trace_history)">
-              <div class="rounded mt-1 d-inline-block"
-                   :class="[{'frosted-glass-dark': !isDarkMode}, {'frosted-glass': isDarkMode}]">
-                <div v-for="(b, i) in currentBuses" :key="i" class="d-flex align-items-center mx-2 my-1">
-                  <span class="mr-1 d-inline-block route-legend-marker"
-                        :style="[{'background-color': trailColors[i%trailColors.length]}]"> </span> <span
-                    class="text-white">{{ b }}</span>
                 </div>
               </div>
-            </div>
-            <!-- Widgets -->
-            <div>
-              <Schedule v-if="fullscreen" class="mt-3"></Schedule>
-            </div>
-            <div>
-              <Fullscrn_qrcode v-if="fullscreen" class="mt-3"></Fullscrn_qrcode>
+              <!-- Buses Legend -->
+              <div v-if="busTypes.length > 0" >
+                <div class="rounded mt-1 d-inline-block"
+                      :class="[{'frosted-glass-dark': !isDarkMode}, {'frosted-glass': isDarkMode}]">
+                      <div class="legend-container" style="padding-top: 5px;">
+                        <div v-for="(bus, index) in busTypes" :key="index" class="d-flex align-items-center mx-2 my-1">
+                          <div class="icon-container">
+                            <span v-if="bus.color == 'mediumseagreen'" class="icon-parent position-relative d-inline-block rounded-circle mr-3 bg-success">
+                              <span class="position-absolute icon-text"> {{ bus.icon }}</span>
+                            </span>
+                            <span v-else class="icon-parent position-relative d-inline-block rounded-circle mr-3 bg-danger">
+                              <span class="position-absolute icon-text"> {{ bus.icon }}</span>
+                            </span>
+                          </div>
+                          <span class="text-white" style="position: relative; 
+                          margin-left: -8px;
+                          padding-bottom: 5px;">{{ bus.name }}</span>
+                        </div>
+                    </div>
+                </div>
+              </div>
+              <!-- Dashboard Historical Bus Trace Legend -->
+              <div v-if="(currentBuses.length > 0) && (trace_history)">
+                <div class="rounded mt-1 d-inline-block"
+                    :class="[{'frosted-glass-dark': !isDarkMode}, {'frosted-glass': isDarkMode}]">
+                  <div v-for="(b, i) in currentBuses" :key="i" class="d-flex align-items-center mx-2 my-1">
+                    <span class="mr-1 d-inline-block route-legend-marker"
+                          :style="[{'background-color': trailColors[i%trailColors.length]}]"> </span> <span
+                      class="text-white">{{ b }}</span>
+                  </div>
+                </div>
+              </div>
+              <!-- Widgets -->
+              <div>
+                <Schedule v-if="fullscreen" class="mt-3"></Schedule>
+              </div>
+              <div>
+                <Fullscrn_qrcode v-if="fullscreen" class="mt-3"></Fullscrn_qrcode>
+              </div>
             </div>
           </div>
+
+          <!-- Announcement Bar -->
+          <Announcement v-if="fullscreen"></Announcement>
         </div>
-
-        <!-- Announcement Bar -->
-        <Announcement v-if="fullscreen"></Announcement>
-
       </div>
     </fullscreen>
   </div>
@@ -104,7 +104,11 @@ Vue.use(VueFullscreen);
 export default {
   name: "Tracker",
   props: {
-    trace_history: Boolean
+    trace_history: Boolean,
+    only_map: {
+      type: Boolean,
+      default: false,
+    },
   },
   components: {
     Status,

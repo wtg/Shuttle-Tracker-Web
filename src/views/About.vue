@@ -19,7 +19,7 @@
         </div>
       </div>
       <div style="display: flex; justify-content: space-between;">
-        <div>
+        <div style="width: 40%; margin-left: 20px; margin-right: 20px;">
           <div style="margin-top: 15vh;" :class="{'text-white': isDarkMode}">
             <h1>Simplify Your <span style="color: red;">RPI</span></h1>
             <h1>Campus Commute</h1>
@@ -37,13 +37,13 @@
             </div>
           </div>
         </div>
-        <div>
-          <div id="map" />
+        <div style="width: 60%; margin-left: 20px; margin-right: 20px;">
+          <Tracker only_map=true />
         </div>
       </div>
       <div>
         <div class="row">
-          <div class="col" :class="{'text-white': isDarkMode}" style="max-width: 1140px; margin-top: 15vh;">
+          <div class="col" :class="{'text-white': isDarkMode}" style="max-width: 1140px;">
             <h2>About</h2>
             <p> 
               Welcome to Shuttle Tracker, your go-to destination for 
@@ -61,6 +61,7 @@
 import Header from "../components/Header";
 import {BIconGithub, BIconHouseFill, BIconSun, BIconMoon} from 'bootstrap-vue'
 import mixin from "../mixins/mixins";
+import Tracker from "../components/Tracker";
 
 export default {
   name: "About",
@@ -70,7 +71,8 @@ export default {
     BIconGithub,
     BIconHouseFill,
     BIconSun,
-    BIconMoon
+    BIconMoon,
+    Tracker
   },
   methods: {
     toLightMode() {
