@@ -41,16 +41,14 @@
           <Tracker only_map=true />
         </div>
       </div>
-      <div>
-        <div class="row">
-          <div class="col" :class="{'text-white': isDarkMode}" style="max-width: 1140px;">
-            <h2>About</h2>
-            <p> 
-              Welcome to Shuttle Tracker, your go-to destination for 
-              real-time RPI shuttle tracking and navigation. Our platform 
-              is designed to make your journey around campus simpler.
-            </p>
-          </div>
+      <div class="row">
+        <div class="col" :class="{'text-white': isDarkMode}" style="max-width: 1140px;">
+          <h2>About</h2>
+          <p> 
+            Welcome to Shuttle Tracker, your go-to destination for 
+            real-time RPI shuttle tracking and navigation. Our platform 
+            is designed to make your journey around campus simpler.
+          </p>
         </div>
       </div>
     </div>
@@ -89,8 +87,5 @@ export default {
 img {
   max-width: 100%;
   height: auto;
-}
-#map > .mk-map-view {
-  border-radius: 7px;
 }
 </style>
