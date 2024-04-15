@@ -10,7 +10,7 @@ npm install
 ```
 
 ### Compiles and hot-reloads for development
-There are two development environments: `development` and `production`. 
+There are two development environments: `development` and `production`.
 The `development` mode gives developers access to devtools and information that isn't shown in the `production` build.
 Run it with the following command:
 ```
@@ -32,13 +32,14 @@ npm run build_dev
 ```
 
 ### Contribution guideline
-- To get started, first clone the repo with `git clone REPO_URL`. It is recommended to setup an ssh key since password credential is deprecated. 
-- Before making any contributions, make sure you go on the issue tab and assign yourself to the specific bug. This is to avoid multiple people working on the same stuff. 
-- To start making changes, create a new branch of branch `dev`. Do this by using `git checkout -b NEW_BRANCH_NAME`. 
+- To get started, first clone the repo with `git clone REPO_URL`. It is recommended to setup an ssh key since password credential is deprecated.
+- Before making any contributions, make sure you go on the issue tab and assign yourself to the specific bug. This is to avoid multiple people working on the same stuff.
+- To start making changes, create a new branch of branch `dev`. Do this by using `git checkout -b NEW_BRANCH_NAME`.
 - Make the commit messages meaningful. Don't leave it blank.
 - To submit changes, push your new branch to the repo with `git push origin NEW_BRANCH_NAME`.
 - Create a pull request merging your new branch to `dev`, and request reviews from one of the moderators.
-- After the first review the change should show on the [staging server](https://staging.web.shuttletracker.app/).
+- Once your pull request has been merged into `dev`, ask that a maintainer push your changes to the staging environment.
+- After the first review the change should show on the [staging environment](https://staging.web.shuttletracker.app/).
 - Finalized feature will be pushed to the `main` branch after testing.
 
 ### Lints and fixes files
@@ -48,3 +49,15 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## Deployment
+Deployment for the Web interface is similar to that of the Shuttle Tracker Server, so refer to the [Production Server Administration](https://github.com/wtg/Shuttle-Tracker-Server/wiki/Production-Server-Administration) article for Shuttle Tracker Server for most details about deployment. The main difference is that for the Web interface, the production environment is `shuttletracker-new-web` (not `shuttletracker-new`), and the staging environment is `shuttletracker-new-web-staging` (not `shuttletracker-new-staging`). Also, the Web interface doesn’t use any database.
+
+### Production Environment
+- To add the Git remote: `git remote add production ssh://dokku@srv1.webtech.union.rpi.edu:2222/shuttletracker-new-web`
+- To deploy: `git push production main:master`
+
+### Staging Environment
+- To add the Git remote: `git remote add staging ssh://dokku@srv1.webtech.union.rpi.edu:2222/shuttletracker-new-web-staging`
+- To deploy: `git push staging dev:master`
+	- Note the reference to the local `dev` branch instead of the local `main` branch. You can try pushing `main` to the staging environment, but doing so might create difficult-to-resolve merge conflicts. Proceed with caution!
