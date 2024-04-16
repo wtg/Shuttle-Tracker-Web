@@ -61,3 +61,22 @@ Deployment for the Web interface is similar to that of the Shuttle Tracker Serve
 - To add the Git remote: `git remote add staging ssh://dokku@srv1.webtech.union.rpi.edu:2222/shuttletracker-new-web-staging`
 - To deploy: `git push staging dev:master`
 	- Note the reference to the local `dev` branch instead of the local `main` branch. You can try pushing `main` to the staging environment, but doing so might create difficult-to-resolve merge conflicts. Proceed with caution!
+
+### New Paths
+If you add a handler or a static page for a new path (such as `/privacy-policy` or `/about`), then make sure to update the nginx configuration on the server. To do so, open an SSH connection to the server (see the aforementioned Production Server Administration article for instructions) and run the following command:
+```bash
+sudo nano /home/dokku/shuttletracker-new-web/nginx.conf.d/routing.conf
+```
+Put the following configuration into the file, replacing `[path]` with the new path:
+```nginx
+location [path] {
+		try_files $uri $uri/ /index.html;
+		index index.html index.htm;
+}
+```
+Press Control-X, then Y, and then Return to save and to exit. Then, run the following commands:
+```bash
+dokku nginx:validate-config shuttletracker-new-web-staging
+dokku ps:restart shuttletracker-new-web-staging
+```
+(Replace `shuttletracker-new-web` with `shuttletracker-new-web-staging` for the staging environment.) If you don’t update the nginx configuration in this manner, then users might see a 404 Not Found error page when they visit the new path.
