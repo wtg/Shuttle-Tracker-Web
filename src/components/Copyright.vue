@@ -10,6 +10,13 @@
       An RCOS project
     </b-link>
     <div>
+      <b-link @click="resetAdvMode"
+        :class="[{'text-black': !isDarkMode}, {'text-gray': isDarkMode}]"
+        class="mx-3"
+        to="/about"
+      >
+        <small>About</small>
+      </b-link>
       <b-link :class="[{'text-black': !isDarkMode}, {'text-gray': isDarkMode}]"
               href="https://shuttletracker.app/swiftui/"
               target="_blank">

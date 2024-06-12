@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import PrivacyPolicy from "../views/PrivacyPolicy";
 import PageNotFound from "../views/PageNotFound";
 import Dashboard from "../views/Dashboard";
+import About from "../views/About";
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,11 @@ const routes = [
     path: '*',
     name: 'PageNotFound',
     component: PageNotFound
+  },
+  {
+    path: '/about',
+    name: 'About',
+    component: About
   }
 ]
 
